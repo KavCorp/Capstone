@@ -13,7 +13,13 @@
         <h1>Hello</h1>
 
         <h2>This page is hidden behind user authentication</h2>
-    </div>
+</div>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+  This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+  This content is only shown to users.
 </div>
 
 </body>

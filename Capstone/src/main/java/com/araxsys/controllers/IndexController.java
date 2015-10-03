@@ -11,14 +11,12 @@ public class IndexController {
     }
     @RequestMapping("/lock")
     String index2(){
-        return "index2";
+        return "lock";
     }
-    @RequestMapping("/home")
-    String home(){
-        return "home";
-    }
+
     @RequestMapping("/register")
     String register(){
         return "register";
     }
+
 }
