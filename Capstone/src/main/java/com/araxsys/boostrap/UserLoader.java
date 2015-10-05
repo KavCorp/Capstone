@@ -27,9 +27,9 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         User user = new User();
-        user.setPassword("Spring Framework Guru Shirt");
+        user.setPassword("user");
        
-        user.setUsername("235268845711068308");
+        user.setUsername("user");
         userRepository.save(user);
 
 
