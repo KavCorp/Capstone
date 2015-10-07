@@ -7,6 +7,7 @@
 
 </head>
 <body>
+<div th:replace="fragments/header :: header">...</div> <!--div to add header  -->
 <div class="container">
     <div th:if="${not #lists.isEmpty(users)}">
         <h2>Product List</h2>
