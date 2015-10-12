@@ -14,9 +14,6 @@ public class IndexController {
         return "lock";
     }
 
-    @RequestMapping("/register")
-    String register(){
-        return "register";
-    }
+   
 
 }

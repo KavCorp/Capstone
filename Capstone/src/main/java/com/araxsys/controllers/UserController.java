@@ -28,4 +28,8 @@ public class UserController {
         model.addAttribute("user", userService.getUserByName(username));
         return "userprofile";
     }
+    @RequestMapping("/register")
+    String register(){
+        return "register";
+    }
 }
