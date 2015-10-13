@@ -1,13 +1,17 @@
 package com.araxsys.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +29,7 @@ public class Category {
 	}
 	
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "CATEGORY_ID", unique = true,
 		nullable = false)
 	public int getCategoryId(){
@@ -66,15 +71,15 @@ public class Category {
 	}
 	
 	@Column(name = "VISIBLE", nullable = false)
-	public boolean getVisbible(){
+	public boolean getVisible(){
 		return this.visible;
 	}
 	
-	public void setVisibile(boolean visible){
+	public void setVisible(boolean visible){
 		this.visible = visible;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+	@OneToMany(fetch = FetchType.LAZY)
 	public Set<Page> getPage(){
 		return this.page;
 	}
@@ -86,7 +91,7 @@ public class Category {
 	@ManyToOne(fetch = FetchType.LAZY)
 	public Category parent;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+	@OneToMany(fetch = FetchType.LAZY)
 	public Set<Category> getParent(){
 		return this.children;
 	}

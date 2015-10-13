@@ -1,6 +1,10 @@
 package com.araxsys.boostrap;
 
+import com.araxsys.domain.Category;
+import com.araxsys.domain.Page;
 import com.araxsys.domain.User;
+import com.araxsys.repositories.CategoryRepository;
+import com.araxsys.repositories.PageRepository;
 import com.araxsys.repositories.UserRepository;
 
 import org.apache.log4j.Logger;
@@ -15,12 +19,24 @@ import org.springframework.stereotype.Component;
 public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private UserRepository userRepository;
+    private PageRepository pageRepository;
+    private CategoryRepository categoryRepository;
 
     private Logger log = Logger.getLogger(UserLoader.class);
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+    
+    @Autowired
+    public void setPageRepository(PageRepository pageRepository) {
+        this.pageRepository = pageRepository;
+    }
+    
+    @Autowired
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -40,5 +56,23 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
         admin.setUsername("admin");
         userRepository.save(admin);
         log.info("Saved admin:" + admin.getUsername());
+        
+        Page page = new Page();
+        page.setContent("crap");
+        page.setVisible(true);
+       
+        
+        Category category = new Category();
+        category.setCategoryId(1);
+        category.setCategoryName("Departments");
+        category.setDescription("Various departments");
+        category.setVisible(true);
+        
+       
+        categoryRepository.save(category);
+        page.setCategory(category);
+        pageRepository.save(page);
+        
+        
     }
 }

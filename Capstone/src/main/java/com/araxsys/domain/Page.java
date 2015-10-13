@@ -1,11 +1,15 @@
 package com.araxsys.domain;
 
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -14,7 +18,7 @@ import javax.persistence.Table;
 public class Page {
 	
 	private int pageId;
-	private int categoryId;
+	private Category category;
 	private String content;
 	private boolean visible;
 	
@@ -22,8 +26,10 @@ public class Page {
 	}
 	
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "PAGE_ID", unique = true,
 			nullable = false)
+	
 	public int getPageId(){
 		return this.pageId;
 	}
@@ -34,12 +40,12 @@ public class Page {
 	
 	@ManyToOne
 	@JoinColumn(name = "CATEGORY_ID", nullable = false)
-	public int getCategoryId(){
-		return this.categoryId;
+	public Category getCategory(){
+		return this.category;
 	}
 	
-	public void setCategoryId(int categoryId){
-		this.categoryId = categoryId;
+	public void setCategory(Category category){
+		this.category = category;
 	}
 	
 	@Column(name = "CONTENT", nullable = true,
