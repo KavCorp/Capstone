@@ -29,5 +29,26 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryRepository.save(category);
 	}
 	
+	@Override
+	public Category getCategoryByName(String categoryName){
+		Iterable<Category> categories = categoryRepository.findAll();
+		Category match = null;
+		boolean flag = false;
+		for(Category category: categories){
+			if(category.getCategoryName().equals(categoryName)){
+				flag = true;
+				match = category;
+				break;
+			}
+		}
+		if(flag){
+			return match;
+		}else{
+			System.out.println("No matches found for category name: "+categoryName);
+			return match;
+			
+		}
+	}
+	
 
 }
