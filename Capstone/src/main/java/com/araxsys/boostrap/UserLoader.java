@@ -41,12 +41,12 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-
+    	
         User user = new User();
         user.setPassword("user");
        
         user.setUsername("user");
-        userRepository.save(user);
+        //userRepository.save(user);
 
 
         log.info("Saved user: " + user.getUsername());
@@ -54,24 +54,12 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
         User admin = new User();
         admin.setPassword("admin");
         admin.setUsername("admin");
-        userRepository.save(admin);
+        admin.setActive(true);
+        admin.setEnabled(true);
+        //userRepository.save(admin);
         log.info("Saved admin:" + admin.getUsername());
         
-        Page page = new Page();
-        page.setContent("crap");
-        page.setVisible(true);
-       
-        
-        Category category = new Category();
-        category.setCategoryId(1);
-        category.setCategoryName("Departments");
-        category.setDescription("Various departments");
-        category.setVisible(true);
-        
-       
-        categoryRepository.save(category);
-        page.setCategory(category);
-        pageRepository.save(page);
+    
         
         
     }
