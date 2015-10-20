@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Spring Framework Guru</title>
+
+
+</head>
+<body>
+<!--  <div th:replace="fragments/header :: header">...</div> -->
+<div class="container">
+    <div th:if="${not #lists.isEmpty(categories)}">
+        <h2>Categories List</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Category ID</th>
+                <th>Parent Category</th>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Visible</th>
+            </tr>
+
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.categoryId}">Category ID</td>
+                <td th:text="${category.parentCategory}">Parent Category</td>
+                <td th:text="${category.categoryName}">Category Name</td>
+                <td th:text="${category.description}">Description</td>
+                <td th:text="${category.visible}">Visible</td>
+                
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
