@@ -1,19 +1,20 @@
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\domain\Page.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\repositories\UserRepository.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\CapstoneApplication.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\repositories\CategoryRepository.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\services\UserService.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\boostrap\UserLoader.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\services\CategoryServiceImpl.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\services\PageService.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\domain\UserRole.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\controllers\IndexController.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\services\UserServiceImpl.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\domain\Category.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\domain\User.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\controllers\UserController.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\services\CategoryService.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\services\PageServiceImpl.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\config\SecurityConfig.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\config\ThymeleafConfig.java
-C:\Users\Dakota\git\Capstone\Capstone\src\main\java\com\araxsys\repositories\PageRepository.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\controllers\UserController.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\CapstoneApplication.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\domain\User.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\config\ThymeleafConfig.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\controllers\IndexController.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\config\SecurityConfig.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\services\CategoryService.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\services\UserService.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\domain\Category.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\repositories\PageRepository.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\services\CategoryServiceImpl.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\boostrap\UserLoader.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\services\PageService.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\services\UserServiceImpl.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\domain\UserRole.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\controllers\CategoryController.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\repositories\CategoryRepository.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\domain\Page.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\repositories\UserRepository.java
+C:\Users\Lyle Cherry\git\Capstone12\Capstone\src\main\java\com\araxsys\services\PageServiceImpl.java
