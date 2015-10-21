@@ -34,13 +34,16 @@
 	            </tr>
 	        </table>
 			<button type="submit" name="deleteCategory"
-				th:text="'Delete Category'">Delete Category</button>
+				 th:text="'Delete Category'">Delete Category</button>
+			<button type="submit" name="updateCategory"
+				th:formaction="@{categories/update}" th:text="'Update Category'">Update Category</button>
 		</fieldset>
 		</form>
     </div>
     <form name="saveCategoryForm" action="#" th:action="@{/categories}" th:object="${saveCategory}" method="post">
     <fieldset>
-    	<legend>Add Category</legend>
+    	<legend>Save Category</legend>
+    	<input type="hidden" th:field="*{categoryId}"></input>
     	<label th:text="'Parent Category:'">Parent Category</label>
     	<input type="text" th:field="*{parentCategory}"></input>
     	<br/>

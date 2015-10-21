@@ -25,6 +25,14 @@ private CategoryService categoryService;
 	public String list(Model model){
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
+		model.addAttribute("updateCategory", new Category());
+		return "categories";
+	}
+	
+	@RequestMapping(value="/categories/update", params={"selected"})
+	public String update(Model model, HttpServletRequest req){
+		model.addAttribute("categories", categoryService.listAllCategories());
+		model.addAttribute("saveCategory",categoryService.getCategoryById(Integer.parseInt(req.getParameter("selected"))));
 		return "categories";
 	}
 	
@@ -33,7 +41,6 @@ private CategoryService categoryService;
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.deleteCategory(Integer.parseInt(req.getParameter("selected")));
-		
 		return "redirect:categories";
 	}
 	
