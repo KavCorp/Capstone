@@ -94,7 +94,10 @@ public class Category {
 	@JoinColumn(name="parentCategory")
 	private Category parent;
 	
+	
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<Category> children = new HashSet<Category>();
+	
+
 
 }

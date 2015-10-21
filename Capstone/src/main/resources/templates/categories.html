@@ -22,6 +22,7 @@
 	                <th>Category Name</th>
 	                <th>Description</th>
 	                <th>Visible</th>
+	                <th>Pages</th>
 	            </tr>
 	
 	            <tr th:each="category : ${categories}">
@@ -31,6 +32,18 @@
 	                <td><a th:text="${category.categoryName}" th:href="@{|/categoryName/${category.categoryName}|}">Category Name</a></td>
 	                <td th:text="${category.description}">Description</td>
 	                <td th:text="${category.visible}">Visible</td>
+	                <td><table th:if="${!category.getPage().isEmpty()}" class="table table-striped">
+	                	<tr>
+	                		<th>Page Id</th>
+	                		<th>Category Id</th>
+	                		<th>Page Name</th>
+                		</tr>
+	                	<tr th:each="page : ${category.page}">
+	                		<td th:text="${page.pageId}"></td>
+	                		<td th:text="${page.category.getCategoryId()}"></td>
+	                		<td th:text="${page.pageName}"></td>
+	                	</tr>
+	                </table></td>
 	            </tr>
 	        </table>
 			<button type="submit" name="deleteCategory"

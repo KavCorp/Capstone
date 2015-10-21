@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.araxsys.domain.Category;
+import com.araxsys.domain.Page;
 import com.araxsys.services.CategoryService;
 
 @Controller
@@ -26,6 +27,7 @@ private CategoryService categoryService;
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		model.addAttribute("updateCategory", new Category());
+		
 		return "categories";
 	}
 	

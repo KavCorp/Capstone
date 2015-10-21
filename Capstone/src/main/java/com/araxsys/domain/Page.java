@@ -21,8 +21,10 @@ public class Page {
 	private Category category;
 	private String content;
 	private boolean visible;
+	private String pageName;
 	
 	public Page(){
+	
 	}
 	
 	@Id
@@ -36,6 +38,15 @@ public class Page {
 	
 	public void setPageId(int pageId){
 		this.pageId = pageId;
+	}
+	
+	@Column(name="PAGE_NAME", nullable=true)
+	public String getPageName(){
+		return this.pageName;
+	}
+	
+	public void setPageName(String pageName){
+		this.pageName = pageName;
 	}
 	
 	@ManyToOne
