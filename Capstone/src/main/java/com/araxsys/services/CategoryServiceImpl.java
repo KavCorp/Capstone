@@ -30,6 +30,11 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	
 	@Override
+	public void deleteCategory(int categoryId){
+		categoryRepository.delete(categoryId);
+	}
+	
+	@Override
 	public Category getCategoryByName(String categoryName){
 		Iterable<Category> categories = categoryRepository.findAll();
 		Category match = null;

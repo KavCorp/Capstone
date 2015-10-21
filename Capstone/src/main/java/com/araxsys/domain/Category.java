@@ -4,11 +4,14 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -22,7 +25,6 @@ public class Category {
 	private String categoryName;
 	private String description;
 	private boolean visible;
-	private Set<Category> children = new HashSet<Category>(0);
 	private Set<Page> page = new HashSet<Page>(0);
 	
 	public Category(){
@@ -79,7 +81,7 @@ public class Category {
 		this.visible = visible;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy ="category" ,fetch = FetchType.LAZY)
 	public Set<Page> getPage(){
 		return this.page;
 	}
@@ -88,16 +90,11 @@ public class Category {
 		this.page = page;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	public Category parent;
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="parentCategory")
+	private Category parent;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	public Set<Category> getParent(){
-		return this.children;
-	}
-	
-	public void setParent(Set<Category> children){
-		this.children = children;
-	}
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Category> children = new HashSet<Category>();
 
 }
