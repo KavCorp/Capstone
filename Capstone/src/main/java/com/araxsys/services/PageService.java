@@ -15,4 +15,6 @@ public interface PageService {
 	Page updateCat(Page page,Category parent);
 	
 	Page getPageById(int pageId);
+	
+	void deletePage(int pageId);
 }

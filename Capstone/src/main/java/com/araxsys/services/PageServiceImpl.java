@@ -46,6 +46,11 @@ public class PageServiceImpl implements PageService {
 	}
 	
 	@Override
+	public void deletePage(int pageId){
+		pageRepository.delete(pageId);
+	}
+	
+	@Override
 	public Page updateCat(Page page,Category parent){
 		page.setCategory(parent);
 		return pageRepository.save(page);

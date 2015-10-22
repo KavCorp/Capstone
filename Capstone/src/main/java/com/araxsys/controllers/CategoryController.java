@@ -38,6 +38,7 @@ private PageService pageService;
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		model.addAttribute("updateCategory", new Category());
+		model.addAttribute("fieldSetText","New Category");
 		
 		return "categories";
 	}
@@ -46,6 +47,7 @@ private PageService pageService;
 	public String update(Model model, HttpServletRequest req){
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",categoryService.getCategoryById(Integer.parseInt(req.getParameter("selected"))));
+		model.addAttribute("fieldSetText","Update Category");
 		return "categories";
 	}
 	
@@ -80,6 +82,22 @@ private PageService pageService;
 		
 		savePage = pageService.savePage(savePage);
 		return "redirect:"+categoryName;
+	}
+	
+	@RequestMapping(value="/category/{categoryName}",method=RequestMethod.POST,params={"selected"})
+	public String deletePageOnCategory( @PathVariable String categoryName, Model model, HttpServletRequest req){
+		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
+		model.addAttribute("savePage",new Page());
+		pageService.deletePage(Integer.parseInt(req.getParameter("selected")));
+		return "redirect:"+categoryName;
+	}
+	
+	@RequestMapping(value="/category/{categoryName}/update",method=RequestMethod.GET,params={"selected"})
+	public String updatePageOnCategory(@PathVariable String categoryName, Model model, HttpServletRequest req){
+		String selected = req.getParameter("selected");
+		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
+		model.addAttribute("savePage",pageService.getPageById(Integer.parseInt(selected)));
+		return "category";
 	}
 	
 	

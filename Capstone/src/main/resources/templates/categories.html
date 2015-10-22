@@ -57,7 +57,7 @@
     </div>
     <form action="#" th:action="@{/categories}" th:object="${saveCategory}" method="post">
     <fieldset>
-    	<legend>Save Category</legend>
+    	<legend th:text="${fieldSetText}"></legend>
     	<input type="hidden" th:field="*{categoryId}"></input>
     	<label th:text="'Parent Category:'">Parent Category</label>
     	<select th:field="*{parentCategory}">
@@ -65,6 +65,7 @@
     				th:text="'No Parent'">Wireframe</option>
     				
   			<option th:each="category : ${categories}" 
+  					th:if="${category.categoryId!=saveCategory.categoryId}"
           			th:value="${category.categoryId}" 
           			th:text="${category.categoryName}">Wireframe</option>
 		</select>
