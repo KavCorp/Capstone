@@ -35,23 +35,21 @@
 	                <td><table th:if="${!category.getPage().isEmpty()}" class="table table-striped">
 	                	<tr>
 	                		<th>Page Id</th>
-	                		<th>Category</th>
 	                		<th>Page Name</th>
 	                		<th>Visible</th>
                 		</tr>
 	                	<tr th:each="page : ${category.page}">
 	                		<td th:text="${page.pageId}"></td>
-	                		<td th:text="${page.category.getCategoryName()}"></td>
 	                		<td th:text="${page.pageName}"></td>
 	                		<td th:text="${page.Visible}"></td>
 	                	</tr>
 	                </table></td>
 	            </tr>
 	        </table>
+	        <button type="submit" name="updateCategory" th:formmethod="get"
+				th:formaction="@{categories/update}" th:text="'Update Category'">Update Category</button>
 			<button type="submit" name="deleteCategory"
 				 th:text="'Delete Category'">Delete Category</button>
-			<button type="submit" name="updateCategory"
-				th:formaction="@{categories/update}" th:text="'Update Category'">Update Category</button>
 		</fieldset>
 		</form>
     </div>

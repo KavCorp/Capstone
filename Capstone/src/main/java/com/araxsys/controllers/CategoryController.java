@@ -33,8 +33,8 @@ private PageService pageService;
         this.pageService = pageService;
     }
 
-	@RequestMapping("/categories")
-	public String list(Model model){
+	@RequestMapping(value="/categories",method=RequestMethod.GET)
+	public String listCategories(Model model){
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		model.addAttribute("updateCategory", new Category());
@@ -43,24 +43,24 @@ private PageService pageService;
 		return "categories";
 	}
 	
-	@RequestMapping(value="/categories/update", params={"selected"})
-	public String update(Model model, HttpServletRequest req){
+	@RequestMapping(value="/categories/update", params={"selected"},method=RequestMethod.GET)
+	public String updateCategory(Model model, HttpServletRequest req){
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",categoryService.getCategoryById(Integer.parseInt(req.getParameter("selected"))));
 		model.addAttribute("fieldSetText","Update Category");
 		return "categories";
 	}
 	
-	@RequestMapping(value="/categories",params={"selected"})
-	public String delete(Model model,HttpServletRequest req){
+	@RequestMapping(value="/categories",params={"selected"},method=RequestMethod.POST)
+	public String deleteCategory(Model model,HttpServletRequest req){
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.deleteCategory(Integer.parseInt(req.getParameter("selected")));
 		return "redirect:categories";
 	}
 	
-	@RequestMapping(value="/categories",params={"saveCategory"})
-	public String save(@ModelAttribute Category saveCategory,Model model){
+	@RequestMapping(value="/categories",params={"saveCategory"},method=RequestMethod.POST)
+	public String saveCategory(@ModelAttribute Category saveCategory,Model model){
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.saveCategory(saveCategory);

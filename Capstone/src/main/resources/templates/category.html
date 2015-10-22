@@ -38,14 +38,12 @@
            		<tr>
            			<th></th>
            			<th>Page Id</th>
-           			<th>Category</th>
            			<th>Page Name</th>
            			<th>Visible</th>
            		</tr>
            		<tr th:each="page : ${thisCategory.page}">
           			<td><input type="radio" name="selected" id="selected" th:value="${page.pageId}"></input></td>
            			<td th:text="${page.pageId}"></td>
-               		<td th:text="${page.category.getCategoryName()}"></td>
                		<td th:text="${page.pageName}"></td>
                		<td th:text="${page.Visible}"></td>
            		</tr>
