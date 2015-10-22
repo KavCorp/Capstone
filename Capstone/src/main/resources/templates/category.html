@@ -53,14 +53,14 @@
            	<button type="submit" 
 				    th:formmethod="post" th:text="'Delete Page'">Delete page</button>
 			<button type="submit" th:formaction="@{/category/__${thisCategory.categoryName}__/update}"
-				    th:formmethod="get" th:text="'Update Category'">Update Category</button>
+				    th:formmethod="get" th:text="'Update Page'">Update Category</button>
            	</fieldset>
            	</fieldset>
             </form>
             
             <form action="#" th:action="@{/category/__${thisCategory.categoryName}__}" th:object="${savePage}" method="post">
             <fieldset>
-		    	<legend>Save Page</legend>
+		    	<legend th:text="${fieldSetText}"></legend>
 		    	<input type="hidden" th:field="*{pageId}"></input>
 		    	<input type="hidden" th:value="${thisCategory.categoryId}" id="category" name="category"></input>
 		    	<label th:text="'Page Name:'">Page Name</label>

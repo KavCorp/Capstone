@@ -72,6 +72,7 @@ private PageService pageService;
 	public String showCategory(@PathVariable String categoryName, Model model){
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
+		model.addAttribute("fieldSetText","New Page");
 		
 		return "category";
 	}
@@ -97,6 +98,7 @@ private PageService pageService;
 		String selected = req.getParameter("selected");
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",pageService.getPageById(Integer.parseInt(selected)));
+		model.addAttribute("fieldSetText","Update Page");
 		return "category";
 	}
 	
