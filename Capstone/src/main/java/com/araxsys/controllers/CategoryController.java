@@ -1,5 +1,8 @@
 package com.araxsys.controllers;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +11,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.araxsys.domain.Category;
 import com.araxsys.domain.Page;
 import com.araxsys.services.CategoryService;
+import com.araxsys.services.PageService;
 
 @Controller
 public class CategoryController {
 private CategoryService categoryService;
+private PageService pageService;
 	
 	@Autowired
-    public void setUserService(CategoryService categoryService) {
+    public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
+    }
+	
+	@Autowired
+    public void setPageService(PageService pageService) {
+        this.pageService = pageService;
     }
 
 	@RequestMapping("/categories")
@@ -55,16 +66,21 @@ private CategoryService categoryService;
 		return "redirect:categories";
 	}
 	
-	@RequestMapping("/categoryName/{categoryName}")
-	public String showCategoryByName(@PathVariable String categoryName, Model model){
-		model.addAttribute("category",categoryService.getCategoryByName(categoryName));
+	@RequestMapping(value="/category/{categoryName}",method=RequestMethod.GET)
+	public String showCategory(@PathVariable String categoryName, Model model){
+		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
+		model.addAttribute("savePage",new Page());
+		
 		return "category";
+	}
+	@RequestMapping(value="/category/{categoryName}",method=RequestMethod.POST,params={"savePage"})
+	public String savePageOnCategory( @PathVariable String categoryName, Model model,@ModelAttribute Page savePage){
+		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
+		model.addAttribute("savePage",new Page());
+		
+		savePage = pageService.savePage(savePage);
+		return "redirect:"+categoryName;
 	}
 	
-	@RequestMapping("/categoryId/{categoryId}")
-	public String showCategoryById(@PathVariable int categoryId, Model model){
-		model.addAttribute("category",categoryService.getCategoryById(categoryId));
-		return "category";
-	}
 	
 }

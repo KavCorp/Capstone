@@ -14,14 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
 public class Category {
 	private int categoryId;
-	private int parentCategory;
+	private Category parentCategory;
 	private String categoryName;
 	private String description;
 	private boolean visible;
@@ -40,16 +39,6 @@ public class Category {
 	
 	public void setCategoryId(int categoryId){
 		this.categoryId = categoryId;
-	}
-	
-	@Column(name = "PARENT_CATEGORY", unique = false,
-			nullable = true)	
-	public int getParentCategory(){
-		return this.parentCategory;
-	}
-	
-	public void setParentCategory(int parentCategory){
-		this.parentCategory = parentCategory;
 	}
 	
 	@Column(name = "CATEGORY_NAME", nullable = true,
@@ -81,7 +70,7 @@ public class Category {
 		this.visible = visible;
 	}
 	
-	@OneToMany(mappedBy ="category" ,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy ="category" ,fetch = FetchType.LAZY, cascade={CascadeType.ALL})
 	public Set<Page> getPage(){
 		return this.page;
 	}
@@ -91,11 +80,17 @@ public class Category {
 	}
 	
 	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="parentCategory")
-	private Category parent;
+	@JoinColumn(name="PARENT_CATEGORY",nullable=true)
+	public Category getParentCategory(){
+		return this.parentCategory;
+	}
+	
+	public void setParentCategory(Category parentCategory){
+		this.parentCategory = parentCategory;
+	}
 	
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="category")
 	private Set<Category> children = new HashSet<Category>();
 	
 

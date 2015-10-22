@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -50,7 +49,7 @@ public class Page {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "CATEGORY_ID", nullable = false)
+	@JoinColumn(name = "CATEGORY_ID", nullable = true)
 	public Category getCategory(){
 		return this.category;
 	}

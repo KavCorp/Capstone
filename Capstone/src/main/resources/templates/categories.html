@@ -27,21 +27,23 @@
 	
 	            <tr th:each="category : ${categories}">
 	            	<td><input type="radio" name="selected" th:value="${category.categoryId}"></input></td>
-	                <td><a th:text="${category.categoryId}" th:href="@{|/categoryId/${category.categoryId}|}">Category ID</a></td>
-	                <td><a th:if="${category.parentCategory!=0}" th:text="${category.parentCategory}" th:href="@{|/categoryId/${category.parentCategory}|}">Parent Category</a></td>
-	                <td><a th:text="${category.categoryName}" th:href="@{|/categoryName/${category.categoryName}|}">Category Name</a></td>
+	                <td><a th:text="${category.categoryId}" th:href="@{|/category/${category.categoryName}|}">Category ID</a></td>
+	                <td><a th:if="${category.parentCategory!= null}" th:text="${category.parentCategory.getCategoryName()}" th:href="@{|/category/${category.parentCategory.getCategoryName()}|}">Parent Category</a></td>
+	                <td><a th:text="${category.categoryName}" th:href="@{|/category/${category.categoryName}|}">Category Name</a></td>
 	                <td th:text="${category.description}">Description</td>
 	                <td th:text="${category.visible}">Visible</td>
 	                <td><table th:if="${!category.getPage().isEmpty()}" class="table table-striped">
 	                	<tr>
 	                		<th>Page Id</th>
-	                		<th>Category Id</th>
+	                		<th>Category</th>
 	                		<th>Page Name</th>
+	                		<th>Visible</th>
                 		</tr>
 	                	<tr th:each="page : ${category.page}">
 	                		<td th:text="${page.pageId}"></td>
-	                		<td th:text="${page.category.getCategoryId()}"></td>
+	                		<td th:text="${page.category.getCategoryName()}"></td>
 	                		<td th:text="${page.pageName}"></td>
+	                		<td th:text="${page.Visible}"></td>
 	                	</tr>
 	                </table></td>
 	            </tr>
@@ -53,12 +55,19 @@
 		</fieldset>
 		</form>
     </div>
-    <form name="saveCategoryForm" action="#" th:action="@{/categories}" th:object="${saveCategory}" method="post">
+    <form action="#" th:action="@{/categories}" th:object="${saveCategory}" method="post">
     <fieldset>
     	<legend>Save Category</legend>
     	<input type="hidden" th:field="*{categoryId}"></input>
     	<label th:text="'Parent Category:'">Parent Category</label>
-    	<input type="text" th:field="*{parentCategory}"></input>
+    	<select th:field="*{parentCategory}">
+    		<option th:value="null"
+    				th:text="'No Parent'">Wireframe</option>
+    				
+  			<option th:each="category : ${categories}" 
+          			th:value="${category.categoryId}" 
+          			th:text="${category.categoryName}">Wireframe</option>
+		</select>
     	<br/>
     	<label th:text="'Category Name:'">Category Name</label>
     	<input type="text" th:field="*{categoryName}"></input>
@@ -67,7 +76,7 @@
     	<input type="text" th:field="*{description}"></input>
     	<br/>
     	<label th:text="'Visible:'">Visible</label>
-    	<input type="text" th:field="*{visible}"></input>
+    	<input type="checkbox" th:field="*{visible}" th:value="'true'"></input>
     	<br/>
     	<button type="submit" name="saveCategory"
     		th:text="'Save Category'">Save Category</button>

@@ -1,17 +1,25 @@
 package com.araxsys.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.araxsys.domain.Category;
+import com.araxsys.domain.Page;
 import com.araxsys.repositories.CategoryRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
 	private CategoryRepository categoryRepository;
+	private PageService pageService;
 	
 	@Autowired
 	public void setCategoryRepository(CategoryRepository categoryRepository){
 		this.categoryRepository = categoryRepository;
+	}
+	@Autowired
+	public void setPageServiceImpl(PageServiceImpl pageService){
+		this.pageService = pageService;
 	}
 	
 	@Override
@@ -31,6 +39,14 @@ public class CategoryServiceImpl implements CategoryService{
 	
 	@Override
 	public void deleteCategory(int categoryId){
+		Category cat = this.getCategoryById(categoryId);
+		
+		if(!cat.getPage().isEmpty()){
+			ArrayList<Page> pagesByCategory = pageService.listPagesByParentCategory(categoryId);
+			for(Page page : pagesByCategory){
+				pageService.updateCat(page, null);
+			}
+		}
 		categoryRepository.delete(categoryId);
 	}
 	
