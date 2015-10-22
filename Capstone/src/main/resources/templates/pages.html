@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Pages</title>
+	
+
+</head>
+<body>
+<!--  <div th:replace="fragments/header :: header">...</div> -->
+<div class="container">
+    <div th:if="${not #lists.isEmpty(pages)}">
+        <h2>Pages</h2>
+        <form action="#" th:action="@{/pages}" method="post">
+        <fieldset>
+        	<legend>Page List</legend>
+	        <table class="table table-striped">
+	            <tr>
+	            	<th></th>
+	                <th>Page ID</th>
+	                <th>Page Name</th>
+	                <th>Category</th>
+	                <th>Visible</th>
+	            </tr>
+	
+	            <tr th:each="page : ${pages}">
+	            	<td><input type="radio" name="selected" th:value="${page.pageId}"></input></td>
+	                <td><a th:text="${page.pageId}" >Page ID</a></td>
+	                <td><a th:text="${page.pageName}">Page Name</a></td>
+	                <td><a th:if="${page.category != null}" th:text="${page.category.getCategoryName()}" th:href="@{|/category/${page.category.getCategoryName()}|}">Category</a></td>
+	                <td th:text="${page.visible}">Visible</td>
+	            </tr>
+	        </table>
+	        <button type="submit" name="updatePage" th:formmethod="get"
+					th:formaction="@{pages/update}" th:text="'Update Page'">Update Page</button>
+			<button type="submit" name="deletePage"
+				 	th:text="'Delete Page'">Delete Page</button>
+		</fieldset>
+		</form>
+    </div>
+    <form action="#" th:action="@{/pages}" th:object="${savePage}" method="post">
+    <fieldset>
+    	<legend >Save Page</legend>
+    	<input type="hidden" th:field="*{pageId}"></input>
+    	<label th:text="'Page Name: '">Page Name</label>
+    	<input type="text" th:field="*{pageName}"></input>
+    	<br/>
+    	<label th:text="'Category: '">Category</label>
+    	<select th:field="*{category}">
+    		<option th:value="null"
+    				th:text="'No Category'">Wireframe</option>
+    				
+  			<option th:each="category : ${categories}" 
+          			th:value="${category.categoryId}" 
+          			th:text="${category.categoryName}">Wireframe</option>
+		</select>
+    	<br/>
+    	<label th:text="'Visible: '">Visible</label>
+    	<input type="checkbox" th:field="*{visible}" th:value="'true'"></input>
+    	<br/>
+    	<button type="submit" name="savePage"
+    		th:text="'Save Page'">Save Page</button>
+    
+    </fieldset>
+    
+    </form>
+</div>
+
+</body>
+</html>
