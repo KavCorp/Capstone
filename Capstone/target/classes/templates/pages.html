@@ -40,7 +40,7 @@
     </div>
     <form action="#" th:action="@{/pages}" th:object="${savePage}" method="post">
     <fieldset>
-    	<legend >Save Page</legend>
+    	<legend th:text="${fieldSetText}"></legend>
     	<input type="hidden" th:field="*{pageId}"></input>
     	<label th:text="'Page Name: '">Page Name</label>
     	<input type="text" th:field="*{pageName}"></input>
