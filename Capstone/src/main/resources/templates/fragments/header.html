@@ -4,29 +4,30 @@
 
 </head>
 <body>
-
 <div class="container">
     <div th:fragment="header">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+                </div>
+                <div>
                     <ul class="nav navbar-nav">
-                        <li><a href="#" data-toggle="dropdown" class="dropdown-toggle">Unit Info<b class="caret"></b></a>
+                        <li class="dropdown">
+                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Unit Info<b class="caret"></b></a>
     					<ul class="dropdown-menu">
         					<li><a href="#">Unit Details</a></li>
         					<li><a href="#">Rules</a></li>
     					</ul>
     					</li>
-                        <li><a href="#" data-toggle="dropdown" class="dropdown-toggle">Recruitment<b class="caret"></b></a>
-    					<ul class="dropdown-menu">
+                        <li class="dropdown">
+                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown">Recruitment<b class="caret"></b></a>
+    						<ul class="dropdown-menu">
         					<li><a href="#">Recruitment Info</a></li>
         					<li><a href="#">Registration</a></li>
     					</ul>
-    					</li>
-                        
+    					</li> 
                     </ul>
-
                 </div>
             </div>
         </nav> 
