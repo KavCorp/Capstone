@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.araxsys.repositories.UserRepositoryTest" time="3.722" tests="1" errors="0" skipped="0" failures="1">
+<testsuite name="com.araxsys.repositories.UserRepositoryTest" time="0" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_60\jre\bin"/>
@@ -26,7 +26,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\Lyle Cherry\Documents\workspace-sts-3.7.0.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf5327112957535862334.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\Lyle Cherry\Documents\workspace-sts-3.7.0.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf3397371231979345145.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_60\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Program Files/Java/jre1.8.0_60/bin/server;C:/Program Files/Java/jre1.8.0_60/bin;C:/Program Files/Java/jre1.8.0_60/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\2.0\bin\x64;C:\Program Files\Lenovo\Bluetooth Software\;C:\Program Files\Lenovo\Bluetooth Software\syswow64;;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Skype\Phone\;C:\WINDOWS\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Users\Lyle Cherry\AppData\Local\atom\bin;C:\Users\Lyle Cherry\AppData\Roaming\npm;C:\Program Files\sts-bundle\sts-3.7.0.RELEASE;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -60,43 +60,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testSaveUser" classname="com.araxsys.repositories.UserRepositoryTest" time="3.722">
-    <failure message="expected:&lt;4&gt; but was:&lt;1&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<4> but was:<1>
-	at org.junit.Assert.fail(Assert.java:88)
-	at org.junit.Assert.failNotEquals(Assert.java:834)
-	at org.junit.Assert.assertEquals(Assert.java:645)
-	at org.junit.Assert.assertEquals(Assert.java:631)
-	at com.araxsys.repositories.UserRepositoryTest.testSaveUser(UserRepositoryTest.java:58)
-]]></failure>
-    <system-out><![CDATA[2015-10-21 13:36:34.471  INFO 3032 --- [           main] o.s.t.c.s.DefaultTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-2015-10-21 13:36:34.472  INFO 3032 --- [           main] o.s.t.c.s.DefaultTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@17d919b6, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@53f3bdbd, org.springframework.test.context.support.DirtiesContextTestExecutionListener@34129c78, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7d61eb55, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@222a59e6]
-
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v1.2.6.RELEASE)
-
-2015-10-21 13:36:34.586  INFO 3032 --- [           main] c.a.repositories.UserRepositoryTest      : Starting UserRepositoryTest on Awesomeness with PID 3032 (started by Lyle Cherry in C:\Users\Lyle Cherry\git\Capstone12\Capstone)
-2015-10-21 13:36:34.648  INFO 3032 --- [           main] s.c.a.AnnotationConfigApplicationContext : Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@27912e3: startup date [Wed Oct 21 13:36:34 CDT 2015]; root of context hierarchy
-2015-10-21 13:36:48.762  INFO 3032 --- [           main] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
-2015-10-21 13:36:48.819  INFO 3032 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
-	name: default
-	...]
-2015-10-21 13:36:49.039  INFO 3032 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate Core {4.3.11.Final}
-2015-10-21 13:36:49.045  INFO 3032 --- [           main] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
-2015-10-21 13:36:49.050  INFO 3032 --- [           main] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
-2015-10-21 13:36:49.695  INFO 3032 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
-2015-10-21 13:36:49.865  INFO 3032 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
-2015-10-21 13:36:50.287  INFO 3032 --- [           main] o.h.h.i.ast.ASTQueryTranslatorFactory    : HHH000397: Using ASTQueryTranslatorFactory
-2015-10-21 13:36:52.102  INFO 3032 --- [           main] roperties$SimpleAuthenticationProperties : 
-
-Using default password for shell access: 5711268a-c211-4d7e-8ac5-0b9a5ead5206
-
-
-2015-10-21 13:36:56.344  INFO 3032 --- [           main] c.a.repositories.UserRepositoryTest      : Started UserRepositoryTest in 21.85 seconds (JVM running for 24.969)
-]]></system-out>
-  </testcase>
+  <testcase name="testSaveUser" classname="com.araxsys.repositories.UserRepositoryTest" time="0"/>
 </testsuite>

@@ -1,12 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.araxsys.repositories.UserRepositoryTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 25.575 sec <<< FAILURE! - in com.araxsys.repositories.UserRepositoryTest
-testSaveUser(com.araxsys.repositories.UserRepositoryTest)  Time elapsed: 3.722 sec  <<< FAILURE!
-java.lang.AssertionError: expected:<4> but was:<1>
-	at org.junit.Assert.fail(Assert.java:88)
-	at org.junit.Assert.failNotEquals(Assert.java:834)
-	at org.junit.Assert.assertEquals(Assert.java:645)
-	at org.junit.Assert.assertEquals(Assert.java:631)
-	at com.araxsys.repositories.UserRepositoryTest.testSaveUser(UserRepositoryTest.java:58)
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.295 sec - in com.araxsys.repositories.UserRepositoryTest

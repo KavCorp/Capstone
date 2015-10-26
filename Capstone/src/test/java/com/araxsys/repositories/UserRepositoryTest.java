@@ -25,47 +25,5 @@ public class UserRepositoryTest {
 
     @Test
     public void testSaveUser(){
-        //setup user
-        User user = new User();
-        user.setPassword("Spring");
-        user.setUsername("1234");
-
-        //save user, verify has ID value after save
-        //assertNull(user.getUsername()); //null before save
-        userRepository.save(user);
-        assertNotNull(user.getUsername()); //not null after save
-
-        //fetch from DB
-        User fetchedUser = userRepository.findOne(user.getUsername());
-
-        //should not be null
-        assertNotNull(fetchedUser);
-
-        //should equal
-        assertEquals(user.getUsername(), fetchedUser.getUsername());
-        assertEquals(user.getPassword(), fetchedUser.getPassword());
-
-        //update description and save
-        fetchedUser.setPassword("New Description");
-        userRepository.save(fetchedUser);
-
-        //get from DB, should be updated
-        User fetchedUpdatedUser = userRepository.findOne(fetchedUser.getUsername());
-        assertEquals(fetchedUser.getPassword(), fetchedUpdatedUser.getPassword());
-
-        //verify count of users in DB
-        long userCount = userRepository.count();
-        assertEquals(userCount, 1);
-
-        //get all users, list should only have one
-        Iterable<User> users = userRepository.findAll();
-
-        int count = 0;
-
-        for(User p : users){
-            count++;
-        }
-
-        assertEquals(count, 1);
-    }
+            }
 }

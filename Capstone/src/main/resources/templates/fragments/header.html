@@ -1,30 +1,36 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    ...
-  </head>
-  <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Home</a>
-        </div>
-        
-        <div class="dropdown">
-    		<a href="#" data-toggle="dropdown" class="dropdown-toggle">Unit Info<b class="caret"></b></a>
-    		<ul class="dropdown-menu">
-       		 	<li><a href="#">Unit Details</a></li>
-        		<li><a href="#">Rules</a></li>
-        	</ul>
-	 </div>
-	 
-	</div>
-   </div>
-  
-  </body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+</head>
+<body>
+
+<div class="container">
+    <div th:fragment="header">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" data-toggle="dropdown" class="dropdown-toggle">Unit Info<b class="caret"></b></a>
+    					<ul class="dropdown-menu">
+        					<li><a href="#">Unit Details</a></li>
+        					<li><a href="#">Rules</a></li>
+    					</ul>
+    					</li>
+                        <li><a href="#" data-toggle="dropdown" class="dropdown-toggle">Recruitment<b class="caret"></b></a>
+    					<ul class="dropdown-menu">
+        					<li><a href="#">Recruitment Info</a></li>
+        					<li><a href="#">Registration</a></li>
+    					</ul>
+    					</li>
+                        
+                    </ul>
+
+                </div>
+            </div>
+        </nav> 
+    </div>
+</div>
+</body>
 </html>
