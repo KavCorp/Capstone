@@ -97,7 +97,7 @@ private PageService pageService;
 	public String updatePageOnCategory(@PathVariable String categoryName, Model model, HttpServletRequest req){
 		String selected = req.getParameter("selected");
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
-		model.addAttribute("savePage",pageService.getPageById(Integer.parseInt(selected)));
+		model.addAttribute("savePage",pageService.getPage(Integer.parseInt(selected)));
 		model.addAttribute("fieldSetText","Update Page");
 		return "category";
 	}

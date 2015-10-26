@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title th:text="${page.getPageName()}"></title>
+
+
+</head>
+<body>
+<!--<div th:replace="fragments/header :: header">...</div> -->
+<div class="container" th:utext="${page.getContent()}">
+
+</div>
+
+</body>
+</html>

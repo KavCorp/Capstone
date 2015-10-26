@@ -14,7 +14,9 @@ public interface PageService {
 	
 	Page updateCat(Page page,Category parent);
 	
-	Page getPageById(int pageId);
+	Page getPage(int pageId);
+	
+	Page getPage(String categoryName, String pageName);
 	
 	void deletePage(int pageId);
 }

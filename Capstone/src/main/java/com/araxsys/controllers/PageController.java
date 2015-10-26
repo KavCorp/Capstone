@@ -1,7 +1,10 @@
 package com.araxsys.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-
+import com.araxsys.domain.Category;
+import com.araxsys.domain.Page;
+import com.araxsys.services.CategoryService;
+import com.araxsys.services.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.araxsys.domain.Category;
-import com.araxsys.domain.Page;
-import com.araxsys.services.CategoryService;
-import com.araxsys.services.PageService;
 
 @Controller
 public class PageController {
@@ -61,8 +60,15 @@ public class PageController {
     public String updatePage(Model model,HttpServletRequest req){
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
-        model.addAttribute("savePage", pageService.getPageById(Integer.parseInt(req.getParameter("selected"))));
+        model.addAttribute("savePage", pageService.getPage(Integer.parseInt(req.getParameter("selected"))));
         model.addAttribute("fieldSetText","Update Page");
         return "pages";
+    }
+    
+    @RequestMapping(value = "/{categoryName}/{pageName}")
+    public String showPage(@PathVariable String categoryName, @PathVariable String pageName, Model model){
+    	
+    	model.addAttribute("page",pageService.getPage(categoryName,pageName));
+    	return "page"; 
     }
 }

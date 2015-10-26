@@ -36,8 +36,33 @@ public class PageServiceImpl implements PageService {
 	}
 	
 	@Override
-	public Page getPageById(int pageId){
+	public Page getPage(int pageId){
 		return pageRepository.findOne(pageId);
+	}
+	
+	@Override
+	public Page getPage(String categoryName, String pageName){
+		Iterable<Page> allPages = pageRepository.findAll();
+		Page match = null;
+		boolean flag = false;
+		
+		
+		for(Page page : allPages){
+			if(page.getCategory() != null){
+				if(page.getPageName().equals(pageName)&&page.getCategory().getCategoryName().equals(categoryName)){
+					flag = true;
+					match = page;
+					break;
+				}
+			}
+		}
+		if(flag){
+			return match;
+		}else{
+			System.out.println("No page found.");
+			return match;
+			
+		}
 	}
 	
 	@Override
