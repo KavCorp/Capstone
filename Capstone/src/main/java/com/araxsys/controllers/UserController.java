@@ -33,9 +33,9 @@ public class UserController {
     }
     
     
-    @RequestMapping(value = "/register")
+    @RequestMapping("/register")
     public String register(Model model){
-        
+        model.addAttribute("register",new User());
         return "register";
     }
     
