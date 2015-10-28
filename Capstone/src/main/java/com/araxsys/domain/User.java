@@ -3,6 +3,7 @@ package com.araxsys.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.management.relation.Role;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -169,6 +170,8 @@ public class User {
 	public void setUserRole(Set<UserRole> userRole) {
 		this.userRole = userRole;
 	}
+
+	
 	
 
 

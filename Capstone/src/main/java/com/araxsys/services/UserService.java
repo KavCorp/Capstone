@@ -8,5 +8,9 @@ public interface UserService {
 	User saveUser(User User);
 
 	User getUserByName(String username);
+	
+	User getUserByEmail(String email);
+	
+	User registerNewUserAccount(User user);
 
 }

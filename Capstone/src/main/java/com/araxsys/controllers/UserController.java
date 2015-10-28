@@ -44,8 +44,8 @@ public class UserController {
     
     @RequestMapping(value="/register",method=RequestMethod.POST,params={"register"})
     String register(@ModelAttribute User register, Model model){
-
-    	userService.saveUser(register);
+    	
+    	userService.registerNewUserAccount(register);
         return "redirect:users";
     }
 }
