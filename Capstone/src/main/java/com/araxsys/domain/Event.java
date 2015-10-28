@@ -1,4 +1,4 @@
-package com.araxsys.domain;
+/*package com.araxsys.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -100,3 +100,4 @@ public class Event {
 		this.endtime = endtime;
 	}
 }
+*/

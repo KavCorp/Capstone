@@ -3,9 +3,12 @@ package com.araxsys.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.araxsys.domain.User;
 import com.araxsys.services.UserService;
 
 @Controller
@@ -28,8 +31,21 @@ public class UserController {
         model.addAttribute("user", userService.getUserByName(username));
         return "userprofile";
     }
-    @RequestMapping("/register")
-    String register(){
+    
+    
+    @RequestMapping(value = "/register")
+    public String register(Model model){
+        
         return "register";
+    }
+    
+    
+    
+    
+    @RequestMapping(value="/register",method=RequestMethod.POST,params={"register"})
+    String register(@ModelAttribute User register, Model model){
+    	userService.saveUser(register);
+   
+        return "redirect:login";
     }
 }

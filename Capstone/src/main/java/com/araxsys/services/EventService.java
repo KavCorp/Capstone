@@ -1,4 +1,4 @@
-package com.araxsys.services;
+/*package com.araxsys.services;
 
 import com.araxsys.domain.Event;
 
@@ -9,4 +9,4 @@ public interface EventService {
 
 	Event getEventByName(String eventDesc);
 
-}
+}*/

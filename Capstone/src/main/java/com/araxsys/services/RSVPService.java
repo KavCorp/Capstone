@@ -1,4 +1,4 @@
-package com.araxsys.services;
+/*package com.araxsys.services;
 
 import com.araxsys.domain.RSVP;
 
@@ -9,4 +9,4 @@ public interface RSVPService {
 
 	RSVP getRSVPByEventID(int EventID);
 
-}
+}*/

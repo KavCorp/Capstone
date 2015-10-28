@@ -1,5 +1,5 @@
-package com.araxsys.domain;
+/*package com.araxsys.domain;
 
 public class RSVP {
 
-}
+} */
