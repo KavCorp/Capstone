@@ -3,13 +3,13 @@
 <head lang="en">
 
     <title th:text="${thisCategory.categoryName}">Category Name</title>
-
+	<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 
 </head>
 <body>
-<!--<div th:replace="fragments/header :: header">...</div>  -->
-<div class="container">
 
+<div class="container">
+	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
     <h2 th:text="${thisCategory.categoryName}"></h2>
         <div>
@@ -48,26 +48,34 @@
                		<td th:text="${page.Visible}"></td>
            		</tr>
            	</table>
-           	<button type="submit" 
+           	<button class="btn btn-default" type="submit" 
 				    th:formmethod="post" th:text="'Delete Page'">Delete page</button>
-			<button type="submit" th:formaction="@{/category/__${thisCategory.categoryName}__/update}"
+			<button class="btn btn-default" type="submit" th:formaction="@{/category/__${thisCategory.categoryName}__/update}"
 				    th:formmethod="get" th:text="'Update Page'">Update Category</button>
            	</fieldset>
            	</fieldset>
             </form>
             
-            <form action="#" th:action="@{/category/__${thisCategory.categoryName}__}" th:object="${savePage}" method="post">
+            <form class="form-horizontal" action="#" th:action="@{/category/__${thisCategory.categoryName}__}" th:object="${savePage}" method="post">
             <fieldset>
 		    	<legend th:text="${fieldSetText}"></legend>
 		    	<input type="hidden" th:field="*{pageId}"></input>
 		    	<input type="hidden" th:value="${thisCategory.categoryId}" id="category" name="category"></input>
-		    	<label th:text="'Page Name:'">Page Name</label>
-		    	<input type="text" th:field="*{pageName}"></input>
+		    	<div class="form-group">
+			    	<label class="col-sm-2 control-label" th:text="'Page Name:'">Page Name</label>
+			    	<div class="col-sm-10">
+			    		<input class="form-control" type="text" th:field="*{pageName}"></input>
+			    	</div>
+		    	</div>
 		    	<br/>
-		    	<label th:text="'Visible:'">Visible</label>
-		    	<input type="checkbox" th:field="*{visible}" th:value="'true'"></input>
+		    	<div class="form-group">
+			    	<label class="col-sm-2 control-label" th:text="'Visible:'">Visible</label>
+			    	<div class="col-sm-10">
+			    		<input class="form-control" type="checkbox" th:field="*{visible}" th:value="'true'"></input>
+			    	</div>
+		    	</div>
 		    	<br/>
-		    	<button type="submit" name="savePage" 
+		    	<button class="btn btn-default" type="submit" name="savePage" 
 		    		th:text="'Save Page'">Save Category</button>
 	    
 	    	</fieldset>

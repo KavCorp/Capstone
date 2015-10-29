@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +11,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.araxsys.domain.Category;
 import com.araxsys.domain.Page;
 import com.araxsys.services.CategoryService;
 import com.araxsys.services.PageService;
 
+
+
 @Controller
 public class CategoryController {
-private CategoryService categoryService;
-private PageService pageService;
+	private CategoryService categoryService;
+	private PageService pageService;
 	
 	@Autowired
     public void setCategoryService(CategoryService categoryService) {

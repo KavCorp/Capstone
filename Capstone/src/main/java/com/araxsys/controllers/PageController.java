@@ -65,7 +65,7 @@ public class PageController {
         return "pages";
     }
     
-    @RequestMapping(value = "/{categoryName}/{pageName}")
+    @RequestMapping(value = "/page/{categoryName}/{pageName}")
     public String showPage(@PathVariable String categoryName, @PathVariable String pageName, Model model){
     	
     	model.addAttribute("page",pageService.getPage(categoryName,pageName));

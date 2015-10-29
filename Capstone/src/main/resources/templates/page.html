@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title th:text="${page.getPageName()}"></title>
-
+    <title></title>
+	<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 
 </head>
 <body>
-<!--<div th:replace="fragments/header :: header">...</div> -->
-<div class="container" th:utext="${page.getContent()}">
 
+<div class="container" th:utext="${page.getContent()}">
+	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 </div>
 
 </body>
