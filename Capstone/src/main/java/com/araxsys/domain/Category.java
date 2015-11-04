@@ -25,7 +25,7 @@ public class Category {
 	private String description;
 	private boolean visible;
 	private Set<Page> page = new HashSet<Page>(0);
-	private Set<Category> children = new HashSet<Category>();
+	
 	
 	public Category(){
 	}
@@ -92,13 +92,7 @@ public class Category {
 	
 	
 	@OneToMany(fetch = FetchType.EAGER)
-	public Set<Category> getChildren(){
-		return this.children;
-	}
-	
-	public void setChildren(Set<Category> children){
-		this.children = children;
-	}
+	private Set<Category> children = new HashSet<Category>();
 	
 
 
