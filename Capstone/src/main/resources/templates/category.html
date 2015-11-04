@@ -17,19 +17,17 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
             <fieldset>
             	<legend>Category Details</legend>
-                <div class="form-group">
-                    <a th:text="'Category Id: '"></a><a class="form-control-static" th:text="${thisCategory.categoryId}">Category ID</a></div>
-                <div class="form-group">
-                    <a th:text="'Parent Category: '"></a><a th:if="${thisCategory.parentCategory!= null}" class="form-control-static" th:text="${thisCategory.parentCategory.getCategoryName()}">Parent Category</a>
-                </div>
-                 <div class="form-group">
-                    <a th:text="'Category Name: '"></a><a class="form-control-static" th:text="${thisCategory.categoryName}">Category Name</a>
+            	<div class="form-group">
+                    Category Name: <a class="form-control-static" th:text="${thisCategory.categoryName}">Category Name</a>
                 </div>
                 <div class="form-group">
-                    <a th:text="'Description: '"></a><a class="form-control-static" th:text="${thisCategory.description}">Description</a>
+                    Parent Category: <a th:if="${thisCategory.parentCategory!= null}" class="form-control-static" th:text="${thisCategory.parentCategory.getCategoryName()}">Parent Category</a>
                 </div>
                 <div class="form-group">
-                    <a th:text="'Visible: '"></a><a class="form-control-static" th:text="${thisCategory.visible}">Visible</a>
+                    Description: <span class="form-control-static" th:text="${thisCategory.description}">Description</span>
+                </div>
+                <div class="form-group">
+                    Visible: <span class="form-control-static" th:text="${thisCategory.visible}">Visible</span>
                 </div>
            	
            	<fieldset th:if="${!thisCategory.getPage().isEmpty()}">
@@ -37,13 +35,11 @@
            	<table  class="table table-striped">
            		<tr>
            			<th></th>
-           			<th>Page Id</th>
            			<th>Page Name</th>
            			<th>Visible</th>
            		</tr>
            		<tr th:each="page : ${thisCategory.page}">
           			<td><input type="radio" name="selected" id="selected" th:value="${page.pageId}"></input></td>
-           			<td th:text="${page.pageId}"></td>
                		<td th:text="${page.pageName}"></td>
                		<td th:text="${page.Visible}"></td>
            		</tr>
@@ -75,6 +71,13 @@
 			    	</div>
 		    	</div>
 		    	<br/>
+		    	<div class="form-group">
+	    			<label class="col-sm-2 control-label" th:text="'Content: '">Content</label>
+	    			<div class="col-sm-10">
+	    				<textarea class="form-control" rows="6" cols="50"  th:field="*{content}"></textarea>
+	    			</div>
+    			</div>
+    			<br/>
 		    	<button class="btn btn-default" type="submit" name="savePage" 
 		    		th:text="'Save Page'">Save Category</button>
 	    

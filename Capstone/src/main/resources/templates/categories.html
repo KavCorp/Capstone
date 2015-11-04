@@ -17,9 +17,8 @@
 	        <table class="table table-striped">
 	            <tr>
 	            	<th></th>
-	                <th>Category ID</th>
+	            	<th>Category Name</th>
 	                <th>Parent Category</th>
-	                <th>Category Name</th>
 	                <th>Description</th>
 	                <th>Visible</th>
 	                <th>Pages</th>
@@ -27,19 +26,16 @@
 	
 	            <tr th:each="category : ${categories}">
 	            	<td><input type="radio" name="selected" th:value="${category.categoryId}"></input></td>
-	                <td><a th:text="${category.categoryId}" th:href="@{|/category/${category.categoryName}|}">Category ID</a></td>
+	            	<td><a th:text="${category.categoryName}" th:href="@{|/category/${category.categoryName}|}">Category Name</a></td>
 	                <td><a th:if="${category.parentCategory!= null}" th:text="${category.parentCategory.getCategoryName()}" th:href="@{|/category/${category.parentCategory.getCategoryName()}|}">Parent Category</a></td>
-	                <td><a th:text="${category.categoryName}" th:href="@{|/category/${category.categoryName}|}">Category Name</a></td>
 	                <td th:text="${category.description}">Description</td>
 	                <td th:text="${category.visible}">Visible</td>
 	                <td><table th:if="${!category.getPage().isEmpty()}" class="table table-striped">
 	                	<tr>
-	                		<th>Page Id</th>
 	                		<th>Page Name</th>
 	                		<th>Visible</th>
                 		</tr>
 	                	<tr th:each="page : ${category.page}">
-	                		<td th:text="${page.pageId}"></td>
 	                		<td th:text="${page.pageName}"></td>
 	                		<td th:text="${page.Visible}"></td>
 	                	</tr>

@@ -17,7 +17,6 @@
 	        <table class="table table-striped">
 	            <tr>
 	            	<th></th>
-	                <th>Department ID</th>
 	                <th>Department Name</th>
 	                <th>Department Head</th>
 	                <th>Description</th>
@@ -26,9 +25,8 @@
 	
 	            <tr th:each="department : ${departments}">
 	            	<td><input type="radio" name="selected" th:value="${department.departmentId}"></input></td>
-	                <td><a th:text="${department.departmentId}">Department ID</a></td>
 	                <td><a th:text="${department.departmentName}" >Department Name</a></td>
-	                <td><a th:if="${department.departmentHead != null}" th:text="${department.departmentHead}">Department Head</a></td>
+	                <td><span th:if="${department.departmentHead != null}" th:text="${department.departmentHead}">Department Head</span></td>
 	                <td th:text="${department.description}">Description</td>
 	                <td th:if="${department.parentDepartmentId != null}" th:text="${department.parentDepartmentId.getDepartmentName()}">Parent Department</td>
 	            </tr>
