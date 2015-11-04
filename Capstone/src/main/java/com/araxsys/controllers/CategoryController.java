@@ -35,6 +35,7 @@ public class CategoryController {
 
 	@RequestMapping(value="/categories",method=RequestMethod.GET)
 	public String listCategories(Model model){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		model.addAttribute("updateCategory", new Category());
@@ -45,6 +46,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/categories/update", params={"selected"},method=RequestMethod.GET)
 	public String updateCategory(Model model, HttpServletRequest req){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",categoryService.getCategoryById(Integer.parseInt(req.getParameter("selected"))));
 		model.addAttribute("fieldSetText","Update Category");
@@ -53,6 +55,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/categories",params={"selected"},method=RequestMethod.POST)
 	public String deleteCategory(Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.deleteCategory(Integer.parseInt(req.getParameter("selected")));
@@ -61,6 +64,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/categories",params={"saveCategory"},method=RequestMethod.POST)
 	public String saveCategory(@ModelAttribute Category saveCategory,Model model){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.saveCategory(saveCategory);
@@ -70,6 +74,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/category/{categoryName}",method=RequestMethod.GET)
 	public String showCategory(@PathVariable String categoryName, Model model){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
 		model.addAttribute("fieldSetText","New Page");
@@ -78,6 +83,7 @@ public class CategoryController {
 	}
 	@RequestMapping(value="/category/{categoryName}",method=RequestMethod.POST,params={"savePage"})
 	public String savePageOnCategory( @PathVariable String categoryName, Model model,@ModelAttribute Page savePage){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
 		
@@ -87,6 +93,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/category/{categoryName}",method=RequestMethod.POST,params={"selected"})
 	public String deletePageOnCategory( @PathVariable String categoryName, Model model, HttpServletRequest req){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
 		pageService.deletePage(Integer.parseInt(req.getParameter("selected")));
@@ -95,6 +102,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/category/{categoryName}/update",method=RequestMethod.GET,params={"selected"})
 	public String updatePageOnCategory(@PathVariable String categoryName, Model model, HttpServletRequest req){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		String selected = req.getParameter("selected");
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",pageService.getPage(Integer.parseInt(selected)));

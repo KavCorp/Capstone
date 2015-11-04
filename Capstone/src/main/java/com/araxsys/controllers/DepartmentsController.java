@@ -19,9 +19,14 @@ import com.araxsys.services.UserService;
 
 @Controller
 public class DepartmentsController {
+	private CategoryService categoryService;
 	private DepartmentService departmentService;
 	private UserService userService;
 	
+	@Autowired
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 	@Autowired
     public void setDepartmentService(DepartmentService departmentService) {
         this.departmentService = departmentService;
@@ -33,6 +38,7 @@ public class DepartmentsController {
 	
 	@RequestMapping(value="/departments",method=RequestMethod.GET)
 	public String listDepartments(Model model){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("users", userService.listAllUsers());
 		model.addAttribute("saveDepartment",new Department());
@@ -43,6 +49,7 @@ public class DepartmentsController {
 	
 	@RequestMapping(value="/departments",params={"saveDepartment"},method=RequestMethod.POST)
 	public String saveDepartment(@ModelAttribute Department saveDepartment, Model model){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("users", userService.listAllUsers());
 		model.addAttribute("saveDepartment",new Department());
@@ -54,6 +61,7 @@ public class DepartmentsController {
 	
 	@RequestMapping(value="/departments/update", params={"selected"},method=RequestMethod.GET)
 	public String updateDepartment(Model model, HttpServletRequest req){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("saveDepartment",departmentService.getDepartmentById(Integer.parseInt(req.getParameter("selected"))));
 		model.addAttribute("users", userService.listAllUsers());
@@ -63,6 +71,7 @@ public class DepartmentsController {
 	
 	@RequestMapping(value="/departments", params={"selected"},method=RequestMethod.POST)
 	public String deleteDepartment(Model model, HttpServletRequest req){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("saveDepartment",new Department());
 		model.addAttribute("users", userService.listAllUsers());

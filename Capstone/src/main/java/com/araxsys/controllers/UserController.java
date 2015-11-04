@@ -9,12 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.araxsys.domain.User;
+import com.araxsys.services.CategoryService;
 import com.araxsys.services.UserService;
 
 @Controller
 public class UserController {
+	private CategoryService categoryService;
 	private UserService userService;
 	
+	@Autowired
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 	@Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -22,12 +28,14 @@ public class UserController {
     
     @RequestMapping(value = "/users")
     public String list(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("users", userService.listAllUsers());
         System.out.println("Returning users:");
         return "Users";
     }
     @RequestMapping("profile/{username}")
     public String showProduct(@PathVariable String username, Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("user", userService.getUserByName(username));
         return "userprofile";
     }
@@ -35,6 +43,7 @@ public class UserController {
     
     @RequestMapping(value="/register",method=RequestMethod.GET)
     public String register(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("register",new User());
         return "register";
     }
@@ -44,7 +53,7 @@ public class UserController {
     
     @RequestMapping(value="/register",method=RequestMethod.POST,params={"register"})
     String register(@ModelAttribute User register, Model model){
-    	
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
     	userService.registerNewUserAccount(register);
         return "redirect:users";
     }

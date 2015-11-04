@@ -31,6 +31,7 @@ public class PageController {
     
     @RequestMapping(value = "/pages",method=RequestMethod.GET)
     public String listPages(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
@@ -40,6 +41,7 @@ public class PageController {
     
     @RequestMapping(value = "/pages",params={"selected"},method=RequestMethod.POST)
     public String deletePage(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
@@ -49,6 +51,7 @@ public class PageController {
     
     @RequestMapping(value = "/pages",params={"savePage"},method=RequestMethod.POST)
     public String savePage(Model model,@ModelAttribute Page savePage){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
@@ -58,6 +61,7 @@ public class PageController {
     
     @RequestMapping(value = "/pages/update",params={"selected"},method=RequestMethod.GET)
     public String updatePage(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", pageService.getPage(Integer.parseInt(req.getParameter("selected"))));
@@ -67,7 +71,7 @@ public class PageController {
     
     @RequestMapping(value = "/page/{categoryName}/{pageName}")
     public String showPage(@PathVariable String categoryName, @PathVariable String pageName, Model model){
-    	
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
     	model.addAttribute("page",pageService.getPage(categoryName,pageName));
     	return "page"; 
     }
