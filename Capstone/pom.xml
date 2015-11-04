@@ -82,7 +82,7 @@
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
-			<version>3.0.0.ALPHA03</version>
+			<version>3.0.0.BETA01</version>
 		</dependency>
 		
 		<dependency>

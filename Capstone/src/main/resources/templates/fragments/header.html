@@ -4,13 +4,14 @@
 
 </head>
 <body>
-<img src="../../static/images/Capture.PNG"
-     th:src="@{/images/Capture.PNG}"/>
-     
+
 <div class="container">
     <div th:fragment="header">
         <nav class="navbar navbar-inverse">
+        	<img class="headerImg" src="../../static/images/Capture.PNG"
+    	 			th:src="@{/images/Capture.PNG}" />
             <div class="container-fluid">
+            	
                 <div class="navbar-header">
                 <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
                 </div>
@@ -35,6 +36,14 @@
     						<ul class="dropdown-menu">
         						<li th:if="${cat.page!=null}" th:each="page : ${cat.page}"><a th:href="@{|/page/${cat.categoryName}/${page.pageName}/|}" th:text="${page.pageName}"></a></li>
     						</ul>
+    					</li>
+    					<li class="dropdown">
+                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Admin<b class="caret"></b></a>
+    					<ul class="dropdown-menu">
+        					<li><a href="/admin/users">Users</a></li>
+        					<li><a href="/admin/pages">Pages</a></li>
+        					<li><a href="/admin/categories">categories</a></li>
+    					</ul>
     					</li>
                     </ul>
                 </div>

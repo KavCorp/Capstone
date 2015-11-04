@@ -26,6 +26,12 @@ public class IndexController {
         return "lock";
     }
 
-   
+  
+    @RequestMapping("favicon.ico")
+    String favicon() {
+    	return "forward:/static/favicon.ico";
+    }
+    	    
+
 
 }

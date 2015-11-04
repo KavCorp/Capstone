@@ -26,7 +26,7 @@ public class UserController {
         this.userService = userService;
     }
     
-    @RequestMapping(value = "/users")
+    @RequestMapping(value = "/admin/users")
     public String list(Model model){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("users", userService.listAllUsers());
@@ -39,7 +39,6 @@ public class UserController {
         model.addAttribute("user", userService.getUserByName(username));
         return "userprofile";
     }
-    
     
     @RequestMapping(value="/register",method=RequestMethod.GET)
     public String register(Model model){
