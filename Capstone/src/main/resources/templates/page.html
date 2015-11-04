@@ -7,10 +7,11 @@
 
 </head>
 <body>
-
-<div class="container" th:utext="${page.getContent()}">
-	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+<div class="container">
+<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+<div th:utext="${page.getContent()}">
+	
 </div>
-
+</div>
 </body>
 </html>
