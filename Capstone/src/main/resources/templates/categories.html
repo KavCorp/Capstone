@@ -11,7 +11,7 @@
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     <div th:if="${not #lists.isEmpty(categories)}">
         <h2>Categories</h2>
-        <form class="form-horizontal" action="#" th:action="@{/categories}" th:object="${categoryForm}" method="post">
+        <form class="form-horizontal" action="#" th:action="@{/admin/categories}" th:object="${categoryForm}" method="post">
         <fieldset>
         	<legend>Category List</legend>
 	        <table class="table table-striped">
@@ -43,14 +43,14 @@
 	            </tr>
 	        </table>
 	        <button class="btn btn-default" type="submit" name="updateCategory" th:formmethod="get"
-				th:formaction="@{categories/update}" th:text="'Update Category'">Update Category</button>
+				th:formaction="@{/admin/categories/update}" th:text="'Update Category'">Update Category</button>
 			<button class="btn btn-default" type="submit" name="deleteCategory"
 				 th:text="'Delete Category'">Delete Category</button>
 		</fieldset>
 		</form>
 		<br/>
     </div>
-    <form class="form-horizontal" action="#" th:action="@{/categories}" th:object="${saveCategory}" method="post">
+    <form class="form-horizontal" action="#" th:action="@{/admin/categories}" th:object="${saveCategory}" method="post">
     <fieldset>
     	<legend th:text="${fieldSetText}"></legend>
     	<input class="form-control" type="hidden" th:field="*{categoryId}"></input>

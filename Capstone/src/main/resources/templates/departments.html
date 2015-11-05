@@ -11,7 +11,7 @@
 <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     <div th:if="${not #lists.isEmpty(departments)}">
         <h2>Departments</h2>
-        <form class="form-horizontal" action="#" th:action="@{/departments}" th:object="${departmentsForm}" method="post">
+        <form class="form-horizontal" action="#" th:action="@{/admin/departments}" th:object="${departmentsForm}" method="post">
         <fieldset>
         	<legend>Department List</legend>
 	        <table class="table table-striped">
@@ -32,14 +32,14 @@
 	            </tr>
 	        </table>
 	        <button class="btn btn-default" type="submit" name="updateDepartment" th:formmethod="get"
-				th:formaction="@{departments/update}" th:text="'Update Department'">Update Department</button>
+				th:formaction="@{/admin/departments/update}" th:text="'Update Department'">Update Department</button>
 			<button class="btn btn-default" type="submit" name="deleteDepartment"
 				 th:text="'Delete Department'">Delete Department</button>
 		</fieldset>
 		</form>
     </div>
     <br/>
-    <form class="form-horizontal" action="#" th:action="@{/departments}" th:object="${saveDepartment}" method="post">
+    <form class="form-horizontal" action="#" th:action="@{/admin/departments}" th:object="${saveDepartment}" method="post">
     <fieldset>
     	<legend th:text="${fieldSetText}"></legend>
     	<input type="hidden" th:field="*{departmentId}"></input>
