@@ -18,16 +18,16 @@
             <fieldset>
             	<legend>Category Details</legend>
             	<div class="form-group">
-                    Category Name: <a class="form-control-static" th:text="${thisCategory.categoryName}">Category Name</a>
+                    <label class="col-sm-2 control-label">Category Name: </label><label th:href="@{|/admin/category/${thisCategory.categoryName}|}" class="form-control-static"><span th:text="${thisCategory.categoryName}"></span></label>
                 </div>
                 <div class="form-group">
-                    Parent Category: <a th:if="${thisCategory.parentCategory!= null}" class="form-control-static" th:text="${thisCategory.parentCategory.getCategoryName()}">Parent Category</a>
+                     <label class="col-sm-2 control-label">Parent Category: </label> <label th:if="${thisCategory.parentCategory!= null}" th:href="@{|/admin/category/${thisCategory.categoryName}|}" class="form-control-static" ><span th:text="${thisCategory.parentCategory.getCategoryName()}"></span></label>
                 </div>
                 <div class="form-group">
-                    Description: <span class="form-control-static" th:text="${thisCategory.description}">Description</span>
+                    <label class="col-sm-2 control-label">Description: </label><label class="form-control-static" th:text="${thisCategory.description}">Description</label>
                 </div>
                 <div class="form-group">
-                    Visible: <span class="form-control-static" th:text="${thisCategory.visible}">Visible</span>
+                    <label class="col-sm-2 control-label">Visible: </label><label class="form-control-static" th:text="${thisCategory.visible}">Visible</label>
                 </div>
            	
            	<fieldset th:if="${!thisCategory.getPage().isEmpty()}">
@@ -40,7 +40,7 @@
            		</tr>
            		<tr th:each="page : ${thisCategory.page}">
           			<td><input type="radio" name="selected" id="selected" th:value="${page.pageId}"></input></td>
-               		<td th:text="${page.pageName}"></td>
+               		<td><a th:href="@{|/page/${page.category.getCategoryName()}/${page.pageName}|}" th:text="${page.pageName}"></a></td>
                		<td th:text="${page.Visible}"></td>
            		</tr>
            	</table>

@@ -24,7 +24,7 @@
 	
 	            <tr th:each="page : ${pages}">
 	            	<td><input type="radio" name="selected" th:value="${page.pageId}"></input></td>
-	                <td><a th:if="${page.category != null}" th:text="${page.pageName}" th:href="@{|/page/${page.category.getCategoryName()}/${page.pageName}|}">Page Name</a></td>
+	                <td><a th:if="${page.category != null}" th:text="${page.pageName}" th:href="@{|/page/${page.category.getCategoryName()}/${page.pageName}|}"></a><span th:if="${page.category == null}" th:text="${page.pageName}"></span></td>
 	                <td><a th:if="${page.category != null}" th:text="${page.category.getCategoryName()}" th:href="@{|/category/${page.category.getCategoryName()}|}">Category</a></td>
 	                <td th:text="${page.visible}">Visible</td>
 	            </tr>
