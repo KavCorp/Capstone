@@ -36,7 +36,7 @@ public class DepartmentsController {
         this.userService = userService;
     }
 	
-	@RequestMapping(value="/departments",method=RequestMethod.GET)
+	@RequestMapping(value="/admin/departments",method=RequestMethod.GET)
 	public String listDepartments(Model model){
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
@@ -47,7 +47,7 @@ public class DepartmentsController {
 		return "departments";
 	}
 	
-	@RequestMapping(value="/departments",params={"saveDepartment"},method=RequestMethod.POST)
+	@RequestMapping(value="/admin/departments",params={"saveDepartment"},method=RequestMethod.POST)
 	public String saveDepartment(@ModelAttribute Department saveDepartment, Model model){
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
@@ -59,7 +59,7 @@ public class DepartmentsController {
 		return "redirect:departments";
 	}
 	
-	@RequestMapping(value="/departments/update", params={"selected"},method=RequestMethod.GET)
+	@RequestMapping(value="/admin/departments/update", params={"selected"},method=RequestMethod.GET)
 	public String updateDepartment(Model model, HttpServletRequest req){
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
@@ -69,7 +69,7 @@ public class DepartmentsController {
 		return "departments";
 	}
 	
-	@RequestMapping(value="/departments", params={"selected"},method=RequestMethod.POST)
+	@RequestMapping(value="/admin/departments", params={"selected"},method=RequestMethod.POST)
 	public String deleteDepartment(Model model, HttpServletRequest req){
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("departments", departmentService.listAllDepartments());
