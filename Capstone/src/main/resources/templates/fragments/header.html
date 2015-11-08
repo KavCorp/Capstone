@@ -38,14 +38,19 @@
     						</ul>
     					</li>
     					<li class="dropdown">
-                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Admin<b class="caret"></b></a>
-    					<ul class="dropdown-menu">
-        					<li><a href="/admin/users">Users</a></li>
-        					<li><a href="/admin/pages">Pages</a></li>
-        					<li><a href="/admin/categories">Categories</a></li>
-        					<li><a href="/admin/departments">Departments</a></li>
-    					</ul>
+                        	<a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Admin<b class="caret"></b></a>
+    						<ul class="dropdown-menu">
+        						<li><a href="/admin/users">Users</a></li>
+        						<li><a href="/admin/pages">Pages</a></li>
+        						<li><a href="/admin/categories">Categories</a></li>
+        						<li><a href="/admin/departments">Departments</a></li>
+    						</ul>	
     					</li>
+
+    					
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    	<li><a th:if="${principal} == null" href="#" th:href="@{/login}">Login</a></li>
                     </ul>
                 </div>
           

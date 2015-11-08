@@ -15,13 +15,28 @@
         <table class="table table-striped">
             <tr>
                 <th>User</th>
-                <th>Password</th>
+                <th>Email</th>
+                <th>Join Date</th>
+                <th>Active</th>
+                <th>Enabled</th>
+                <th>Roles</th>
+
             </tr>
 
             <tr th:each="user : ${users}">
                 <td th:text="${user.username}"><a href="/profile/${user.username}">User</a></td>
-                <td th:text="${user.password}">Password</td>
-                
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.joinDate}">Join Date</td>
+                <td th:text="${user.active}">Active</td>
+                <td th:text="${user.enabled}">Enabled</td>
+                <td><table th:if="${!user.getUserRole().isEmpty()}" class="table table-striped">
+	                	<tr>
+	                		<th>Role</th>
+                		</tr>
+	                	<tr th:each="role : ${user.userRole}">
+	                		<td th:text="${role.role}"></td>
+	                	</tr>
+	                </table></td>
             </tr>
         </table>
 

@@ -1,10 +1,12 @@
 package com.araxsys.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.araxsys.domain.User;
 import com.araxsys.services.CategoryService;
 
 @Controller
@@ -16,7 +18,7 @@ public class IndexController {
     }
 	
     @RequestMapping("/")
-    String index(Model model){
+    String index(Model model, @AuthenticationPrincipal User activeUser){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         return "index";
     }

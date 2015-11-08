@@ -10,6 +10,7 @@ com\araxsys\controllers\UserController.class
 com\araxsys\services\PageService.class
 com\araxsys\domain\Positions.class
 com\araxsys\boostrap\UserLoader.class
+META-INF\MANIFEST.MF
 com\araxsys\domain\Category.class
 com\araxsys\services\PositionIndexServiceImpl.class
 com\araxsys\domain\Department.class
@@ -30,6 +31,8 @@ com\araxsys\repositories\UserRepository.class
 com\araxsys\controllers\CalenderController.class
 com\araxsys\services\PositionIndexService.class
 com\araxsys\repositories\CategoryRepository.class
+META-INF\maven\com.araxsys\Website\pom.xml
+META-INF\maven\com.araxsys\Website\pom.properties
 com\araxsys\domain\Page.class
 com\araxsys\domain\PositionIndex.class
 com\araxsys\controllers\PageController.class
