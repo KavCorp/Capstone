@@ -27,7 +27,41 @@ public class IndexController {
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         return "lock";
     }
+    
+    @RequestMapping("/contact")
+    String contact(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+        return "Contact";
+    }
+    
+    @RequestMapping("/faq")
+    String faq(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+        return "FAQ";
+    }
+    
+    @RequestMapping("/home")
+    String home(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+        return "Home";
+    }
 
+    @RequestMapping("/recruitment")
+    String recruitment(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+        return "Recruitment";
+    }
+    
+    @RequestMapping("/rules")
+    String rules(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+        return "Rules";
+    }
+    @RequestMapping("/unitdetails")
+    String unitdetails(Model model){
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+        return "Unitdetails";
+    }
   
     @RequestMapping("favicon.ico")
     String favicon() {

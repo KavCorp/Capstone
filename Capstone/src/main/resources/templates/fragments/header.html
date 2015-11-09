@@ -13,21 +13,21 @@
             <div class="container-fluid">
             	
                 <div class="navbar-header">
-                <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+                <a class="navbar-brand" href="/home" th:href="@{/}">Home</a>
                 </div>
                 <div class ="row text-center">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                         <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Unit Info<b class="caret"></b></a>
     					<ul class="dropdown-menu">
-        					<li><a href="#">Unit Details</a></li>
-        					<li><a href="#">Rules</a></li>
+        					<li><a href="/unitdetails">Unit Details</a></li>
+        					<li><a href="/rules">Rules</a></li>
     					</ul>
     					</li>
                         <li class="dropdown">
                         <a class="dropdown-toggle" href="#"  data-toggle="dropdown">Recruitment<b class="caret"></b></a>
     						<ul class="dropdown-menu">
-        					<li><a href="#">Recruitment Info</a></li>
+        					<li><a href="/recruitment">Recruitment Info</a></li>
         					<li><a href="#">Registration</a></li>
     					</ul>
     					</li>
@@ -46,8 +46,12 @@
         						<li><a href="/admin/departments">Departments</a></li>
     						</ul>	
     					</li>
-
+    					<li>
     					
+						<a href="/contact">Contacts</a></li>
+						<li>
+						<a href="/faq">FAQ</a>
+    					</li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                     	<li><a th:if="${principal} == null" href="#" th:href="@{/login}">Login</a></li>
