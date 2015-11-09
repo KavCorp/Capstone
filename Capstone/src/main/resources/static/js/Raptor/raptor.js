@@ -40070,7 +40070,6 @@ var templateCache = {
     "special-characters.tab-button": "<button data-setKey=\"{{setKey}}\" data-charactersIndex=\"{{charactersIndex}}\" title=\"{{description}}\">{{htmlEntity}}</button>",
     "special-characters.tab-content": "<div id=\"{{baseClass}}-{{key}}\"></div>",
     "special-characters.tab-li": "<li><a href=\"#{{baseClass}}-{{key}}\">{{name}}</a></li>",
-    "statistics.dialog": "<div> <ul> <li data-name=\"characters\"></li> <li data-name=\"words\"></li> <li data-name=\"sentences\"></li> <li data-name=\"truncation\"></li> </ul> </div>",
     "table.create-menu": "<table class=\"{{baseClass}}-menu\"> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> <tr> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr> </table>",
     "tag-menu.item": "<li><a data-value=\"{{tag}}\">{{name}}</a></li>",
     "unsaved-edit-warning.warning": "<div class=\"{{baseClass}} ui-corner-tl\"> <span class=\"ui-icon ui-icon-alert\"></span> <span>tr('unsavedEditWarningText')</span> </div>",
@@ -49917,170 +49916,6 @@ Raptor.registerUi(new DialogButton({
 ;
 // File end: /var/deployments/www.raptor-editor.com.3/raptor-gold/raptor-editor/src/plugins/special-characters/special-characters.js
 ;
-// File start: /var/deployments/www.raptor-editor.com.3/raptor-gold/raptor-editor/src/plugins/statistics/statistics.js
-/**
- * @fileOverview Contains the statistics code.
- * @license http://www.raptor-editor.com/license
- *
- * @author David Neilsen <david@panmedia.co.nz>
- * @author Michael Robinson <michael@panmedia.co.nz>
- * @author Melissa Richards <melissa@panmedia.co.nz>
- */
-
-var statisticsDialog = null;
-
-/**
- * Creates an instance of a dialog button to display the pages statistics.
- */
-Raptor.registerUi(new DialogButton({
-    name: 'statistics',
-    options: {
-        maximum: 100,
-        showCountInButton: true
-    },
-    dialogOptions: {
-        width: 350
-    },
-
-    init: function() {
-        if (this.options.showCountInButton) {
-            this.raptor.bind('change', this.updateButton.bind(this));
-        }
-        return DialogButton.prototype.init.apply(this, arguments);
-    },
-
-    applyAction: function() {
-    },
-
-    getCancelButton: function() {
-    },
-
-    getCharacterCount: function() {
-        return $('<div>').html(this.raptor.getHtml()).text().trim().length;
-    },
-
-    getContent: function() {
-        return $('<div>').html(this.raptor.getHtml()).text().trim();
-    },
-
-    updateButton: function() {
-        var charactersRemaining = null,
-            label = null,
-            characterCount = this.getCharacterCount();
-
-        // Cases where maximum has been provided
-        if (this.options.maximum) {
-            charactersRemaining = this.options.maximum - characterCount;
-            if (charactersRemaining >= 0) {
-                label = tr('statisticsButtonCharacterRemaining', {
-                    charactersRemaining: charactersRemaining
-                });
-            } else {
-                label = tr('statisticsButtonCharacterOverLimit', {
-                    charactersRemaining: charactersRemaining * -1
-                });
-            }
-        } else {
-            label = tr('statisticsButtonCharacters', {
-                characters: characterCount
-            });
-        }
-
-        aButtonSetLabel(this.button, label);
-
-        if (!this.options.maximum) {
-            return;
-        }
-
-        // Add the error state to the button's text element if appropriate
-        if (charactersRemaining < 0) {
-            this.button.addClass('ui-state-error').removeClass('ui-state-default');
-        } else{
-            // Add the highlight class if the remaining characters are in the "sweet zone"
-            if (charactersRemaining >= 0 && charactersRemaining <= 15) {
-                this.button.addClass('ui-state-highlight').removeClass('ui-state-error ui-state-default');
-            } else {
-                this.button.removeClass('ui-state-highlight ui-state-error').addClass('ui-state-default');
-            }
-        }
-    },
-
-    getButton: function() {
-        if (!this.button) {
-            Button.prototype.getButton.call(this);
-            aButton(this.button, {
-                text: true
-            });
-            if (this.options.showCountInButton) {
-                this.updateButton();
-            }
-        }
-        return this.button;
-    },
-
-    getDialogTemplate: function() {
-        return $(this.raptor.getTemplate('statistics.dialog', this.options));
-    },
-
-    /**
-     * Process and return the statistics dialog template.
-     *
-     * @return {jQuery} The processed statistics dialog template
-     */
-    openDialog: function() {
-        var dialog = this.getDialog(),
-            content = this.getContent();
-
-        // If maximum has not been set, use infinity
-        var charactersRemaining = this.options.maximum ? this.options.maximum - content.length : '&infin;';
-        if (typeIsNumber(charactersRemaining) && charactersRemaining < 0) {
-            dialog.find('[data-name=truncation]').html(tr('statisticsDialogTruncated', {
-                'limit': this.options.maximum
-            }));
-        } else {
-            dialog.find('[data-name=truncation]').html(tr('statisticsDialogNotTruncated'));
-        }
-
-        var totalWords = content.split(' ').length;
-        if (totalWords === 1) {
-            dialog.find('[data-name=words]').html(tr('statisticsDialogWord', {
-                words: totalWords
-            }));
-        } else {
-            dialog.find('[data-name=words]').html(tr('statisticsDialogWords', {
-                words: totalWords
-            }));
-        }
-
-        var totalSentences = content.split('. ').length;
-        if (totalSentences === 1) {
-            dialog.find('[data-name=sentences]').html(tr('statisticsDialogSentence', {
-                sentences: totalSentences
-            }));
-        } else {
-            dialog.find('[data-name=sentences]').html(tr('statisticsDialogSentences', {
-                sentences: totalSentences
-            }));
-        }
-
-        var characters = null;
-        if (charactersRemaining >= 0 || !typeIsNumber(charactersRemaining)) {
-            dialog.find('[data-name=characters]').html(tr('statisticsDialogCharactersRemaining', {
-                characters: content.length,
-                charactersRemaining: charactersRemaining
-            }));
-        } else {
-            dialog.find('[data-name=characters]').html(tr('statisticsDialogCharactersOverLimit', {
-                characters: content.length,
-                charactersRemaining: charactersRemaining * -1
-            }));
-        }
-        DialogButton.prototype.openDialog.call(this);
-    }
-}));
-;
-// File end: /var/deployments/www.raptor-editor.com.3/raptor-gold/raptor-editor/src/plugins/statistics/statistics.js
-;
 // File start: /var/deployments/www.raptor-editor.com.3/raptor-gold/raptor-editor/src/plugins/table/table-cell-button.js
 /**
  * @fileOverview Contains the table cell button class code.
@@ -54237,7 +54072,7 @@ Form Style\n\
  * @author David Neilsen <david@panmedia.co.nz>\n\
  */\n\
 /* line 9, mixins.scss */\n\
-.raptor-ui-cancel .ui-icon, .raptor-ui-class-menu .ui-icon, .raptor-ui-clean-block .ui-icon, .raptor-ui-clear-formatting .ui-icon, .raptor-ui-click-button-to-edit .ui-icon, .raptor-ui-close .ui-icon, .raptor-ui-dock-to-screen .ui-icon, .raptor-ui-dock-to-element .ui-icon, .raptor-ui-embed .ui-icon, .raptor-ui-float-left .ui-icon, .raptor-ui-float-none .ui-icon, .raptor-ui-float-right .ui-icon, .raptor-ui-guides .ui-icon, .raptor-ui-history-undo .ui-icon, .raptor-ui-history-redo .ui-icon, .raptor-ui-hr-create .ui-icon, .raptor-ui-image-resize .ui-icon, .raptor-ui-image-swap .ui-icon, .raptor-ui-insert-file .ui-icon, .raptor-ui-link-create .ui-icon, .raptor-ui-link-remove .ui-icon, .raptor-ui-list-unordered .ui-icon, .raptor-ui-list-ordered .ui-icon, .raptor-ui-save .ui-icon, .raptor-ui-snippet-menu .ui-icon, .raptor-ui-special-characters .ui-icon, .raptor-ui-statistics .ui-icon, .raptor-ui-table-create .ui-icon, .raptor-ui-table-insert-row .ui-icon, .raptor-ui-table-insert-column .ui-icon, .raptor-ui-table-delete-row .ui-icon, .raptor-ui-table-delete-column .ui-icon, .raptor-ui-table-merge-cells .ui-icon, .raptor-ui-table-split-cells .ui-icon, .raptor-ui-tag-menu .ui-icon, .raptor-ui-align-left .ui-icon, .raptor-ui-align-right .ui-icon, .raptor-ui-align-center .ui-icon, .raptor-ui-align-justify .ui-icon, .raptor-ui-text-bold .ui-icon, .raptor-ui-text-italic .ui-icon, .raptor-ui-text-strike .ui-icon, .raptor-ui-text-block-quote .ui-icon, .raptor-ui-text-size-increase .ui-icon, .raptor-ui-text-size-decrease .ui-icon, .raptor-ui-text-underline .ui-icon, .raptor-ui-text-sub .ui-icon, .raptor-ui-text-super .ui-icon, .raptor-ui-view-source .ui-icon {\n\
+.raptor-ui-cancel .ui-icon, .raptor-ui-class-menu .ui-icon, .raptor-ui-clean-block .ui-icon, .raptor-ui-clear-formatting .ui-icon, .raptor-ui-click-button-to-edit .ui-icon, .raptor-ui-close .ui-icon, .raptor-ui-dock-to-screen .ui-icon, .raptor-ui-dock-to-element .ui-icon, .raptor-ui-embed .ui-icon, .raptor-ui-float-left .ui-icon, .raptor-ui-float-none .ui-icon, .raptor-ui-float-right .ui-icon, .raptor-ui-guides .ui-icon, .raptor-ui-history-undo .ui-icon, .raptor-ui-history-redo .ui-icon, .raptor-ui-hr-create .ui-icon, .raptor-ui-image-resize .ui-icon, .raptor-ui-image-swap .ui-icon, .raptor-ui-insert-file .ui-icon, .raptor-ui-link-create .ui-icon, .raptor-ui-link-remove .ui-icon, .raptor-ui-list-unordered .ui-icon, .raptor-ui-list-ordered .ui-icon, .raptor-ui-save .ui-icon, .raptor-ui-snippet-menu .ui-icon, .raptor-ui-special-characters .ui-icon, .raptor-ui-table-create .ui-icon, .raptor-ui-table-insert-row .ui-icon, .raptor-ui-table-insert-column .ui-icon, .raptor-ui-table-delete-row .ui-icon, .raptor-ui-table-delete-column .ui-icon, .raptor-ui-table-merge-cells .ui-icon, .raptor-ui-table-split-cells .ui-icon, .raptor-ui-tag-menu .ui-icon, .raptor-ui-align-left .ui-icon, .raptor-ui-align-right .ui-icon, .raptor-ui-align-center .ui-icon, .raptor-ui-align-justify .ui-icon, .raptor-ui-text-bold .ui-icon, .raptor-ui-text-italic .ui-icon, .raptor-ui-text-strike .ui-icon, .raptor-ui-text-block-quote .ui-icon, .raptor-ui-text-size-increase .ui-icon, .raptor-ui-text-size-decrease .ui-icon, .raptor-ui-text-underline .ui-icon, .raptor-ui-text-sub .ui-icon, .raptor-ui-text-super .ui-icon, .raptor-ui-view-source .ui-icon {\n\
   width: 16px;\n\
   height: 16px;\n\
   display: block;\n\
@@ -54246,12 +54081,12 @@ Form Style\n\
 }\n\
 \n\
 /* line 16, mixins.scss */\n\
-.raptor-ui-cancel .ui-icon:before, .raptor-ui-class-menu .ui-icon:before, .raptor-ui-clean-block .ui-icon:before, .raptor-ui-clear-formatting .ui-icon:before, .raptor-ui-click-button-to-edit .ui-icon:before, .raptor-ui-close .ui-icon:before, .raptor-ui-dock-to-screen .ui-icon:before, .raptor-ui-dock-to-element .ui-icon:before, .raptor-ui-embed .ui-icon:before, .raptor-ui-float-left .ui-icon:before, .raptor-ui-float-none .ui-icon:before, .raptor-ui-float-right .ui-icon:before, .raptor-ui-guides .ui-icon:before, .raptor-ui-history-undo .ui-icon:before, .raptor-ui-history-redo .ui-icon:before, .raptor-ui-hr-create .ui-icon:before, .raptor-ui-image-resize .ui-icon:before, .raptor-ui-image-swap .ui-icon:before, .raptor-ui-insert-file .ui-icon:before, .raptor-ui-link-create .ui-icon:before, .raptor-ui-link-remove .ui-icon:before, .raptor-ui-list-unordered .ui-icon:before, .raptor-ui-list-ordered .ui-icon:before, .raptor-ui-save .ui-icon:before, .raptor-ui-snippet-menu .ui-icon:before, .raptor-ui-special-characters .ui-icon:before, .raptor-ui-statistics .ui-icon:before, .raptor-ui-table-create .ui-icon:before, .raptor-ui-table-insert-row .ui-icon:before, .raptor-ui-table-insert-column .ui-icon:before, .raptor-ui-table-delete-row .ui-icon:before, .raptor-ui-table-delete-column .ui-icon:before, .raptor-ui-table-merge-cells .ui-icon:before, .raptor-ui-table-split-cells .ui-icon:before, .raptor-ui-tag-menu .ui-icon:before, .raptor-ui-align-left .ui-icon:before, .raptor-ui-align-right .ui-icon:before, .raptor-ui-align-center .ui-icon:before, .raptor-ui-align-justify .ui-icon:before, .raptor-ui-text-bold .ui-icon:before, .raptor-ui-text-italic .ui-icon:before, .raptor-ui-text-strike .ui-icon:before, .raptor-ui-text-block-quote .ui-icon:before, .raptor-ui-text-size-increase .ui-icon:before, .raptor-ui-text-size-decrease .ui-icon:before, .raptor-ui-text-underline .ui-icon:before, .raptor-ui-text-sub .ui-icon:before, .raptor-ui-text-super .ui-icon:before, .raptor-ui-view-source .ui-icon:before {\n\
+.raptor-ui-cancel .ui-icon:before, .raptor-ui-class-menu .ui-icon:before, .raptor-ui-clean-block .ui-icon:before, .raptor-ui-clear-formatting .ui-icon:before, .raptor-ui-click-button-to-edit .ui-icon:before, .raptor-ui-close .ui-icon:before, .raptor-ui-dock-to-screen .ui-icon:before, .raptor-ui-dock-to-element .ui-icon:before, .raptor-ui-embed .ui-icon:before, .raptor-ui-float-left .ui-icon:before, .raptor-ui-float-none .ui-icon:before, .raptor-ui-float-right .ui-icon:before, .raptor-ui-guides .ui-icon:before, .raptor-ui-history-undo .ui-icon:before, .raptor-ui-history-redo .ui-icon:before, .raptor-ui-hr-create .ui-icon:before, .raptor-ui-image-resize .ui-icon:before, .raptor-ui-image-swap .ui-icon:before, .raptor-ui-insert-file .ui-icon:before, .raptor-ui-link-create .ui-icon:before, .raptor-ui-link-remove .ui-icon:before, .raptor-ui-list-unordered .ui-icon:before, .raptor-ui-list-ordered .ui-icon:before, .raptor-ui-save .ui-icon:before, .raptor-ui-snippet-menu .ui-icon:before, .raptor-ui-special-characters .ui-icon:before, .raptor-ui-table-create .ui-icon:before, .raptor-ui-table-insert-row .ui-icon:before, .raptor-ui-table-insert-column .ui-icon:before, .raptor-ui-table-delete-row .ui-icon:before, .raptor-ui-table-delete-column .ui-icon:before, .raptor-ui-table-merge-cells .ui-icon:before, .raptor-ui-table-split-cells .ui-icon:before, .raptor-ui-tag-menu .ui-icon:before, .raptor-ui-align-left .ui-icon:before, .raptor-ui-align-right .ui-icon:before, .raptor-ui-align-center .ui-icon:before, .raptor-ui-align-justify .ui-icon:before, .raptor-ui-text-bold .ui-icon:before, .raptor-ui-text-italic .ui-icon:before, .raptor-ui-text-strike .ui-icon:before, .raptor-ui-text-block-quote .ui-icon:before, .raptor-ui-text-size-increase .ui-icon:before, .raptor-ui-text-size-decrease .ui-icon:before, .raptor-ui-text-underline .ui-icon:before, .raptor-ui-text-sub .ui-icon:before, .raptor-ui-text-super .ui-icon:before, .raptor-ui-view-source .ui-icon:before {\n\
   display: none;\n\
 }\n\
 \n\
 /* line 20, mixins.scss */\n\
-.raptor-ui-cancel:hover .ui-icon, .raptor-ui-class-menu:hover .ui-icon, .raptor-ui-clean-block:hover .ui-icon, .raptor-ui-clear-formatting:hover .ui-icon, .raptor-ui-click-button-to-edit:hover .ui-icon, .raptor-ui-close:hover .ui-icon, .raptor-ui-dock-to-screen:hover .ui-icon, .raptor-ui-dock-to-element:hover .ui-icon, .raptor-ui-embed:hover .ui-icon, .raptor-ui-float-left:hover .ui-icon, .raptor-ui-float-none:hover .ui-icon, .raptor-ui-float-right:hover .ui-icon, .raptor-ui-guides:hover .ui-icon, .raptor-ui-history-undo:hover .ui-icon, .raptor-ui-history-redo:hover .ui-icon, .raptor-ui-hr-create:hover .ui-icon, .raptor-ui-image-resize:hover .ui-icon, .raptor-ui-image-swap:hover .ui-icon, .raptor-ui-insert-file:hover .ui-icon, .raptor-ui-link-create:hover .ui-icon, .raptor-ui-link-remove:hover .ui-icon, .raptor-ui-list-unordered:hover .ui-icon, .raptor-ui-list-ordered:hover .ui-icon, .raptor-ui-save:hover .ui-icon, .raptor-ui-snippet-menu:hover .ui-icon, .raptor-ui-special-characters:hover .ui-icon, .raptor-ui-statistics:hover .ui-icon, .raptor-ui-table-create:hover .ui-icon, .raptor-ui-table-insert-row:hover .ui-icon, .raptor-ui-table-insert-column:hover .ui-icon, .raptor-ui-table-delete-row:hover .ui-icon, .raptor-ui-table-delete-column:hover .ui-icon, .raptor-ui-table-merge-cells:hover .ui-icon, .raptor-ui-table-split-cells:hover .ui-icon, .raptor-ui-tag-menu:hover .ui-icon, .raptor-ui-align-left:hover .ui-icon, .raptor-ui-align-right:hover .ui-icon, .raptor-ui-align-center:hover .ui-icon, .raptor-ui-align-justify:hover .ui-icon, .raptor-ui-text-bold:hover .ui-icon, .raptor-ui-text-italic:hover .ui-icon, .raptor-ui-text-strike:hover .ui-icon, .raptor-ui-text-block-quote:hover .ui-icon, .raptor-ui-text-size-increase:hover .ui-icon, .raptor-ui-text-size-decrease:hover .ui-icon, .raptor-ui-text-underline:hover .ui-icon, .raptor-ui-text-sub:hover .ui-icon, .raptor-ui-text-super:hover .ui-icon, .raptor-ui-view-source:hover .ui-icon {\n\
+.raptor-ui-cancel:hover .ui-icon, .raptor-ui-class-menu:hover .ui-icon, .raptor-ui-clean-block:hover .ui-icon, .raptor-ui-clear-formatting:hover .ui-icon, .raptor-ui-click-button-to-edit:hover .ui-icon, .raptor-ui-close:hover .ui-icon, .raptor-ui-dock-to-screen:hover .ui-icon, .raptor-ui-dock-to-element:hover .ui-icon, .raptor-ui-embed:hover .ui-icon, .raptor-ui-float-left:hover .ui-icon, .raptor-ui-float-none:hover .ui-icon, .raptor-ui-float-right:hover .ui-icon, .raptor-ui-guides:hover .ui-icon, .raptor-ui-history-undo:hover .ui-icon, .raptor-ui-history-redo:hover .ui-icon, .raptor-ui-hr-create:hover .ui-icon, .raptor-ui-image-resize:hover .ui-icon, .raptor-ui-image-swap:hover .ui-icon, .raptor-ui-insert-file:hover .ui-icon, .raptor-ui-link-create:hover .ui-icon, .raptor-ui-link-remove:hover .ui-icon, .raptor-ui-list-unordered:hover .ui-icon, .raptor-ui-list-ordered:hover .ui-icon, .raptor-ui-save:hover .ui-icon, .raptor-ui-snippet-menu:hover .ui-icon, .raptor-ui-special-characters:hover .ui-icon, .raptor-ui-table-create:hover .ui-icon, .raptor-ui-table-insert-row:hover .ui-icon, .raptor-ui-table-insert-column:hover .ui-icon, .raptor-ui-table-delete-row:hover .ui-icon, .raptor-ui-table-delete-column:hover .ui-icon, .raptor-ui-table-merge-cells:hover .ui-icon, .raptor-ui-table-split-cells:hover .ui-icon, .raptor-ui-tag-menu:hover .ui-icon, .raptor-ui-align-left:hover .ui-icon, .raptor-ui-align-right:hover .ui-icon, .raptor-ui-align-center:hover .ui-icon, .raptor-ui-align-justify:hover .ui-icon, .raptor-ui-text-bold:hover .ui-icon, .raptor-ui-text-italic:hover .ui-icon, .raptor-ui-text-strike:hover .ui-icon, .raptor-ui-text-block-quote:hover .ui-icon, .raptor-ui-text-size-increase:hover .ui-icon, .raptor-ui-text-size-decrease:hover .ui-icon, .raptor-ui-text-underline:hover .ui-icon, .raptor-ui-text-sub:hover .ui-icon, .raptor-ui-text-super:hover .ui-icon, .raptor-ui-view-source:hover .ui-icon {\n\
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n\
   opacity: 1;\n\
 }\n\
@@ -55643,17 +55478,6 @@ Form Style\n\
 /* line 27, mixins.scss */\n\
 .raptor-ui-special-characters .ui-icon, .raptor-ui-special-characters.ui-state-hover .ui-icon {\n\
   background: url(\data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANRJREFUeNrUkz0KAjEQhZNFUAtxt9B7WC1Y2e45rDyAp1ms9yZrKXgD27VYsRELs76BF0nY+AOpHPhg5k3mEYZEd12nYiJRkRFtMPDcEs9vDGbMz+BmG8aYsAEjBWuwoIni8AHswMU7LUu0aK2FLSjBnLViXrLnzYR2kIMjaBytoZb/ssQryAJ6xt5XgwosQeFoBbWqdzqwA2EFaqeuqamPO6C4QdqCkdOSvJVe7+W6bogp2IMTmRBbSy/1bu064npiMHzzPiQe4I6Z11vQ//+ZngIMAFDvbrCjwfedAAAAAElFTkSuQmCC\) 0 0 !important;\n\
-}\n\
-\n\
-/**\n\
- * Statistics plugin\n\
- *\n\
- * @author David Neilsen <david@panmedia.co.nz>\n\
- * @author Micharl Robinson <michael@panmedia.co.nz>\n\
- */\n\
-/* line 27, mixins.scss */\n\
-.raptor-ui-statistics .ui-icon, .raptor-ui-statistics.ui-state-hover .ui-icon {\n\
-  background: url(\data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAhFJREFUeNrEk7tv01AUxr/4kcRO7Fh1HghFgSAeYglDlIfUbGEBhaWoUxFiQWJGMDDyhzB2ZmANYmAoIvQPaIHIkVJjKyWkcdzYSR1zbhSGQhFDB47007333PN9V/cVCcMQ5wkO54wIxe+5q8Rt4gaRW+VsYo9oE1/+ZpAktjKZzL1arXatWCzmFEVhOYzH40m327U7nc7nwWDwhlLbxITN8SsDVvisXq9vtVqtuqZp2XK5HDcMg5vNZlylUon7vq+XSqXLi8WiYJqmTvWfiNkvg8e06gMqLDmOI5AIvV4P8/l8CeuzHMHn8/kcmeiWZQWk6zCD67quP280GuXNdlv4qKrwTk6WwpXoFNVqNTKdTtf6/X7C87wPzOAhrX4nCIK195KEp4aBtxyHKRm4roujozGdwQSO49LYx/7+VzIPeVEUOcsyh+wab9Ge0+SKGW3nhSzj5WiEoWlhMvHolKOIRmVIkgpZVhGPKxAEGdlsIc20zOASz/NSs9lkl4IwJuOJH+CVksDi2APPx0iYIgNlCTNYXy8hmdQkpmUGCfag2u134DgJipKGdqGAR6NjbKdVOAMbQRAiRsaCEKMaHru7XdYutRw95R+Hh0NXVTNIpXQy0KDrOVy8chOb34Z4XcjCMvZoO86p12bbBy7Tsv5dYoc4OAtFFM3BxkZ4xtzOSvvPuE98X7V//oX//ht/CjAAagzmsnB4V5cAAAAASUVORK5CYII=\) 0 0 !important;\n\
 }\n\
 \n\
 /**\n\

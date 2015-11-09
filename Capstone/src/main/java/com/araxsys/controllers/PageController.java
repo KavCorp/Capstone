@@ -75,4 +75,5 @@ public class PageController {
     	model.addAttribute("page",pageService.getPage(categoryName,pageName));
     	return "page"; 
     }
+   
 }
