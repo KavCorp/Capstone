@@ -8,10 +8,10 @@
 </head>
 <body>
 <div class="container">
-	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     <div th:if="${not #lists.isEmpty(departments)}">
         <h2>Departments</h2>
-        <form class="form-horizontal" action="#" th:action="@{/departments}" th:object="${departmentsForm}" method="post">
+        <form class="form-horizontal" action="#" th:action="@{/admin/departments}" th:object="${departmentsForm}" method="post">
         <fieldset>
         	<legend>Department List</legend>
 	        <table class="table table-striped">
@@ -26,20 +26,20 @@
 	            <tr th:each="department : ${departments}">
 	            	<td><input type="radio" name="selected" th:value="${department.departmentId}"></input></td>
 	                <td><a th:text="${department.departmentName}" >Department Name</a></td>
-	                <td><span th:if="${department.departmentHead != null}" th:text="${department.departmentHead}">Department Head</span></td>
+	                <td><a th:href="@{|/profile/${department.departmentHead}|}" th:if="${department.departmentHead != null}" th:text="${department.departmentHead}">Department Head</a></td>
 	                <td th:text="${department.description}">Description</td>
 	                <td th:if="${department.parentDepartmentId != null}" th:text="${department.parentDepartmentId.getDepartmentName()}">Parent Department</td>
 	            </tr>
 	        </table>
 	        <button class="btn btn-default" type="submit" name="updateDepartment" th:formmethod="get"
-				th:formaction="@{departments/update}" th:text="'Update Department'">Update Department</button>
+				th:formaction="@{/admin/departments/update}" th:text="'Update Department'">Update Department</button>
 			<button class="btn btn-default" type="submit" name="deleteDepartment"
 				 th:text="'Delete Department'">Delete Department</button>
 		</fieldset>
 		</form>
     </div>
     <br/>
-    <form class="form-horizontal" action="#" th:action="@{/departments}" th:object="${saveDepartment}" method="post">
+    <form class="form-horizontal" action="#" th:action="@{/admin/departments}" th:object="${saveDepartment}" method="post">
     <fieldset>
     	<legend th:text="${fieldSetText}"></legend>
     	<input type="hidden" th:field="*{departmentId}"></input>

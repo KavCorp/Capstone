@@ -11,7 +11,7 @@
 	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     <div th:if="${not #lists.isEmpty(pages)}">
         <h2>Pages</h2>
-        <form action="#" th:action="@{/pages}" method="post">
+        <form action="#" th:action="@{/admin/pages}" method="post">
         <fieldset>
         	<legend>Page List</legend>
 	        <table class="table table-striped">
@@ -24,20 +24,20 @@
 	
 	            <tr th:each="page : ${pages}">
 	            	<td><input type="radio" name="selected" th:value="${page.pageId}"></input></td>
-	                <td><a th:if="${page.category != null}" th:text="${page.pageName}" th:href="@{|/page/${page.category.getCategoryName()}/${page.pageName}|}">Page Name</a></td>
+	                <td><a th:if="${page.category != null}" th:text="${page.pageName}" th:href="@{|/page/${page.category.getCategoryName()}/${page.pageName}|}"></a><span th:if="${page.category == null}" th:text="${page.pageName}"></span></td>
 	                <td><a th:if="${page.category != null}" th:text="${page.category.getCategoryName()}" th:href="@{|/category/${page.category.getCategoryName()}|}">Category</a></td>
 	                <td th:text="${page.visible}">Visible</td>
 	            </tr>
 	        </table>
 	        <button class="btn btn-default" type="submit" name="updatePage" th:formmethod="get"
-					th:formaction="@{pages/update}" th:text="'Update Page'">Update Page</button>
+					th:formaction="@{/admin/pages/update}" th:text="'Update Page'">Update Page</button>
 			<button class="btn btn-default" type="submit" name="deletePage"
 				 	th:text="'Delete Page'">Delete Page</button>
 		</fieldset>
 		</form>
 		<br/>
     </div>
-    <form class="form-horizontal" action="#" th:action="@{/pages}" th:object="${savePage}" method="post">
+    <form class="form-horizontal" action="#" th:action="@{/admin/pages}" th:object="${savePage}" method="post">
     <fieldset>
     	<legend th:text="${fieldSetText}"></legend>
     	<input type="hidden" th:field="*{pageId}"></input>

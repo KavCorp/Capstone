@@ -24,12 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			//------Must have specified role to access------
 			.antMatchers("/admin/**").access("hasRole('ADMIN')")
 			
-			.and().formLogin();
+			.and().formLogin().loginPage("/login");
 		}
 		
 		
 		@Autowired
 		private DataSource dataSource;
+		 
 
 		@Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

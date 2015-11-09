@@ -29,7 +29,7 @@ public class PageController {
         this.categoryService = categoryService;
     }
     
-    @RequestMapping(value = "/pages",method=RequestMethod.GET)
+    @RequestMapping(value = "/admin/pages",method=RequestMethod.GET)
     public String listPages(Model model){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());
@@ -39,7 +39,7 @@ public class PageController {
         return "pages";
     }
     
-    @RequestMapping(value = "/pages",params={"selected"},method=RequestMethod.POST)
+    @RequestMapping(value = "/admin/pages",params={"selected"},method=RequestMethod.POST)
     public String deletePage(Model model,HttpServletRequest req){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());
@@ -49,7 +49,7 @@ public class PageController {
         return "redirect:pages";
     }
     
-    @RequestMapping(value = "/pages",params={"savePage"},method=RequestMethod.POST)
+    @RequestMapping(value = "/admin/pages",params={"savePage"},method=RequestMethod.POST)
     public String savePage(Model model,@ModelAttribute Page savePage){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());
@@ -59,7 +59,7 @@ public class PageController {
         return "redirect:pages";
     }
     
-    @RequestMapping(value = "/pages/update",params={"selected"},method=RequestMethod.GET)
+    @RequestMapping(value = "/admin/pages/update",params={"selected"},method=RequestMethod.GET)
     public String updatePage(Model model,HttpServletRequest req){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("pages", pageService.listAllPages());

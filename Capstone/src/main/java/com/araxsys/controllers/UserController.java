@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.araxsys.domain.User;
 import com.araxsys.services.CategoryService;
@@ -26,7 +27,7 @@ public class UserController {
         this.userService = userService;
     }
     
-    @RequestMapping(value = "/users")
+    @RequestMapping(value = "/admin/users")
     public String list(Model model){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
         model.addAttribute("users", userService.listAllUsers());
@@ -39,7 +40,6 @@ public class UserController {
         model.addAttribute("user", userService.getUserByName(username));
         return "userprofile";
     }
-    
     
     @RequestMapping(value="/register",method=RequestMethod.GET)
     public String register(Model model){
@@ -57,4 +57,37 @@ public class UserController {
     	userService.registerNewUserAccount(register);
         return "redirect:users";
     }
+    
+    
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(
+		@RequestParam(value = "error", required = false) String error,
+		@RequestParam(value = "logout", required = false) String logout,
+		Model model) {
+
+		
+		if (error != null) {
+			model.addAttribute("error", "Invalid username and password!");
+		}
+
+		if (logout != null) {
+			model.addAttribute("msg", "You've been logged out successfully.");
+		}
+
+
+		return "login";
+
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
