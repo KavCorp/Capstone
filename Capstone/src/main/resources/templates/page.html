@@ -4,14 +4,26 @@
 
     <title></title>
 	<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
-
+	<script type="text/javascript" src="/js/Raptor/raptor.min.js"></script>
 </head>
 <body>
-<div class="container">
-<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-<div th:utext="${page.getContent()}">
-	
-</div>
-</div>
+	<div class="container">
+		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div class="raptor-editable">
+			<div th:utext="${page.getContent()}"></div>
+		</div>
+	</div>
+	<script>
+    jQuery(function($) {
+        $('.raptor-editable').raptor();
+    });
+    /*
+    Note: if using a Raptor no conflict build jQuery will be renamed to "raptor"
+    So you would initialise Raptor like:
+        raptor(function($) {
+            $('.raptor-editable').raptor();
+        });
+    */
+</script>
 </body>
 </html>
