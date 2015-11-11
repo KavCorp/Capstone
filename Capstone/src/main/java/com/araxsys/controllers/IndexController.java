@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.araxsys.domain.User;
 import com.araxsys.services.CategoryService;
 
+
+
 @Controller
 public class IndexController {
 	private CategoryService categoryService;

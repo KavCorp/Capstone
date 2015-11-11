@@ -75,5 +75,15 @@ public class PageController {
     	model.addAttribute("page",pageService.getPage(categoryName,pageName));
     	return "page"; 
     }
+    
+    @RequestMapping(value = "/page/{categoryName}/{pageName}", method=RequestMethod.POST,params="conent")
+    public String savePage(HttpServletRequest req,@PathVariable String categoryName, @PathVariable String pageName, Model model){
+    	Page thisPage = pageService.savePage(pageService.getPage(categoryName,pageName));
+    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    	model.addAttribute("page",thisPage);
+    	
+    	thisPage.setContent(req.getParameter("content"));
+    	return "page"; 
+    }
    
 }
