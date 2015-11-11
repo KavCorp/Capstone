@@ -9,13 +9,45 @@
 <body>
 	<div class="container">
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-		<div class="raptor-editable">
+		<div class="raptor-editable" data-id="$page.id">
 			<div th:utext="${page.getContent()}"></div>
 		</div>
 	</div>
-	<script>
+	
+	
+	
+	
+	
+	
+	
+	<script th:inline="javascript">
+	var path = [[@{|/page/${page.category.getCategoryName()}/${page.pageName}|}]];
+	console.log(path);
     jQuery(function($) {
-        $('.raptor-editable').raptor();
+        $('.raptor-editable').raptor({
+        	plugins: {
+                // The save UI plugin/button
+                save: {
+                    // Specifies the UI to call the saveRest plugin to do the actual saving
+                    plugin: 'saveRest'
+                },
+                saveRest: {
+                    // The URI to send the content to
+                    url: path
+                    // Returns an object containing the data to send to the server
+                    data: function(html) {
+                        return {
+                            id: this.raptor.getElement().data('id'),
+                            content: html
+                        };
+                    }
+                }
+            }
+        	
+        	
+        });
+        
+        
     });
     /*
     Note: if using a Raptor no conflict build jQuery will be renamed to "raptor"
