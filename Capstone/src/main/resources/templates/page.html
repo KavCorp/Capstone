@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-		<div class="raptor-editable" data-id="$page.id">
+		<div class="editable" data-id="$page.id">
 			<div th:utext="${page.getContent()}"></div>
 		</div>
 	</div>
@@ -24,7 +24,7 @@
 	var path = [[@{|/page/${page.category.getCategoryName()}/${page.pageName}|}]];
 	console.log(path);
     jQuery(function($) {
-        $('.raptor-editable').raptor({
+        $('.editable').raptor({
         	plugins: {
                 // The save UI plugin/button
                 save: {
