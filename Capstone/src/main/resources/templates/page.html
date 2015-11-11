@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-		<div class="editable" data-id="$page.id">
+		<div class="editable" data-id="${page.id}">
 			<div th:utext="${page.getContent()}"></div>
 		</div>
 	</div>
