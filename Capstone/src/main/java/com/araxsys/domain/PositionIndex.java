@@ -24,7 +24,7 @@ public class PositionIndex {
 	private String positionName;
 	private String positionAcronym;
 	private String description;
-	private int categoryId;
+	private Department department;
 	private Set<Positions> positions = new HashSet<Positions>(0);
 	
 	public PositionIndex(){
@@ -71,17 +71,18 @@ public class PositionIndex {
 	public void setDescription(String description){
 		this.description= description;
 	}
-
-	@Column(name = "CATEGORY_ID", nullable = true)
-	public int getCategoryId(){
-		return this.categoryId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DEPARTMENT_ID", nullable = true)
+	public Department getDepartment(){
+		return this.department;
 	}
 	
-	public void setCategoryId(int categoryId){
-		this.categoryId = categoryId;
+	public void setDepartment(Department department){
+		this.department = department;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="positionIndex")
 	public Set<Positions> getPositions(){
 		return this.positions;
 	}

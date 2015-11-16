@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-		<div class="editable" data-id="${page.id}">
+		<div class="editable" th:data-id="${page.id}">
 			<div th:utext="${page.getContent()}"></div>
 		</div>
 	</div>
@@ -33,14 +33,16 @@
                 },
                 saveRest: {
                     // The URI to send the content to
-                    url: path
+                    url: path,
+                    
+                    type: 'post',
                     // Returns an object containing the data to send to the server
                     data: function(html) {
                         return {
-                            id: this.raptor.getElement().data('id'),
                             content: html
                         };
                     }
+                
                 }
             }
         	
