@@ -6,6 +6,8 @@ import com.araxsys.domain.Page;
 import com.araxsys.services.CategoryService;
 import com.araxsys.services.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -69,21 +71,23 @@ public class PageController {
         return "pages";
     }
     
-    @RequestMapping(value = "/page/{categoryName}/{pageName}")
+    @RequestMapping(value = "/page/{categoryName}/{pageName}", method=RequestMethod.GET)
     public String showPage(@PathVariable String categoryName, @PathVariable String pageName, Model model){
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
     	model.addAttribute("page",pageService.getPage(categoryName,pageName));
     	return "page"; 
     }
     
-    @RequestMapping(value = "/page/{categoryName}/{pageName}", method=RequestMethod.POST,params="conent")
-    public String savePage(HttpServletRequest req,@PathVariable String categoryName, @PathVariable String pageName, Model model){
+    @RequestMapping(value = "/page/{categoryName}/{pageName}", method=RequestMethod.PUT)
+    public ResponseEntity<String> savePage(HttpServletRequest req,@PathVariable String categoryName, @PathVariable String pageName, Model model){
     	Page thisPage = pageService.savePage(pageService.getPage(categoryName,pageName));
     	model.addAttribute("headerCats",categoryService.listAllCategories() );
     	model.addAttribute("page",thisPage);
-    	
+    	System.out.println(req.getParameter("content"));
     	thisPage.setContent(req.getParameter("content"));
-    	return "page"; 
+    	pageService.savePage(thisPage);
+    	
+    	return new ResponseEntity<String>("{'messages':'','errors':''}",HttpStatus.OK); 
     }
    
 }
