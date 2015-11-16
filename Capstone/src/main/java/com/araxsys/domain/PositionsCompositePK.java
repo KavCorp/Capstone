@@ -11,13 +11,13 @@ import javax.persistence.Embeddable;
 	public class PositionsCompositePK implements Serializable {
 		private static final long serialVersionUID = 1L;
 		protected String username;
-		protected int categoryId;
+		protected int departmentId;
 		
 		public PositionsCompositePK(){
 		}
-		 public PositionsCompositePK(String username, int categoryId){
+		 public PositionsCompositePK(String username, int departmentId){
 			 this.username = username;
-			 this.categoryId = categoryId;
+			 this.departmentId = departmentId;
 		 }
 		 
 		 @Column(name = "USERNAME", nullable = false)
@@ -30,12 +30,12 @@ import javax.persistence.Embeddable;
 		 }
 		 
 		 @Column(name = "CATEGORY_ID", nullable = false)
-		 public int getCategoryId(){
-			 return this.categoryId;
+		 public int getDepartmentId(){
+			 return this.departmentId;
 		 }
 		 
-		 public void setCategoryId(int categoryId){
-			 this.categoryId = categoryId;
+		 public void setDepartmentId(int departmentId){
+			 this.departmentId = departmentId;
 		 }
 		 
 		 @Override
@@ -45,7 +45,7 @@ import javax.persistence.Embeddable;
 			int result = 1;
 			result = prime * result
 					+ ((username == null) ? 0 : username.hashCode());
-			result = prime * result + categoryId;
+			result = prime * result + departmentId;
 			return result;
 		 }
 		 
@@ -64,7 +64,7 @@ import javax.persistence.Embeddable;
 						return false;
 				} else if (!username.equals(other.username))
 					return false;
-				if (categoryId != other.categoryId)
+				if (departmentId != other.departmentId)
 					return false;
 				return true;
 		 }

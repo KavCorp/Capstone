@@ -2,6 +2,7 @@ package com.araxsys.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.weaver.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.araxsys.domain.Category;
 import com.araxsys.domain.Department;
+import com.araxsys.domain.PositionIndex;
+import com.araxsys.domain.Positions;
 import com.araxsys.services.CategoryService;
 import com.araxsys.services.DepartmentService;
+import com.araxsys.services.PositionIndexService;
 import com.araxsys.services.UserService;
 
 
@@ -22,6 +26,7 @@ public class DepartmentsController {
 	private CategoryService categoryService;
 	private DepartmentService departmentService;
 	private UserService userService;
+	private PositionIndexService positionIndexService;
 	
 	@Autowired
     public void setCategoryService(CategoryService categoryService) {
@@ -34,6 +39,11 @@ public class DepartmentsController {
 	@Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+	
+	@Autowired
+    public void setPositionIndexService(PositionIndexService positionIndexService) {
+        this.positionIndexService = positionIndexService;
     }
 	
 	@RequestMapping(value="/admin/departments",method=RequestMethod.GET)
@@ -84,6 +94,12 @@ public class DepartmentsController {
 	@RequestMapping(value="/admin/department/{departmentName}")
 	public String showDepartment(Model model,@PathVariable String departmentName){
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("thisDepartment",departmentService.getDepartmentByName(departmentName));
+		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
+		model.addAttribute("savePositionIndex", new PositionIndex());
+		model.addAttribute("savePosition", new Positions());
+		model.addAttribute("fieldSetText1","New Position");
+		model.addAttribute("fieldSetText2","Add User");
 		return "department";
 	}
 

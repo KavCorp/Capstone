@@ -1,5 +1,7 @@
 package com.araxsys.services;
 
+import java.util.ArrayList;
+
 import com.araxsys.domain.PositionIndex;
 
 public interface PositionIndexService {
@@ -12,5 +14,7 @@ public interface PositionIndexService {
 	PositionIndex getPositionIndexById(int positionId);
 	
 	PositionIndex getPositionIndexByName(String positionName);
+	
+	ArrayList<PositionIndex> getPositionsByDepartment(String departmentName);
 
 }

@@ -1,6 +1,8 @@
 package com.araxsys.services;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +57,19 @@ public class PositionIndexServiceImpl implements PositionIndexService {
 			return match;
 			
 		}
+	}
+	@Override
+	public ArrayList<PositionIndex> getPositionsByDepartment(String departmentName){
+		ArrayList<PositionIndex> dPositions = new ArrayList<>();
+		Iterable<PositionIndex> allPositions = positionIndexRepository.findAll();
+		
+		for(PositionIndex positionIndex: allPositions){
+			if(positionIndex.getDepartment()!=null){
+				if(positionIndex.getDepartment().getDepartmentName().equals(departmentName)){
+					dPositions.add(positionIndex);
+				}
+			}
+		}
+		return dPositions;
 	}
 }
