@@ -7,35 +7,38 @@
 
 <div class="container">
     <div th:fragment="header">
+    <img class="headerImg" src="/images/ADBanner.PNG"
+    	 			th:src="@{/images/ADBanner.PNG}" />
         <nav class="navbar navbar-inverse">
-        	<img class="headerImg" src="../../static/images/Capture.PNG"
-    	 			th:src="@{/images/Capture.PNG}" />
             <div class="container-fluid">
             	
                 <div class="navbar-header">
-                <a class="navbar-brand" href="/home" th:href="@{/}">Home</a>
+                	<a class="navbar-brand" href="/home" th:href="@{/}">Hanger</a>
                 </div>
                 <div class ="row text-center">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Unit Info<b class="caret"></b></a>
-    					<ul class="dropdown-menu">
-        					<li><a href="/unitdetails">Unit Details</a></li>
-        					<li><a href="/rules">Rules</a></li>
-    					</ul>
-    					</li>
-                        <li class="dropdown">
-                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown">Recruitment<b class="caret"></b></a>
-    						<ul class="dropdown-menu">
-        					<li><a href="/recruitment">Recruitment Info</a></li>
-        					<li><a href="#">Registration</a></li>
-    					</ul>
-    					</li>
+                    
     					<li th:each="cat : ${headerCats}" class="dropdown">
                         	<a class="dropdown-toggle" href="#"  data-toggle="dropdown"><span th:text="${cat.categoryName}"></span><b class="caret"></b></a>
     						<ul class="dropdown-menu">
         						<li th:if="${cat.page!=null}" th:each="page : ${cat.page}"><a th:href="@{|/page/${cat.categoryName}/${page.pageName}/|}" th:text="${page.pageName}"></a></li>
     						</ul>
+    					</li>
+                    
+                        <li class="dropdown">
+                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Media<b class="caret"></b></a>
+    					<ul class="dropdown-menu">
+        					<li><a href="https://www.youtube.com/channel/UC_eyJB06wxny5FF0WOLUsEA">Youtube</a></li>
+    					</ul>
+    					</li>
+                        <li class="dropdown">
+                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown">Human Resource<b class="caret"></b></a>
+    						<ul class="dropdown-menu">
+    						<li><a href="/applications">Applications</a></li>
+        					<li><a href="/hrscript">Human Resource Script</a></li>
+        					<li><a href="/questionaire">Questionaire</a></li>
+        					<li><a href="/rsilink">RSI Link</a></li>
+    					</ul>
     					</li>
     					<li class="dropdown">
                         	<a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Admin<b class="caret"></b></a>
@@ -46,17 +49,20 @@
         						<li><a href="/admin/departments">Departments</a></li>
     						</ul>	
     					</li>
-    					<li>
-    					
-						<a href="/contact">Contacts</a></li>
-						<li>
-						<a href="/faq">FAQ</a>
+    					<li class="dropdown">
+                        	<a class="dropdown-toggle" href="#"  data-toggle="dropdown">About Us<b class="caret"></b></a>
+    						<ul class="dropdown-menu">
+    							<li><a href="/faq">FAQ</a></li>
+        						<li><a href="/contact">Contact</a></li>
+    						</ul>
     					</li>
+    					
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                     	<li><a th:if="${principal} == null" href="#" th:href="@{/login}">Login</a></li>
                     </ul>
                 </div>
+                
           
             </div>
         </nav> 
