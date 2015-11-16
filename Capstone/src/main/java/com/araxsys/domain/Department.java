@@ -81,5 +81,8 @@ public class Department {
 	
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="department")
 	private Set<Department> children = new HashSet<Department>();
+	
+	@OneToMany(mappedBy="positionIndex")
+	private Set<PositionIndex> positionIndexes = new HashSet<PositionIndex>(0);
 
 }

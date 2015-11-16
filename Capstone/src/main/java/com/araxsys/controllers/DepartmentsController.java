@@ -80,5 +80,11 @@ public class DepartmentsController {
 		departmentService.deleteDepartment(Integer.parseInt(req.getParameter("selected")));
 		return "redirect:departments";
 	}
+	
+	@RequestMapping(value="/admin/department/{departmentName}")
+	public String showDepartment(Model model,@PathVariable String departmentName){
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		return "department";
+	}
 
 }

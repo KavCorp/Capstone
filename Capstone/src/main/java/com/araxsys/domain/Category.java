@@ -80,7 +80,7 @@ public class Category {
 		this.page = page;
 	}
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="PARENT_CATEGORY",nullable=true)
 	public Category getParentCategory(){
 		return this.parentCategory;

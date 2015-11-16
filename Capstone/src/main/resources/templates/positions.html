@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>Positions</title>
+	<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+
+</head>
+<body>
+<div class="container">
+<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div th:if="${not #lists.isEmpty(departments)}">
+        <h2>Positions</h2>
+        <form class="form-horizontal" action="#" th:action="@{/admin/positions}" th:object="${positionsForm}" method="post">
+        <fieldset>
+        	<legend>Positions List</legend>
+	        <table class="table table-striped">
+	            <tr>
+	            	<th></th>
+	            	<th>Position Name</th>
+	                <th>Position Acroym</th>
+	                <th>Description</th>
+	                <th>Department</th>
+	            </tr>
+	
+	            <tr th:each="position : ${positions}">
+	            	<td><input type="radio" name="selected" th:value="${position.positionId}"></input></td>
+	                <td><a th:text="${position.positionName}" >Position Name</a></td>
+	                <td><a th:text="${position.positionAcronym}">Position Acronym</a></td>
+	                <td th:text="${position.description}">Description</td>
+	                <td th:if="${position.department!= null}" th:text="${position.department.getDepartmentName()}">Department</td>
+	            </tr>
+	        </table>
+	        <button class="btn btn-default" type="submit" name="updatePosition" th:formmethod="get"
+				th:formaction="@{/admin/positions/update}" th:text="'Update Position'">Update Position</button>
+			<button class="btn btn-default" type="submit" name="deletePosition"
+				 th:text="'Delete Position'">Delete Positions</button>
+		</fieldset>
+		</form>
+    </div>
+    <br/>
+    <form class="form-horizontal" action="#" th:action="@{/admin/positions}" th:object="${savePosition}" method="post">
+    <fieldset>
+    	<legend th:text="${fieldSetText}"></legend>
+    	<input type="hidden" th:field="*{positionId}"></input>
+    	<div class="form-group">
+	    	<label class="col-sm-2 control-label" th:text="'Position Name:'">Position Name</label>
+	    	<div class="col-sm-10">
+	    		<input class="form-control" type="text" th:field="*{positionName}"></input>
+	    	</div>
+    	</div>
+    	<br/>
+    	<div class="form-group">
+	    	<label class="col-sm-2 control-label" th:text="'Position Acronym:'">Position Acronym</label>
+	    	<div class="col-sm-10">
+		    	<input class="form-control" type="text" th:field="*{positionAcronym}"></input>
+			</div>
+		</div>
+    	<br/>
+    	<div class="form-group">
+	    	<label class="col-sm-2 control-label" th:text="'Description:'">Description</label>
+	    	<div class="col-sm-10">
+	    		<input class="form-control" type="text" th:field="*{description}"></input>
+	    	</div>
+    	</div>
+    	<br/>
+    	<div class="form-group">
+	    	<label class="col-sm-2 control-label" th:text="'Department:'">Department</label>
+	    	<div class="col-sm-10">
+	    		<select class="form-control" th:field="*{department}">
+		    		<option th:value="null"
+		    				th:text="'No Department'">Wireframe</option>
+		    				
+		  			<option th:each="department : ${departments}"
+		          			th:value="${department.departmentId}" 
+		          			th:text="${department.departmentName}">Wireframe</option>
+				</select>
+	    	</div>
+    	</div>
+    	<br/>
+    	<button class="btn btn-default" type="submit" name="savePosition"
+    		th:text="'Save Position'">Save Position</button>
+    
+    </fieldset>
+    
+    </form>
+</div>
+
+</body>
+</html>
