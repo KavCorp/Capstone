@@ -32,41 +32,104 @@
            	</fieldset>
             </form>
             
+            <form  class="form-horizontal" action="#" th:action="@{/admin/department/__${thisDepartment.departmentName}__/roster}" th:object="${categoryForm}" method="post">
+       		<fieldset th:if="${not #lists.isEmpty(deptRoster)}">
+	        	<legend>Department Roster</legend>
+		        <table class="table table-striped">
+		            <tr>
+		            	<th></th>
+		            	<th>User</th>
+		                <th>Position</th>
+		                <th>Primary Position</th>
+		            </tr>
+		
+		            <tr th:each="user : ${deptRoster}">
+		            	<td><input type="radio" name="selected" th:value="${user.compositePK.getUsername()}"></input></td>
+		            	<td><a th:text="${user.compositePK.getUsername()}" >User</a></td>
+		            	<td th:text="${user.positionIndex.getPositionName()}"></td>
+		                <td th:text="${user.primaryPositionFlag}">Primary Position</td>
+		            </tr>
+		        </table>
+		        <button class="btn btn-default" type="submit" name="updateRoster" th:formmethod="get"
+					th:formaction="@{/admin/department/__${thisDepartment.departmentName}__/roster}" th:text="'Update User'">Update Category</button>
+				<button class="btn btn-default" type="submit" name="deleteRoster"
+					 th:text="'Delete User'">Delete User</button>
+			</fieldset>
+			</form>
+            <br/>
             <form class="form-horizontal" action="#" th:action="@{/admin/department/__${thisDepartment.departmentName}__}" th:object="${savePosition}" method="post">
             <fieldset>
 		    	<legend th:text="${fieldSetText1}"></legend>
-		    	<input type="hidden" th:field="*{departmentId}"></input>
+		    	<input type="hidden" th:value = "${thisDepartment.departmentId}" id = "compositePK.departmentId" name = "compositePK.departmentId"></input>
 		    	<div class="form-group">
-			    	<label class="col-sm-2 control-label" th:text="'Page Name:'">Page Name</label>
+			    	<label class="col-sm-2 control-label" th:text="'Username:'">Username: </label>
 			    	<div class="col-sm-10">
-			    		<input class="form-control" type="text" th:field="*{pageName}"></input>
+			    		<select class="form-control" th:field="*{compositePK.username}">
+				  			<option th:each="user : ${users}" 
+				          			th:value="${user.username}" 
+				          			th:text="${user.username}">Wireframe</option>
+						</select>
 			    	</div>
 		    	</div>
 		    	<br/>
 		    	<div class="form-group">
-			    	<label class="col-sm-2 control-label" th:text="'Visible:'">Visible</label>
+			    	<label class="col-sm-2 control-label" th:text="'Position:'">Position: </label>
 			    	<div class="col-sm-10">
-			    		<input class="form-control" type="checkbox" th:field="*{visible}" th:value="'true'"></input>
+			    		<select class="form-control" th:field="*{positionIndex}">
+				  			<option th:each="position : ${deptPositions}" 
+				          			th:value="${position.positionId}" 
+				          			th:text="${position.positionName}">Wireframe</option>
+						</select>
 			    	</div>
 		    	</div>
 		    	<br/>
 		    	<div class="form-group">
-	    			<label class="col-sm-2 control-label" th:text="'Content: '">Content</label>
+	    			<label class="col-sm-2 control-label" th:text="'Primary Position: '">Primary Position: </label>
 	    			<div class="col-sm-10">
-	    				<textarea class="form-control" rows="6" cols="50"  th:field="*{content}"></textarea>
+	    				<input class="form-control" type="checkbox" th:field="*{primaryPositionFlag}" th:value="'true'"></input>
 	    			</div>
     			</div>
     			<br/>
-		    	<button class="btn btn-default" type="submit" name="savePage" 
-		    		th:text="'Save Page'">Save Category</button>
+		    	<button class="btn btn-default" type="submit" name="savePosition" 
+		    		th:text="'Save User'">Save User</button>
 	    
 	    	</fieldset>
-            
-            
-            
+            </form>
+            <br/>
+            <form class="form-horizontal" action="#" th:action="@{/admin/department/__${thisDepartment.departmentName}__/position}" th:object="${savePositionIndex}" method="post">
+            <fieldset>
+		    	<legend th:text="${fieldSetText2}"></legend>
+		    	<input type="hidden" th:field="*{positionId}"></input>
+		    	<input type="hidden" name = "department" id = "department" th:value="${thisDepartment.departmentId}"></input>
+		    	<div class="form-group">
+			    	<label class="col-sm-2 control-label" th:text="'Position Name:'">Position Name: </label>
+			    	<div class="col-sm-10">
+			    		<input class="form-control" type="text" th:field="*{positionName}"></input>
+			    	</div>
+		    	</div>
+		    	<br/>
+		    	<div class="form-group">
+			    	<label class="col-sm-2 control-label" th:text="'Position Acronym:'">Position Acronym: </label>
+			    	<div class="col-sm-10">
+			    		<input class="form-control" type="text" th:field="*{positionAcronym}"></input>
+			    	</div>
+		    	</div>
+		    	<br/>
+		    	<div class="form-group">
+			    	<label class="col-sm-2 control-label" th:text="'Description:'">Description: </label>
+			    	<div class="col-sm-10">
+			    		<input class="form-control" type="text" th:field="*{description}"></input>
+			    	</div>
+		    	</div>
+		    	<br/>
+		    	<button class="btn btn-default" type="submit" name="savePositionIndex" 
+		    		th:text="'Add Position'">Add Position</button>
+	    
+	    	</fieldset>
             </form>
     	</div>
-</div>
+	</div>
+	<br/>
 
 </body>
 </html>

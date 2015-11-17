@@ -25,7 +25,7 @@
 	
 	            <tr th:each="department : ${departments}">
 	            	<td><input type="radio" name="selected" th:value="${department.departmentId}"></input></td>
-	                <td><a th:text="${department.departmentName}" >Department Name</a></td>
+	                <td><a th:href="@{|/admin/department/${department.departmentName}|}" th:text="${department.departmentName}" >Department Name</a></td>
 	                <td><a th:href="@{|/profile/${department.departmentHead}|}" th:if="${department.departmentHead != null}" th:text="${department.departmentHead}">Department Head</a></td>
 	                <td th:text="${department.description}">Description</td>
 	                <td th:if="${department.parentDepartmentId != null}" th:text="${department.parentDepartmentId.getDepartmentName()}">Parent Department</td>

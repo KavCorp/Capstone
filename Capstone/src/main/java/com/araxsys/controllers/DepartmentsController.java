@@ -15,9 +15,11 @@ import com.araxsys.domain.Category;
 import com.araxsys.domain.Department;
 import com.araxsys.domain.PositionIndex;
 import com.araxsys.domain.Positions;
+import com.araxsys.domain.PositionsCompositePK;
 import com.araxsys.services.CategoryService;
 import com.araxsys.services.DepartmentService;
 import com.araxsys.services.PositionIndexService;
+import com.araxsys.services.PositionsService;
 import com.araxsys.services.UserService;
 
 
@@ -27,6 +29,7 @@ public class DepartmentsController {
 	private DepartmentService departmentService;
 	private UserService userService;
 	private PositionIndexService positionIndexService;
+	private PositionsService positionsService;
 	
 	@Autowired
     public void setCategoryService(CategoryService categoryService) {
@@ -44,6 +47,11 @@ public class DepartmentsController {
 	@Autowired
     public void setPositionIndexService(PositionIndexService positionIndexService) {
         this.positionIndexService = positionIndexService;
+    }
+	
+	@Autowired
+    public void setPositionService(PositionsService positionsService) {
+        this.positionsService = positionsService;
     }
 	
 	@RequestMapping(value="/admin/departments",method=RequestMethod.GET)
@@ -93,14 +101,86 @@ public class DepartmentsController {
 	
 	@RequestMapping(value="/admin/department/{departmentName}")
 	public String showDepartment(Model model,@PathVariable String departmentName){
+		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
-		model.addAttribute("thisDepartment",departmentService.getDepartmentByName(departmentName));
+		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("users",userService.listAllUsers());
 		model.addAttribute("savePositionIndex", new PositionIndex());
 		model.addAttribute("savePosition", new Positions());
-		model.addAttribute("fieldSetText1","New Position");
-		model.addAttribute("fieldSetText2","Add User");
+		model.addAttribute("fieldSetText1","Add User");
+		model.addAttribute("fieldSetText2","New Position");
 		return "department";
+	}
+	
+	@RequestMapping(value="/admin/department/{departmentName}",params={"savePosition"},method = RequestMethod.POST)
+	public String saveUserToDepartment(@ModelAttribute Positions savePosition ,Model model,@PathVariable String departmentName){
+		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("thisDepartment",thisDepartment);
+		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("users",userService.listAllUsers());
+		model.addAttribute("savePositionIndex", new PositionIndex());
+		model.addAttribute("savePosition", new Positions());
+		model.addAttribute("fieldSetText1","Add User");
+		model.addAttribute("fieldSetText2","New Position");
+		positionsService.savePositions(savePosition);
+		return "redirect:"+thisDepartment.getDepartmentName();
+	}
+	
+	@RequestMapping(value="/admin/department/{departmentName}/roster",params={"selected"},method = RequestMethod.GET)
+	public String updateUserToDepartment(Model model,@PathVariable String departmentName,HttpServletRequest req){
+		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("thisDepartment",thisDepartment);
+		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("users",userService.listAllUsers());
+		model.addAttribute("savePositionIndex", new PositionIndex());
+		PositionsCompositePK myKey = new PositionsCompositePK();
+		myKey.setDepartmentId(thisDepartment.getDepartmentId());
+		myKey.setUsername(req.getParameter("selected"));
+		model.addAttribute("savePosition", positionsService.getPositionsById(myKey));
+		model.addAttribute("fieldSetText1","Update User");
+		model.addAttribute("fieldSetText2","New Position");
+		return "department";
+	}
+	
+	@RequestMapping(value="/admin/department/{departmentName}/roster",params="selected",method=RequestMethod.POST)
+	public String deleteUserFromDepartment(Model model,@PathVariable String departmentName,HttpServletRequest req){
+		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("thisDepartment",thisDepartment);
+		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("users",userService.listAllUsers());
+		model.addAttribute("savePositionIndex", new PositionIndex());
+		model.addAttribute("savePosition", new Positions());
+		model.addAttribute("fieldSetText1","Add User");
+		model.addAttribute("fieldSetText2","New Position");
+		PositionsCompositePK myKey = new PositionsCompositePK();
+		myKey.setDepartmentId(thisDepartment.getDepartmentId());
+		myKey.setUsername(req.getParameter("selected"));
+		positionsService.deletePositions(myKey);
+		return "redirect:";
+	}
+	
+	@RequestMapping(value="/admin/department/{departmentName}/position",params={"savePositionIndex"},method = RequestMethod.POST)
+	public String savePositionToDepartment(@ModelAttribute PositionIndex savePositionIndex ,Model model,@PathVariable String departmentName){
+		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
+		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("thisDepartment",thisDepartment);
+		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("users",userService.listAllUsers());
+		model.addAttribute("savePositionIndex", new PositionIndex());
+		model.addAttribute("savePosition", new Positions());
+		model.addAttribute("fieldSetText1","Add User");
+		model.addAttribute("fieldSetText2","New Position");
+		positionIndexService.savePositionIndex(savePositionIndex);
+		return "redirect:";
 	}
 
 }

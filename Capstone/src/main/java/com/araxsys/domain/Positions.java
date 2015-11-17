@@ -39,7 +39,7 @@ public class Positions  {
 	public void setCompositePK(PositionsCompositePK compositePK){
 		this.compositePK = compositePK;
 	}
-	
+		
 	@ManyToOne
 	@JoinColumn(name = "POSITION_INDEX", nullable = false)
 	public PositionIndex getPositionIndex(){

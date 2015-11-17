@@ -29,7 +29,7 @@ import javax.persistence.Embeddable;
 			 this.username = username;
 		 }
 		 
-		 @Column(name = "CATEGORY_ID", nullable = false)
+		 @Column(name = "DEPARTMENT_ID", nullable = false)
 		 public int getDepartmentId(){
 			 return this.departmentId;
 		 }

@@ -1,8 +1,11 @@
 package com.araxsys.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.araxsys.domain.PositionIndex;
 import com.araxsys.domain.Positions;
 import com.araxsys.domain.PositionsCompositePK;
 import com.araxsys.repositories.PositionsRepository;
@@ -34,6 +37,21 @@ public class PositionsServiceImpl implements PositionsService{
 	@Override
 	public void deletePositions(PositionsCompositePK key){
 		positionsRepository.delete(key);
+	}
+	
+	@Override
+	public ArrayList<Positions> getPositionsByDepartment(int departmentId){
+		ArrayList<Positions> deptRoster= new ArrayList<>();
+		Iterable<Positions> fullRoster= positionsRepository.findAll();
+		
+		for(Positions positions: fullRoster){
+			if(positions.getCompositePK()!=null){
+				if(positions.getCompositePK().getDepartmentId() == departmentId){
+					deptRoster.add(positions);
+				}
+			}
+		}
+		return deptRoster;
 	}
 
 }
