@@ -105,7 +105,7 @@ public class DepartmentsController {
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
-		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
 		model.addAttribute("users",userService.listAllUsers());
 		model.addAttribute("savePositionIndex", new PositionIndex());
 		model.addAttribute("savePosition", new Positions());
@@ -120,7 +120,7 @@ public class DepartmentsController {
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
-		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
 		model.addAttribute("users",userService.listAllUsers());
 		model.addAttribute("savePositionIndex", new PositionIndex());
 		model.addAttribute("savePosition", new Positions());
@@ -136,11 +136,11 @@ public class DepartmentsController {
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
-		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
 		model.addAttribute("users",userService.listAllUsers());
 		model.addAttribute("savePositionIndex", new PositionIndex());
 		PositionsCompositePK myKey = new PositionsCompositePK();
-		myKey.setDepartmentId(thisDepartment.getDepartmentId());
+		myKey.setDepartmentId(thisDepartment);
 		myKey.setUsername(req.getParameter("selected"));
 		model.addAttribute("savePosition", positionsService.getPositionsById(myKey));
 		model.addAttribute("fieldSetText1","Update User");
@@ -154,14 +154,14 @@ public class DepartmentsController {
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
-		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
 		model.addAttribute("users",userService.listAllUsers());
 		model.addAttribute("savePositionIndex", new PositionIndex());
 		model.addAttribute("savePosition", new Positions());
 		model.addAttribute("fieldSetText1","Add User");
 		model.addAttribute("fieldSetText2","New Position");
 		PositionsCompositePK myKey = new PositionsCompositePK();
-		myKey.setDepartmentId(thisDepartment.getDepartmentId());
+		myKey.setDepartmentId(thisDepartment);
 		myKey.setUsername(req.getParameter("selected"));
 		positionsService.deletePositions(myKey);
 		return "redirect:";
@@ -173,7 +173,7 @@ public class DepartmentsController {
 		model.addAttribute("headerCats",categoryService.listAllCategories() );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
-		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment.getDepartmentId()));
+		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
 		model.addAttribute("users",userService.listAllUsers());
 		model.addAttribute("savePositionIndex", new PositionIndex());
 		model.addAttribute("savePosition", new Positions());

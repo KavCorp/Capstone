@@ -5,22 +5,26 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Embeddable
 	public class PositionsCompositePK implements Serializable {
 		private static final long serialVersionUID = 1L;
 		protected String username;
-		protected int departmentId;
+		protected Department departmentId;
 		
 		public PositionsCompositePK(){
 		}
-		 public PositionsCompositePK(String username, int departmentId){
+		 public PositionsCompositePK(String username, Department departmentId){
 			 this.username = username;
 			 this.departmentId = departmentId;
 		 }
-		 
-		 @Column(name = "USERNAME", nullable = false)
+		@Column(name = "USERNAME", nullable = false)
 		 public String getUsername(){
 			 return this.username;
 		 }
@@ -28,13 +32,13 @@ import javax.persistence.Embeddable;
 		 public void setUsername(String username){
 			 this.username = username;
 		 }
-		 
-		 @Column(name = "DEPARTMENT_ID", nullable = false)
-		 public int getDepartmentId(){
+		 @ManyToOne(fetch = FetchType.LAZY)
+		 @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
+		 public Department getDepartmentId(){
 			 return this.departmentId;
 		 }
 		 
-		 public void setDepartmentId(int departmentId){
+		 public void setDepartmentId(Department departmentId){
 			 this.departmentId = departmentId;
 		 }
 		 
@@ -45,7 +49,7 @@ import javax.persistence.Embeddable;
 			int result = 1;
 			result = prime * result
 					+ ((username == null) ? 0 : username.hashCode());
-			result = prime * result + departmentId;
+			result = prime * result + departmentId.getDepartmentId();
 			return result;
 		 }
 		 

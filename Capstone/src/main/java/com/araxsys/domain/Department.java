@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -22,6 +23,9 @@ public class Department {
 	private String departmentHead;
 	private String description;
 	private Department parentDepartmentId;
+	private Set<Department> children = new HashSet<Department>();
+	private Set<PositionIndex> positionIndexes = new HashSet<PositionIndex>(0);
+	private Set<Positions> positions = new HashSet<Positions>(0);
 	
 	public Department(){
 		
@@ -79,10 +83,33 @@ public class Department {
 		this.parentDepartmentId= parent;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="department")
-	private Set<Department> children = new HashSet<Department>();
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="parentDepartmentId")
+	public Set<Department> getChildren(){
+		return children;
+	}
 	
-	@OneToMany(mappedBy="positionIndex")
-	private Set<PositionIndex> positionIndexes = new HashSet<PositionIndex>(0);
+	public void setChildren(Set<Department> children){
+		this.children = children;
+	}
+	
+	@OneToMany(mappedBy="department")
+	public Set<PositionIndex> getPositionIndexes(){
+		return positionIndexes;
+	}
+	
+	public void setPositionIndexes(Set<PositionIndex> pis){
+		this.positionIndexes = pis;
+	}
+	
+	@OneToMany(mappedBy="compositePK.departmentId")
+	public Set<Positions> getPositions(){
+		return positions;
+	}
+	
+	public void setPositions(Set<Positions> pos){
+		this.positions = pos;
+	}
+	
+	
 
 }

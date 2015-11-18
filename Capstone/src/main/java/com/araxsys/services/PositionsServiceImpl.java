@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.araxsys.domain.Department;
 import com.araxsys.domain.PositionIndex;
 import com.araxsys.domain.Positions;
 import com.araxsys.domain.PositionsCompositePK;
@@ -40,7 +41,7 @@ public class PositionsServiceImpl implements PositionsService{
 	}
 	
 	@Override
-	public ArrayList<Positions> getPositionsByDepartment(int departmentId){
+	public ArrayList<Positions> getPositionsByDepartment(Department departmentId){
 		ArrayList<Positions> deptRoster= new ArrayList<>();
 		Iterable<Positions> fullRoster= positionsRepository.findAll();
 		
