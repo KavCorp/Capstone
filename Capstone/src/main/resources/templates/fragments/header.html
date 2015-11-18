@@ -24,6 +24,19 @@
         						<li th:if="${cat.page!=null}" th:each="page : ${cat.page}"><a th:href="@{|/page/${cat.categoryName}/${page.pageName}/|}" th:text="${page.pageName}"></a></li>
     						</ul>
     					</li>
+    					<li class="dropdown">
+                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Information<b class="caret"></b></a>
+    					<ul class="dropdown-menu">
+        					<li><a href="/charter">Company Charter</a></li>
+        					<li><a href="/handbook">Handbook w/reciept</a></li>
+        					<li><a href="/directory">Co-worker Directory</a></li>
+        					<li><a href="/history">History and Roadmap</a></li>
+        					<li><a href="/cpositions">Company Positions</a></li>
+        					<li><a href="/tradeagree">Trade Agreements</a></li>
+    					</ul>
+    					</li>
+                    
+                    
                     
                         <li class="dropdown">
                         <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Media<b class="caret"></b></a>
@@ -32,7 +45,7 @@
     					</ul>
     					</li>
                         <li class="dropdown">
-                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown">Human Resource<b class="caret"></b></a>
+                        <a class="dropdown-toggle" href="#"  data-toggle="dropdown">Human Resources<b class="caret"></b></a>
     						<ul class="dropdown-menu">
     						<li><a href="/applications">Applications</a></li>
         					<li><a href="/hrscript">Human Resource Script</a></li>
