@@ -40,14 +40,12 @@
 		            	<th></th>
 		            	<th>User</th>
 		                <th>Position</th>
-		                <th>Primary Position</th>
 		            </tr>
 		
 		            <tr th:each="user : ${deptRoster}">
 		            	<td><input type="radio" name="selected" th:value="${user.compositePK.getUsername()}"></input></td>
 		            	<td><a th:text="${user.compositePK.getUsername()}" >User</a></td>
 		            	<td th:text="${user.positionIndex.getPositionName()}"></td>
-		                <td th:text="${user.primaryPositionFlag}">Primary Position</td>
 		            </tr>
 		        </table>
 		        <button class="btn btn-default" type="submit" name="updateRoster" th:formmethod="get"
