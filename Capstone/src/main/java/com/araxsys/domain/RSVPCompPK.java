@@ -11,16 +11,16 @@ import javax.persistence.ManyToOne;
 
 
 @Embeddable
-	public class PositionsCompositePK implements Serializable {
+	public class RSVPCompPK implements Serializable {
 		private static final long serialVersionUID = 1L;
 		protected String username;
-		protected Department departmentId;
+		protected Event eventId;
 		
-		public PositionsCompositePK(){
+		public RSVPCompPK(){
 		}
-		 public PositionsCompositePK(String username, Department departmentId){
+		 public RSVPCompPK(String username, Event eventId){
 			 this.username = username;
-			 this.departmentId = departmentId;
+			 this.eventId = eventId;
 		 }
 		@Column(name = "USERNAME", nullable = false)
 		 public String getUsername(){
@@ -31,13 +31,13 @@ import javax.persistence.ManyToOne;
 			 this.username = username;
 		 }
 		 @ManyToOne(fetch = FetchType.LAZY)
-		 @JoinColumn(name = "DEPARTMENT_ID", nullable = false)
-		 public Department getDepartmentId(){
-			 return this.departmentId;
+		 @JoinColumn(name = "EVENT_ID", nullable = false)
+		 public Event getEventId(){
+			 return this.eventId;
 		 }
 		 
-		 public void setDepartmentId(Department departmentId){
-			 this.departmentId = departmentId;
+		 public void setEventId(Event eventId){
+			 this.eventId = eventId;
 		 }
 		 
 		 @Override
@@ -47,7 +47,7 @@ import javax.persistence.ManyToOne;
 			int result = 1;
 			result = prime * result
 					+ ((username == null) ? 0 : username.hashCode());
-			result = prime * result + departmentId.getDepartmentId();
+			result = prime * result + eventId.getEventId();
 			return result;
 		 }
 		 
@@ -60,13 +60,13 @@ import javax.persistence.ManyToOne;
 					return false;
 				if (getClass() != obj.getClass())
 					return false;
-				PositionsCompositePK other = (PositionsCompositePK) obj;
+				RSVPCompPK other = (RSVPCompPK) obj;
 				if (username == null) {
 					if (other.username != null)
 						return false;
 				} else if (!username.equals(other.username))
 					return false;
-				if (departmentId != other.departmentId)
+				if (eventId != other.eventId)
 					return false;
 				return true;
 		 }

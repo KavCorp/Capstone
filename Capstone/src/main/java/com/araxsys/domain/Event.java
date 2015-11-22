@@ -1,11 +1,10 @@
-/*package com.araxsys.domain;
+package com.araxsys.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,14 +20,13 @@ import javax.persistence.Table;
 public class Event {
 	private int eventId;
 	private String name;
-	private int type_id;
-	private int department_id;
+	private EventType type;
+	private Department department;
 	private String description;
 	private boolean rsvp;
 	private String starttime;
 	private String endtime;
-	private boolean visible;
-	private Set<Page> page = new HashSet<Page>(0);
+	private Set<RSVP> rsvps = new HashSet<RSVP>(0);
 	
 	public Event(){
 	}
@@ -52,20 +50,22 @@ public class Event {
 	public void setName(String name){
 		this.name = name;
 	}
-	@Column(name = "TYPE_ID", nullable = true)
-	public int getType_id(){
-		return this.type_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TYPE_ID", nullable = false)
+	public EventType getType(){
+		return this.type;
 	}
-	public void setType_id(int type_id){
-		this.type_id = type_id;
+	public void setType(EventType type){
+		this.type = type;
 	}
 	
-	@Column(name = "DEPARTMENT_ID", nullable = false)
-	public int getDepartment_id(){
-		return this.department_id;
+	@ManyToOne
+	@JoinColumn(name = "DEPARTMENT_ID", nullable = false)
+	public Department getDepartment(){
+		return this.department;
 	}
-	public void setDepartment_id(int department_id){
-		this.department_id = department_id;
+	public void setDepartment(Department department){
+		this.department = department;
 	}
 	
 	@Column(name = "DESCRIPTION", nullable = true,
@@ -84,7 +84,6 @@ public class Event {
 	public void setRsvp(boolean rsvp){
 		this.rsvp = rsvp;
 	}
-	
 	@Column(name = "START_TIME", nullable = true)
 	public String getStarttime(){
 		return this.starttime;
@@ -99,5 +98,12 @@ public class Event {
 	public void setEndtime(String endtime){
 		this.endtime = endtime;
 	}
+	@OneToMany(mappedBy="compPK.eventId")
+	public Set<RSVP> getRSVPs(){
+		return rsvps;
+	}
+	
+	public void setRSVPs(Set<RSVP> rsvps){
+		this.rsvps = rsvps;
+	}
 }
-*/
