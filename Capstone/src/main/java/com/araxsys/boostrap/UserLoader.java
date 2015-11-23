@@ -66,7 +66,7 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
         
         EventType type = new EventType();
         type.setType_desc("testtstetst");
-        eventTypeRepository.save(type);
+        //eventTypeRepository.save(type);
         
         //userRepository.save(admin);
         log.info("Saved admin:" + admin.getUsername());

@@ -45,6 +45,7 @@
 	                <td><a th:text="${event.type.type_desc}">Event Type</a></td>
 	                <td th:text="${event.description}">Description</td>
 	                <td th:if="${event.department!= null}" th:text="${event.department.getDepartmentName()}">Department</td>
+	                <td th:if="${event.department== null}" th:text="''">Department</td>
 	                <td th:text="${event.rsvp}">RSVP Required</td>
 	                <td th:text="${event.starttime}">Start Time</td>
 	                <td th:text="${event.endtime}">End Time</td>
