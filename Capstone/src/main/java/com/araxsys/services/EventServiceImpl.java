@@ -1,4 +1,4 @@
-/*package com.araxsys.services;
+package com.araxsys.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,4 +31,3 @@ public class EventServiceImpl implements EventService {
 	}
 
 }
-*/

@@ -9,19 +9,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.springframework.data.annotation.Id;
+
 
 @Entity
-@Table(name="eventtype", catalog ="capstone",
-	uniqueConstraints = @UniqueConstraint(
-		columnNames = { "type_id", "type_desc" }))
+@Table(name = "eventtype")
 public class EventType {	
 
-	private Integer type_id;
+	private int type_id;
 	private String type_desc;
 	private Set<Event> events = new HashSet<Event>(0);
 	
@@ -40,25 +39,25 @@ public class EventType {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "TYPE_ID", 
 		unique = true, nullable = false)
-	public Integer getTypeId() {
+	public int getType_id() {
 		return this.type_id;
 	}
 	
-	public void setTypeId(Integer type_id){
+	public void setType_id(Integer type_id){
 		this.type_id = type_id;
 	}
 	
-	@Column(name = "TYPE_ID", 
+	@Column(name = "TYPE_DESC", 
 			unique = true, nullable = false)
-	public String getTypeDesc() {
+	public String getType_desc() {
 		return this.type_desc;
 	}
 	
-	public void setTypeDesc(String desc){
+	public void setType_desc(String desc){
 		this.type_desc = desc;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy= "event")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy= "eventId")
 	public Set<Event> getEvents(){
 		return this.events;
 	}

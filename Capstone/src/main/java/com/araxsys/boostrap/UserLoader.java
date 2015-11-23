@@ -1,9 +1,11 @@
 package com.araxsys.boostrap;
 
 import com.araxsys.domain.Category;
+import com.araxsys.domain.EventType;
 import com.araxsys.domain.Page;
 import com.araxsys.domain.User;
 import com.araxsys.repositories.CategoryRepository;
+import com.araxsys.repositories.EventTypeRepository;
 import com.araxsys.repositories.PageRepository;
 import com.araxsys.repositories.UserRepository;
 
@@ -21,6 +23,7 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
     private UserRepository userRepository;
     private PageRepository pageRepository;
     private CategoryRepository categoryRepository;
+    private EventTypeRepository eventTypeRepository;
 
     private Logger log = Logger.getLogger(UserLoader.class);
 
@@ -38,7 +41,10 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
     public void setCategoryRepository(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-
+    @Autowired
+    public void setEventTypeRepository(EventTypeRepository eventTypeRepository) {
+        this.eventTypeRepository = eventTypeRepository;
+    }
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
     	
@@ -56,6 +62,11 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
         admin.setUsername("admin");
         admin.setActive(true);
         admin.setEnabled(true);
+        
+        EventType type = new EventType();
+        type.setType_desc("testtstetst");
+        //eventTypeRepository.save(type);
+        
         //userRepository.save(admin);
         log.info("Saved admin:" + admin.getUsername());
         

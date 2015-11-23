@@ -2,7 +2,6 @@ package com.araxsys.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,12 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
-
 @Entity
 @Table(name = "users")
 public class User {
-	
 	private String username;
 	private String password;
 	private boolean enabled;
@@ -113,7 +109,6 @@ public class User {
 	public void setSteam(String steam) {
 		this.steam = steam;
 	}
-
 	
 	@Column(name = "JOINDATE")
 	public String getJoinDate() {
@@ -130,6 +125,7 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
 	@Column(name = "RECRUITER_ID", nullable = false, length = 45)
 	public String getRecruiter() {
 		return recruiter;

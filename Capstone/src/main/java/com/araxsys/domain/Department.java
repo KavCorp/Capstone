@@ -25,6 +25,7 @@ public class Department {
 	private Set<Department> children = new HashSet<Department>();
 	private Set<PositionIndex> positionIndexes = new HashSet<PositionIndex>(0);
 	private Set<Positions> positions = new HashSet<Positions>(0);
+	private Set<Event> events = new HashSet<Event>(0);
 	
 	public Department(){
 		
@@ -109,6 +110,13 @@ public class Department {
 		this.positions = pos;
 	}
 	
+	@OneToMany(mappedBy="department")
+	public Set<Event> getEvents(){
+		return events;
+	}
 	
-
+	public void setEvents(Set<Event> events){
+		this.events = events;
+	}
+	
 }

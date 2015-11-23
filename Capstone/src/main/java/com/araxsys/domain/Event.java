@@ -1,10 +1,8 @@
 package com.araxsys.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +25,6 @@ public class Event {
 	private String starttime;
 	private String endtime;
 	private Set<RSVP> rsvps = new HashSet<RSVP>(0);
-	
 	public Event(){
 	}
 	
@@ -50,23 +47,7 @@ public class Event {
 	public void setName(String name){
 		this.name = name;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TYPE_ID", nullable = false)
-	public EventType getType(){
-		return this.type;
-	}
-	public void setType(EventType type){
-		this.type = type;
-	}
 	
-	@ManyToOne
-	@JoinColumn(name = "DEPARTMENT_ID", nullable = false)
-	public Department getDepartment(){
-		return this.department;
-	}
-	public void setDepartment(Department department){
-		this.department = department;
-	}
 	
 	@Column(name = "DESCRIPTION", nullable = true,
 			length = 35)
@@ -78,7 +59,7 @@ public class Event {
 	}
 	
 	@Column(name = "RSVP", nullable = true)
-	public boolean getRSVP(){
+	public boolean getRsvp(){
 		return this.rsvp;
 	}
 	public void setRsvp(boolean rsvp){
@@ -98,12 +79,30 @@ public class Event {
 	public void setEndtime(String endtime){
 		this.endtime = endtime;
 	}
-	@OneToMany(mappedBy="compPK.eventId")
+	@OneToMany(mappedBy="compositePK.eventId")
 	public Set<RSVP> getRSVPs(){
 		return rsvps;
 	}
 	
 	public void setRSVPs(Set<RSVP> rsvps){
 		this.rsvps = rsvps;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "TYPE_ID", nullable = false)
+	public EventType getType(){
+		return this.type;
+	}
+	public void setType(EventType type){
+		this.type = type;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "DEPARTMENT_ID")
+	public Department getDepartment(){
+		return this.department;
+	}
+	public void setDepartment(Department department){
+		this.department = department;
 	}
 }
