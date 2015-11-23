@@ -4,9 +4,7 @@ import com.araxsys.domain.Category;
 import com.araxsys.domain.EventType;
 import com.araxsys.domain.Page;
 import com.araxsys.domain.User;
-import com.araxsys.repositories.CategoryRepository;
-import com.araxsys.repositories.EventTypeRepository;
-import com.araxsys.repositories.PageRepository;
+
 import com.araxsys.repositories.UserRepository;
 
 import org.apache.log4j.Logger;
@@ -14,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import com.araxsys.repositories.CategoryRepository;
+import com.araxsys.repositories.EventTypeRepository;
+import com.araxsys.repositories.PageRepository;
 
 
 
@@ -65,7 +66,7 @@ public class UserLoader implements ApplicationListener<ContextRefreshedEvent> {
         
         EventType type = new EventType();
         type.setType_desc("testtstetst");
-        //eventTypeRepository.save(type);
+        eventTypeRepository.save(type);
         
         //userRepository.save(admin);
         log.info("Saved admin:" + admin.getUsername());

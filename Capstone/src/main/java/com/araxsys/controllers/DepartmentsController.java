@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.araxsys.services.CategoryService;
 
 import com.araxsys.domain.Category;
 import com.araxsys.domain.Department;
 import com.araxsys.domain.PositionIndex;
 import com.araxsys.domain.Positions;
 import com.araxsys.domain.PositionsCompositePK;
-import com.araxsys.services.CategoryService;
+
 import com.araxsys.services.DepartmentService;
 import com.araxsys.services.PositionIndexService;
 import com.araxsys.services.PositionsService;

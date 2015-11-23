@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
           
         return userRepository.save(user);       
     }   
-    private boolean emailExist(String email) {
+    public boolean emailExist(String email) {
         User user = getUserByEmail(email);
         if (user != null) {
             return true;

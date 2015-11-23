@@ -12,5 +12,7 @@ public interface UserService {
 	User getUserByEmail(String email);
 	
 	User registerNewUserAccount(User user);
+	
+	boolean emailExist(String email);
 
 }
