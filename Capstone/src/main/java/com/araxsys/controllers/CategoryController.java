@@ -1,7 +1,5 @@
 package com.araxsys.controllers;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,8 @@ public class CategoryController {
     }
 
 	@RequestMapping(value="/admin/categories",method=RequestMethod.GET)
-	public String listCategories(Model model){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+	public String listCategories(Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		model.addAttribute("updateCategory", new Category());
@@ -46,7 +44,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/admin/categories/update", params={"selected"},method=RequestMethod.GET)
 	public String updateCategory(Model model, HttpServletRequest req){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",categoryService.getCategoryById(Integer.parseInt(req.getParameter("selected"))));
 		model.addAttribute("fieldSetText","Update Category");
@@ -55,7 +53,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/admin/categories",params={"selected"},method=RequestMethod.POST)
 	public String deleteCategory(Model model,HttpServletRequest req){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.deleteCategory(Integer.parseInt(req.getParameter("selected")));
@@ -63,8 +61,8 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="/admin/categories",params={"saveCategory"},method=RequestMethod.POST)
-	public String saveCategory(@ModelAttribute Category saveCategory,Model model){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+	public String saveCategory(@ModelAttribute Category saveCategory,Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.saveCategory(saveCategory);
@@ -73,8 +71,8 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="/admin/category/{categoryName}",method=RequestMethod.GET)
-	public String showCategory(@PathVariable String categoryName, Model model){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+	public String showCategory(@PathVariable String categoryName, Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
 		model.addAttribute("fieldSetText","New Page");
@@ -82,8 +80,8 @@ public class CategoryController {
 		return "category";
 	}
 	@RequestMapping(value="/admin/category/{categoryName}",method=RequestMethod.POST,params={"savePage"})
-	public String savePageOnCategory( @PathVariable String categoryName, Model model,@ModelAttribute Page savePage){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+	public String savePageOnCategory( @PathVariable String categoryName, Model model,@ModelAttribute Page savePage,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
 		
@@ -93,7 +91,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/admin/category/{categoryName}",method=RequestMethod.POST,params={"selected"})
 	public String deletePageOnCategory( @PathVariable String categoryName, Model model, HttpServletRequest req){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
 		pageService.deletePage(Integer.parseInt(req.getParameter("selected")));
@@ -102,7 +100,7 @@ public class CategoryController {
 	
 	@RequestMapping(value="/admin/category/{categoryName}/update",method=RequestMethod.GET,params={"selected"})
 	public String updatePageOnCategory(@PathVariable String categoryName, Model model, HttpServletRequest req){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		String selected = req.getParameter("selected");
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",pageService.getPage(Integer.parseInt(selected)));

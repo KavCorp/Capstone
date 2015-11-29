@@ -53,13 +53,14 @@
         					<li><a href="/rsilink">RSI Link</a></li>
     					</ul>
     					</li>
-    					<li class="dropdown">
+    					<li sec:authorize="hasRole('ADMIN')" class="dropdown">
                         	<a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Admin<b class="caret"></b></a>
     						<ul class="dropdown-menu">
         						<li><a href="/admin/users">Users</a></li>
         						<li><a href="/admin/pages">Pages</a></li>
         						<li><a href="/admin/categories">Categories</a></li>
         						<li><a href="/admin/departments">Departments</a></li>
+        						<li><a href="/admin/positions">Positions</a></li>
         						<li><a href="/admin/events">Events</a></li>
     						</ul>	
     					</li>
@@ -75,8 +76,8 @@
                     <ul class="nav navbar-nav navbar-right">
                     
                     	<li>
-                    	<div sec:authorize="!isAuthenticated()"><a th:if="${principal} == null" href="#" th:href="@{/login}">Login</a></div>
-                    	<div sec:authorize="isAuthenticated()"><a th:if="${principal} == null" href="#" th:href="@{/logout}">Logout</a></div>
+                    	<a sec:authorize="!isAuthenticated()" th:if="${principal} == null" href="#" th:href="@{/login}">Login</a>
+                    	<a sec:authorize="isAuthenticated()" th:if="${principal} == null" href="#" th:href="@{/logout}">Logout</a>
                     	
                     	</li>
                     

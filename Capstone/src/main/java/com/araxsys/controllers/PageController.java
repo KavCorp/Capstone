@@ -1,7 +1,6 @@
 package com.araxsys.controllers;
 
 import javax.servlet.http.HttpServletRequest;
-import com.araxsys.domain.Category;
 import com.araxsys.domain.Page;
 import com.araxsys.services.CategoryService;
 import com.araxsys.services.PageService;
@@ -32,8 +31,8 @@ public class PageController {
     }
     
     @RequestMapping(value = "/admin/pages",method=RequestMethod.GET)
-    public String listPages(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    public String listPages(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
@@ -43,7 +42,7 @@ public class PageController {
     
     @RequestMapping(value = "/admin/pages",params={"selected"},method=RequestMethod.POST)
     public String deletePage(Model model,HttpServletRequest req){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
@@ -52,8 +51,8 @@ public class PageController {
     }
     
     @RequestMapping(value = "/admin/pages",params={"savePage"},method=RequestMethod.POST)
-    public String savePage(Model model,@ModelAttribute Page savePage){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    public String savePage(Model model,@ModelAttribute Page savePage,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
@@ -63,7 +62,7 @@ public class PageController {
     
     @RequestMapping(value = "/admin/pages/update",params={"selected"},method=RequestMethod.GET)
     public String updatePage(Model model,HttpServletRequest req){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         model.addAttribute("pages", pageService.listAllPages());
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", pageService.getPage(Integer.parseInt(req.getParameter("selected"))));
@@ -72,8 +71,8 @@ public class PageController {
     }
     
     @RequestMapping(value = "/page/{categoryName}/{pageName}", method=RequestMethod.GET)
-    public String showPage(@PathVariable String categoryName, @PathVariable String pageName, Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    public String showPage(@PathVariable String categoryName, @PathVariable String pageName, Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
     	model.addAttribute("page",pageService.getPage(categoryName,pageName));
     	return "page"; 
     }
@@ -81,7 +80,7 @@ public class PageController {
     @RequestMapping(value = "/page/{categoryName}/{pageName}", method=RequestMethod.PUT)
     public ResponseEntity<String> savePage(HttpServletRequest req,@PathVariable String categoryName, @PathVariable String pageName, Model model){
     	Page thisPage = pageService.savePage(pageService.getPage(categoryName,pageName));
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
     	model.addAttribute("page",thisPage);
     	System.out.println(req.getParameter("content"));
     	thisPage.setContent(req.getParameter("content"));

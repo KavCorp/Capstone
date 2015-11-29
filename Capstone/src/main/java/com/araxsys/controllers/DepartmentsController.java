@@ -2,7 +2,7 @@ package com.araxsys.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.aspectj.weaver.Position;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.araxsys.services.CategoryService;
 
-import com.araxsys.domain.Category;
 import com.araxsys.domain.Department;
 import com.araxsys.domain.PositionIndex;
 import com.araxsys.domain.Positions;
@@ -26,16 +24,11 @@ import com.araxsys.services.UserService;
 
 @Controller
 public class DepartmentsController {
-	private CategoryService categoryService;
 	private DepartmentService departmentService;
 	private UserService userService;
 	private PositionIndexService positionIndexService;
 	private PositionsService positionsService;
-	
-	@Autowired
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+
 	@Autowired
     public void setDepartmentService(DepartmentService departmentService) {
         this.departmentService = departmentService;
@@ -56,8 +49,8 @@ public class DepartmentsController {
     }
 	
 	@RequestMapping(value="/admin/departments",method=RequestMethod.GET)
-	public String listDepartments(Model model){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+	public String listDepartments(Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("users", userService.listAllUsers());
 		model.addAttribute("saveDepartment",new Department());
@@ -67,8 +60,8 @@ public class DepartmentsController {
 	}
 	
 	@RequestMapping(value="/admin/departments",params={"saveDepartment"},method=RequestMethod.POST)
-	public String saveDepartment(@ModelAttribute Department saveDepartment, Model model){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+	public String saveDepartment(@ModelAttribute Department saveDepartment, Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("users", userService.listAllUsers());
 		model.addAttribute("saveDepartment",new Department());
@@ -80,7 +73,7 @@ public class DepartmentsController {
 	
 	@RequestMapping(value="/admin/departments/update", params={"selected"},method=RequestMethod.GET)
 	public String updateDepartment(Model model, HttpServletRequest req){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("saveDepartment",departmentService.getDepartmentById(Integer.parseInt(req.getParameter("selected"))));
 		model.addAttribute("users", userService.listAllUsers());
@@ -90,7 +83,7 @@ public class DepartmentsController {
 	
 	@RequestMapping(value="/admin/departments", params={"selected"},method=RequestMethod.POST)
 	public String deleteDepartment(Model model, HttpServletRequest req){
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("departments", departmentService.listAllDepartments());
 		model.addAttribute("saveDepartment",new Department());
 		model.addAttribute("users", userService.listAllUsers());
@@ -101,9 +94,9 @@ public class DepartmentsController {
 	}
 	
 	@RequestMapping(value="/admin/department/{departmentName}")
-	public String showDepartment(Model model,@PathVariable String departmentName){
+	public String showDepartment(Model model,@PathVariable String departmentName,HttpServletRequest req){
 		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
 		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
@@ -116,9 +109,9 @@ public class DepartmentsController {
 	}
 	
 	@RequestMapping(value="/admin/department/{departmentName}",params={"savePosition"},method = RequestMethod.POST)
-	public String saveUserToDepartment(@ModelAttribute Positions savePosition ,Model model,@PathVariable String departmentName){
+	public String saveUserToDepartment(@ModelAttribute Positions savePosition ,Model model,@PathVariable String departmentName,HttpServletRequest req){
 		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
 		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
@@ -134,7 +127,7 @@ public class DepartmentsController {
 	@RequestMapping(value="/admin/department/{departmentName}/roster",params={"selected"},method = RequestMethod.GET)
 	public String updateUserToDepartment(Model model,@PathVariable String departmentName,HttpServletRequest req){
 		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
 		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
@@ -152,7 +145,7 @@ public class DepartmentsController {
 	@RequestMapping(value="/admin/department/{departmentName}/roster",params="selected",method=RequestMethod.POST)
 	public String deleteUserFromDepartment(Model model,@PathVariable String departmentName,HttpServletRequest req){
 		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
 		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));
@@ -169,9 +162,9 @@ public class DepartmentsController {
 	}
 	
 	@RequestMapping(value="/admin/department/{departmentName}/position",params={"savePositionIndex"},method = RequestMethod.POST)
-	public String savePositionToDepartment(@ModelAttribute PositionIndex savePositionIndex ,Model model,@PathVariable String departmentName){
+	public String savePositionToDepartment(@ModelAttribute PositionIndex savePositionIndex ,Model model,@PathVariable String departmentName,HttpServletRequest req){
 		Department thisDepartment = departmentService.getDepartmentByName(departmentName);
-		model.addAttribute("headerCats",categoryService.listAllCategories() );
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("thisDepartment",thisDepartment);
 		model.addAttribute("deptPositions",positionIndexService.getPositionsByDepartment(departmentName));
 		model.addAttribute("deptRoster",positionsService.getPositionsByDepartment(thisDepartment));

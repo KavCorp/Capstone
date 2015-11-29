@@ -1,5 +1,9 @@
 package com.araxsys.controllers;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -18,50 +22,55 @@ public class IndexController {
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
 	
     @RequestMapping("/")
-    String index(Model model, @AuthenticationPrincipal User activeUser){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String index(Model model, @AuthenticationPrincipal User activeUser,HttpServletRequest req){
+    	Principal principal = req.getUserPrincipal();
+    	if(principal!=null){
+    		req.getSession().setAttribute("headerCats", categoryService.listAllCategories() );
+    	}
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "index";
     }
     @RequestMapping("/lock")
-    String index2(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String index2(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats")  );
         return "lock";
     }
     
     @RequestMapping("/contact")
-    String contact(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String contact(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "Contact";
     }
     
     @RequestMapping("/faq")
-    String faq(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String faq(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "FAQ";
     }
     
     @RequestMapping("/home")
-    String home(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String home(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "Home";
     }
 
     @RequestMapping("/recruitment")
-    String recruitment(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String recruitment(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "Recruitment";
     }
     
     @RequestMapping("/rules")
-    String rules(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String rules(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "Rules";
     }
     @RequestMapping("/unitdetails")
-    String unitdetails(Model model){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    String unitdetails(Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "Unitdetails";
     }
   
