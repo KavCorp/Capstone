@@ -5,12 +5,11 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.araxsys.domain.User;
+
 import com.araxsys.services.CategoryService;
 
 
@@ -25,7 +24,7 @@ public class IndexController {
 
 	
     @RequestMapping("/")
-    String index(Model model, @AuthenticationPrincipal User activeUser,HttpServletRequest req){
+    String index(Model model, HttpServletRequest req){
     	Principal principal = req.getUserPrincipal();
     	if(principal!=null){
     		req.getSession().setAttribute("headerCats", categoryService.listAllCategories() );
@@ -51,11 +50,7 @@ public class IndexController {
         return "FAQ";
     }
     
-    @RequestMapping("/home")
-    String home(Model model,HttpServletRequest req){
-    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
-        return "Home";
-    }
+    
 
     @RequestMapping("/recruitment")
     String recruitment(Model model,HttpServletRequest req){

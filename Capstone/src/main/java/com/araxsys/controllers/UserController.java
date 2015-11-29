@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.araxsys.domain.User;
+import com.araxsys.services.EventService;
 import com.araxsys.services.UserService;
 
 @Controller
@@ -29,6 +31,13 @@ public class UserController {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+	
+	
+	private EventService eventService;
+	@Autowired
+	public void setEventSevice(EventService eventService){
+		this.eventService = eventService;
+	}
     
     @RequestMapping(value = "/admin/users")
     public String list(Model model,HttpServletRequest req){
@@ -57,6 +66,7 @@ public class UserController {
     	userService.registerNewUserAccount(register);
         return "redirect:users";
     }
+    
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(
@@ -89,7 +99,13 @@ public class UserController {
     }
     
     
-    
+    @RequestMapping(value="/home", method = RequestMethod.GET)
+    String home(Model model, HttpServletRequest req){
+    	model.addAttribute("events", eventService.listAllEvents());
+    	model.addAttribute("activeUser", req.getSession().getAttribute("activeUser"));
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
+        return "Home";
+    }
     
     
     

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    ...
+  </head>
+  <body>
+    <div th:fragment="eventList">
+    <div class="col-md-4 col-md-offset-4">
+    	<div class="eventList">
+    		<fieldset>
+        	<legend>Events</legend>
+	        <table class="table table-striped">
+	            <tr>
+	                <th>Event Name</th>
+	                <th>Department</th>
+	                <th>Event Type</th>
+	                <th>Start Time</th>
+	                <th>End Time</th>
+	            </tr>
+	
+	            <tr th:each="event : ${events}">
+	                <td th:text="${event.name}">Event Name</td>
+	                <td th:if="${event.department!=null}" th:text="${event.department.getDepartmentName()}">Department Name</td>
+	                <td th:if="${event.department==null}" text="Company Wide">Department Name</td>
+	                <td th:text="${event.type.getType_desc()}">Event Type</td>
+	                <td th:text="${event.starttime}">Event Start Time</td>
+	                <td th:text="${event.endtime}">Event End Time</td>
+	            </tr>
+	        </table>
+	    
+		</fieldset>
+      	</div>
+    </div>
+    </div>
+  </body>
+</html>

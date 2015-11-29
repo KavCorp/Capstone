@@ -1,5 +1,7 @@
 package com.araxsys.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,8 +48,8 @@ public class CalenderController {
 	}
 	
 	@RequestMapping(value="/admin/events",method=RequestMethod.GET)
-	public String listEvents(Model model){
-		model.addAttribute("headerCats",categoryService.listAllCategories());
+	public String listEvents(Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("eventTypes", eventTypeService.listAllEventTypes());
 		model.addAttribute("departments",departmentService.listAllDepartments());
 		model.addAttribute("events", eventService.listAllEvents());
@@ -56,8 +58,8 @@ public class CalenderController {
 		return "events";
 	}
 	@RequestMapping(value = "/admin/events",params={"saveEvent"},method=RequestMethod.POST)
-    public String saveEvent(Model model,@ModelAttribute Event saveEvent){
-    	model.addAttribute("headerCats",categoryService.listAllCategories() );
+    public String saveEvent(Model model,@ModelAttribute Event saveEvent ,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
     	model.addAttribute("eventTypes", eventTypeService.listAllEventTypes());
     	model.addAttribute("departments",departmentService.listAllDepartments() );
     	model.addAttribute("events", eventService.listAllEvents());
@@ -65,4 +67,12 @@ public class CalenderController {
     	eventService.saveEvent(saveEvent);
         return "redirect:events";
     }	
+	@RequestMapping(value="/events",method=RequestMethod.GET)
+	public String viewCalendar(Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
+    	model.addAttribute("eventTypes", eventTypeService.listAllEventTypes());
+    	model.addAttribute("events", eventService.listAllEvents());
+		return "calendar";
+	}
+	
 }

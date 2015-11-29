@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+	<link href='/css/fullcalendar.css' rel='stylesheet' />
+	<link href='/css/fullcalendar.print.css' rel='stylesheet' media='print' />
+	<script src='/js/lib/moment.min.js'></script>
+	<script src='/js/fullcalendar.min.js'></script>
+<script>
+
+	$(document).ready(function() {
+		var events = "${events}";
+		
+		var eventArray = [];
+		for (eventObj in events){
+			console.log(${eventObj.name})
+			var event = {
+					id: "eventObj.eventId",
+					title: "eventObj.name",
+					start: "eventObj.starttime"
+			}
+			eventArray.push(event)
+			
+		}
+		$('#calendar').fullCalendar({
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: eventArray
+		});
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+</head>
+<body>
+	<div class="container">
+	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+		<div id='calendar'></div>
+	</div>
+</body>
+</html>
