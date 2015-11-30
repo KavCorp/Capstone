@@ -14,6 +14,7 @@ import com.araxsys.domain.Category;
 import com.araxsys.domain.Event;
 import com.araxsys.domain.PositionIndex;
 import com.araxsys.domain.RSVP;
+import com.araxsys.domain.RSVPCompPK;
 import com.araxsys.services.CategoryService;
 import com.araxsys.services.DepartmentService;
 import com.araxsys.services.EventService;
@@ -122,7 +123,9 @@ public class CalendarController {
     }
 	@RequestMapping(value="/events/rsvp",params={"saveRsvp"},method=RequestMethod.POST)
 	public String saveRsvp(Model model, HttpServletRequest req, @ModelAttribute RSVP saveRsvp){
-		saveRsvp.setUser(userService.getUserByName(req.getUserPrincipal().getName()));
+		RSVPCompPK pk = saveRsvp.getCompositePK();
+		pk.setUsername(req.getUserPrincipal().getName());
+		saveRsvp.setCompositePK(pk);
 		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("events", eventService.listAllEvents());
 		rsvpService.saveRSVP(saveRsvp);

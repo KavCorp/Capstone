@@ -14,8 +14,6 @@ import javax.persistence.Table;
 public class RSVP  {
 	
 	protected RSVPCompPK compositePK;
-	private Event event;
-	private User user;
 	private boolean flag;
 	private String comment;
 	
@@ -33,24 +31,7 @@ public class RSVP  {
 		this.compositePK = compositePK;
 	}
 		
-	@ManyToOne
-	@JoinColumn(name = "EVENT", nullable = false)
-	public Event getEvent(){
-		return this.event;
-	}
-	
-	public void setEvent(Event event){
-		this.event = event;
-	}
-	@ManyToOne
-	@JoinColumn(name = "USER", nullable = false)
-	public User getUser(){
-		return this.user;
-	}
-	
-	public void setUser(User user){
-		this.user = user;
-	}
+
 	
 	@Column(name = "FLAG", nullable = false)
 	public boolean getFlag(){
