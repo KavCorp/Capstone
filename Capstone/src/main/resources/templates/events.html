@@ -5,21 +5,42 @@
 	
     <title>Events</title>
 	<!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
-	<script src="/js/bootstrap-datetimepicker.js"></script>
+	<script src="/js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker7').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
-        $("#datetimepicker6").on("dp.change", function (e) {
-            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-        });
-        $("#datetimepicker7").on("dp.change", function (e) {
-            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-        });
-    });
+
+
+		
+	console.log("test")
+	$('#time-start').datetimepicker({
+	    format: 'mm/dd/yyyy hh:ii',
+	    maxView: 3,
+	    minuteStep: 1,
+	    endDate: new Date()
+	}).on("changeDate", function (e) {
+	    $('#start-time-before').html(e.date); // Log
+	    var TimeZoned = new Date(e.date.setTime(e.date.getTime() + (e.date.getTimezoneOffset() * 60000)));
+	    $('#time-end').datetimepicker('setStartDate', TimeZoned);
+	    $('#time-start').datetimepicker('setDate', TimeZoned);
+	    $('#start-time-adjusted').html(TimeZoned); // Log
+	});
+
+	$('#time-end').datetimepicker({
+	    format: 'mm-dd-yyyyThh:ii',
+	    pickerPosition: "bottom-left",
+	    maxView: 3,
+	    minuteStep: 1,
+	    endDate: new Date()
+	}).on("changeDate", function (e) {
+	    $('#end-time-before').html(e.date); // Log
+	    var TimeZoned = new Date(e.date.setTime(e.date.getTime() + (e.date.getTimezoneOffset() * 60000)));
+	    $('#time-start').datetimepicker('setEndDate', TimeZoned);
+	    $('#time-end').datetimepicker('setDate', TimeZoned);
+	    $('#end-time-adjusted').html(e.date); // Log
+	});
+
+
 	</script>
+	
 </head>
 <body>
 	<div class="container">
@@ -107,22 +128,24 @@
     			<label class="col-sm-2 control-label" th:text="'RSVP Required:'">RSVP Required</label>
     			<input class="form-control" type="checkbox" th:field="*{rsvp}" th:value="'true'"></input>
  			<label class="col-sm-2 control-label" th:text="'Start Date:'">Start Date</label>
-            <div class='input-group date' id='start'>
-            	
-                <input type='text' class="form-control" th:field="*{starttime}"/>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
+            <div class="col-sm-8">
+        		<div class="col-sm-6 start-date">
+          		<div class='input-group date' id="time-start">
+        		   <input type='text' class="form-control" th:field="*{starttime}"></input>
+        		    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        		  </div>
+       		 </div>
+       		 </div>
   			<label class="col-sm-2 control-label" th:text="'End Time:'">End Time</label>
-            <div class='input-group date' id='end'>
-            	
-                <input type='text' class="form-control" th:field="*{endtime}"/>
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        	</div>
+            <div class="col-sm-8">
+        		<div class="col-sm-6 end-date">
+          		<div class='input-group date' id="time-end">
+        		   <input type='text' class="form-control" th:field="*{endtime}"></input>
+        		    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        		  </div>
+       		 </div>
+       		 </div>
+       		 </div>
 
  		
     		<button class="btn btn-default" type="submit" name="saveEvent"
@@ -132,5 +155,7 @@
 	    </form>
 
 	</div>
+	
+	
 </body>
 </html>

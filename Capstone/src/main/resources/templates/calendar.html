@@ -20,6 +20,8 @@
 			        this.id = v, this.url = "/event/"+v;
 			    else if (k === "name")
 			        this.title = v;
+			    else if (k === "endtime")
+			        this.end = v;
 			    else
 			        return v;
 			});
@@ -28,6 +30,7 @@
 		var eventArray = [];
 		
 		$('#calendar').fullCalendar({
+			timezone: 'local',
 			editable: false,
 			eventLimit: true, // allow "more" link when too many events
 			events: parsed
