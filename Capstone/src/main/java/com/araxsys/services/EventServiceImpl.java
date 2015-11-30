@@ -29,5 +29,14 @@ public class EventServiceImpl implements EventService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Event getEventById(int eventId){
+		return eventRepository.findOne(eventId);
+	}
 
+	@Override
+	public void deleteEvent(Event deleteEvent) {
+		eventRepository.delete(deleteEvent);
+		
+	}
 }

@@ -29,7 +29,7 @@ public class AttributeInterceptor extends HandlerInterceptorAdapter {
 		System.out.println(request.getSession().getId());
 			
 		if(request.getSession().getAttribute("headerCats")==null && request.getUserPrincipal()!=null){
-			request.getSession().setAttribute("headerCats", categoryService.listAllCategories() );
+			request.getSession().setAttribute("headerCats", categoryService.listAllCategories());
 		}
 		if(request.getSession().getAttribute("activeUser")==null && request.getUserPrincipal()!=null){
 			request.getSession().setAttribute("activeUser",(User) userService.getUserByName(request.getUserPrincipal().getName()));

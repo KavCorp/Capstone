@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,9 +18,13 @@ import com.araxsys.services.DepartmentService;
 import com.araxsys.services.EventService;
 import com.araxsys.services.EventTypeService;
 import com.araxsys.services.RSVPService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import antlr.debug.MessageAdapter;
 
 @Controller
-public class CalenderController {
+public class CalendarController {
 	private EventTypeService eventTypeService;
 	private DepartmentService departmentService;
 	private EventService eventService;
@@ -71,8 +76,42 @@ public class CalenderController {
 	public String viewCalendar(Model model,HttpServletRequest req){
 		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
     	model.addAttribute("eventTypes", eventTypeService.listAllEventTypes());
-    	model.addAttribute("events", eventService.listAllEvents());
+    	GsonBuilder builder = new GsonBuilder(); 
+    	builder.excludeFieldsWithoutExposeAnnotation();
+    	Gson gson = builder.create();
+    	model.addAttribute("eventsJson", gson.toJson(eventService.listAllEvents()));
+    	model.addAttribute("events",eventService.listAllEvents());
 		return "calendar";
 	}
+	
+	@RequestMapping("event/{eventId}")
+    public String showProduct(@PathVariable int eventId, Model model,HttpServletRequest req){
+    	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
+        model.addAttribute("event", eventService.getEventById(eventId));
+        return "rsvp";
+	}
+	
+	@RequestMapping(value = "/admin/events",params={"selected"},method=RequestMethod.POST)
+    public String deleteEvent(Model model,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
+    	model.addAttribute("eventTypes", eventTypeService.listAllEventTypes());
+    	model.addAttribute("departments",departmentService.listAllDepartments() );
+    	model.addAttribute("events", eventService.listAllEvents());
+    	model.addAttribute("saveEvent",new Event() );
+    	eventService.deleteEvent(eventService.getEventById(Integer.parseInt(req.getParameter("selected"))));
+        return "redirect:events";
+    }
+	@RequestMapping(value = "/admin/events/update",params={"selected"},method=RequestMethod.GET)
+    public String updateEvent(Model model ,HttpServletRequest req){
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
+    	model.addAttribute("eventTypes", eventTypeService.listAllEventTypes());
+    	model.addAttribute("departments",departmentService.listAllDepartments() );
+    	model.addAttribute("events", eventService.listAllEvents());
+    	model.addAttribute("saveEvent", eventService.getEventById(Integer.parseInt(req.getParameter("selected"))));
+        return "events";
+    }
+	
+	
+	
 	
 }

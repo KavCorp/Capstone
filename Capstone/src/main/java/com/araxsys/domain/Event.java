@@ -13,17 +13,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name = "event")
 public class Event {
-	private int eventId;
-	private String name;
+	@Expose private int eventId;
+	@Expose private String name;
 	private EventType type;
 	private Department department;
-	private String description;
-	private boolean rsvp;
-	private String starttime;
-	private String endtime;
+	@Expose private String description;
+	@Expose private boolean rsvp;
+	@Expose private String starttime;
+	@Expose private String endtime;
 	private Set<RSVP> rsvps = new HashSet<RSVP>(0);
 	public Event(){
 	}

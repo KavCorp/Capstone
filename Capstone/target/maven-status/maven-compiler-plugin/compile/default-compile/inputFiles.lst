@@ -13,6 +13,7 @@ C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\domain\Positi
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\domain\Department.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\repositories\UserRepository.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\domain\UserRole.java
+C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\controllers\AttributeInterceptor.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\services\UserServiceImpl.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\controllers\CategoryController.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\controllers\UserController.java
@@ -39,6 +40,7 @@ C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\controllers\D
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\domain\PositionIndex.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\services\RSVPServiceImpl.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\services\CategoryServiceImpl.java
+C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\config\MvcConfig.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\repositories\PositionIndexRepository.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\CapstoneApplication.java
 C:\Users\Kavren\git\webcapstone\Capstone\src\main\java\com\araxsys\repositories\EventRepository.java

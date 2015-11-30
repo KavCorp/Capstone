@@ -8,5 +8,9 @@ public interface EventService {
 	Event saveEvent(Event Event);
 
 	Event getEventByName(String eventDesc);
+	
+	Event getEventById(int eventId);
+
+	void deleteEvent(Event deleteEvent);
 
 }

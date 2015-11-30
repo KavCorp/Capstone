@@ -6,29 +6,34 @@
 	<link href='/css/fullcalendar.print.css' rel='stylesheet' media='print' />
 	<script src='/js/lib/moment.min.js'></script>
 	<script src='/js/fullcalendar.min.js'></script>
-<script>
-
+<script th:inline="javascript">
+/*<![CDATA[*/
 	$(document).ready(function() {
-		var events = "${events}";
+
+		var json = /*[[${eventsJson}]]*/
+			var parsed = JSON.parse(json, function(k, v) {
+				if (k==="rsvp"&& v === true)
+					this.color ="red";
+			    if (k === "starttime") 
+			        this.start = v;
+			    else if (k === "eventId")
+			        this.id = v, this.url = "/event/"+v;
+			    else if (k === "name")
+			        this.title = v;
+			    else
+			        return v;
+			});
 		
+		console.log(JSON.parse(json)[0])
 		var eventArray = [];
-		for (eventObj in events){
-			console.log(${eventObj.name})
-			var event = {
-					id: "eventObj.eventId",
-					title: "eventObj.name",
-					start: "eventObj.starttime"
-			}
-			eventArray.push(event)
-			
-		}
+		
 		$('#calendar').fullCalendar({
-			editable: true,
+			editable: false,
 			eventLimit: true, // allow "more" link when too many events
-			events: eventArray
+			events: parsed
 		});
 	});
-
+	/*]]>*/
 </script>
 <style>
 
@@ -40,7 +45,9 @@
 	}
 
 	#calendar {
-		max-width: 900px;
+		position: relative;
+		right: 0px;
+		max-width: 80%;
 		margin: 0 auto;
 	}
 
@@ -49,7 +56,18 @@
 <body>
 	<div class="container">
 	<!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-		<div id='calendar'></div>
+	<section class="row">
+    <article class="span9">
+        <div id='calendar'></div>
+    </article>
+     
+    <aside class="span3">
+        <!--/*/ <th:block th:include="fragments/eventList :: eventList"></th:block> /*/-->
+    </aside>
+</section>
+	
+		
+		
 	</div>
 </body>
 </html>
