@@ -9,4 +9,6 @@ public interface RSVPService {
 
 	RSVP getRSVPByEventID(int EventID);
 
+	Iterable<RSVP> listAllRSVPsByEvent(int eventID);
+
 }

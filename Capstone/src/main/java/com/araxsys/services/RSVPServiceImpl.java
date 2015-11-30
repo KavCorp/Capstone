@@ -1,5 +1,7 @@
 package com.araxsys.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.araxsys.domain.RSVP;
@@ -29,6 +31,20 @@ public class RSVPServiceImpl implements RSVPService {
 	public RSVP getRSVPByEventID(int EventID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Iterable<RSVP> listAllRSVPsByEvent(int eventID) {
+		Iterable<RSVP> list = RSVPRepository.findAll();
+		ArrayList<RSVP> returnList = new ArrayList<RSVP>();
+		for(RSVP rsvp : list){
+			if(rsvp.getCompositePK().getEventId().getEventId()==eventID){
+				returnList.add(rsvp);
+			}
+		}
+		
+		
+		return returnList; 
 	}
 
 }
