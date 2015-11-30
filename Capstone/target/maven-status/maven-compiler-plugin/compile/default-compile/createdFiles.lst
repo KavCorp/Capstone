@@ -4,10 +4,13 @@ com\araxsys\domain\User.class
 com\araxsys\repositories\DepartmentRepository.class
 com\araxsys\config\SecurityConfig.class
 com\araxsys\CapstoneApplication.class
+com\araxsys\config\MvcConfig.class
+com\araxsys\services\EventTypeServiceImpl.class
 com\araxsys\domain\Positions.class
 com\araxsys\boostrap\UserLoader.class
 com\araxsys\services\PositionIndexServiceImpl.class
 com\araxsys\services\PositionsService.class
+com\araxsys\controllers\CalendarController.class
 com\araxsys\repositories\EventRepository.class
 com\araxsys\repositories\PositionIndexRepository.class
 com\araxsys\controllers\DepartmentsController.class
@@ -16,7 +19,6 @@ com\araxsys\services\RSVPService.class
 com\araxsys\services\CategoryServiceImpl.class
 com\araxsys\repositories\PositionsRepository.class
 com\araxsys\repositories\UserRepository.class
-com\araxsys\controllers\CalenderController.class
 com\araxsys\services\EventServiceImpl.class
 com\araxsys\repositories\CategoryRepository.class
 com\araxsys\services\EventService.class
@@ -24,6 +26,7 @@ com\araxsys\controllers\PageController.class
 com\araxsys\repositories\PageRepository.class
 com\araxsys\services\RSVPServiceImpl.class
 com\araxsys\services\CategoryService.class
+com\araxsys\controllers\AttributeInterceptor.class
 com\araxsys\domain\UserRole.class
 com\araxsys\controllers\UserController.class
 com\araxsys\services\PageService.class
@@ -38,6 +41,7 @@ com\araxsys\controllers\IndexController.class
 com\araxsys\repositories\RSVPRepository.class
 com\araxsys\controllers\CategoryController.class
 com\araxsys\services\DepartmentService.class
+com\araxsys\services\EventTypeService.class
 com\araxsys\services\PageServiceImpl.class
 com\araxsys\services\PositionIndexService.class
 com\araxsys\domain\EventType.class

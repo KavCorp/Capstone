@@ -44,9 +44,11 @@ input{
 
 
 .container {
-	
+  dmax-height: auto;
   background-color: rgba(16,16,32,.8);
-  padding: 0 90px;
+  padding: 0 20px;
+
+  
 }
 
 
@@ -139,4 +141,9 @@ input{
     color: #eeeeaa;
     background-color: #AD6C07;
   }
+.calendar {
+		position: relative;
+		right: 0px;
+		max-width: 80%;
+		margin: 0;
 }

@@ -21,6 +21,7 @@
 </div>
 <div th:if="${#authorization.expression('hasRole(''USER'')')}">
   This content is only shown to users.
+  <!--/*/ <th:block th:include="fragments/footer :: footer"></th:block> /*/-->
 </div>
 
 </body>

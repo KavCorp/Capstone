@@ -27,12 +27,12 @@
     					<li class="dropdown">
                         <a class="dropdown-toggle" href="#"  data-toggle="dropdown" role="button" >Information<b class="caret"></b></a>
     					<ul class="dropdown-menu">
-        					<li><a href="/charter">Company Charter</a></li>
-        					<li><a href="/handbook">Handbook w/reciept</a></li>
-        					<li><a href="/directory">Co-worker Directory</a></li>
-        					<li><a href="/history">History and Roadmap</a></li>
-        					<li><a href="/cpositions">Company Positions</a></li>
-        					<li><a href="/tradeagree">Trade Agreements</a></li>
+        					<li><a href="/">* Company Charter</a></li>
+        					<li><a href="/">* Handbook w/reciept</a></li>
+        					<li><a href="/">* Co-worker Directory</a></li>
+        					<li><a href="/">* History and Roadmap</a></li>
+        					<li><a href="/">* Company Positions</a></li>
+        					<li><a href="/">* Trade Agreements</a></li>
     					</ul>
     					</li>
                     
@@ -47,10 +47,10 @@
                         <li class="dropdown">
                         <a class="dropdown-toggle" href="#"  data-toggle="dropdown">Human Resources<b class="caret"></b></a>
     						<ul class="dropdown-menu">
-    						<li><a href="/applications">Applications</a></li>
-        					<li><a href="/hrscript">Human Resource Script</a></li>
-        					<li><a href="/questionaire">Questionaire</a></li>
-        					<li><a href="/rsilink">RSI Link</a></li>
+    						<li><a href="/">* Applications</a></li>
+        					<li><a href="/">* Human Resource Script</a></li>
+        					<li><a href="/">* Questionaire</a></li>
+        					<li><a href="/">* RSI Link</a></li>
     					</ul>
     					</li>
     					<li sec:authorize="hasRole('ADMIN')" class="dropdown">
@@ -72,12 +72,15 @@
     						</ul>
     					</li>
     					
+    					
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                    
                     	<li>
-                    	<a sec:authorize="!isAuthenticated()" th:if="${principal} == null" href="#" th:href="@{/login}">Login</a>
-                    	<a sec:authorize="isAuthenticated()" th:if="${principal} == null" href="#" th:href="@{/logout}">Logout</a>
+    					 	<a sec:authorize="isAuthenticated()"  href="/events" th:href="@{/events}">Calendar</a>
+    					</li>
+                    	<li>
+                    		<a sec:authorize="!isAuthenticated()" href="#" th:href="@{/login}">Login</a>
+                    		<a sec:authorize="isAuthenticated()"  href="#" th:href="@{/logout}">Logout</a>
                     	
                     	</li>
                     
