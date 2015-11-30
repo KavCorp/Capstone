@@ -47,6 +47,7 @@ public class PageController {
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
         pageService.deletePage(Integer.parseInt(req.getParameter("selected")));
+        req.getSession().setAttribute("headerCats", null);
         return "redirect:pages";
     }
     
@@ -57,6 +58,7 @@ public class PageController {
         model.addAttribute("categories",categoryService.listAllCategories());
         model.addAttribute("savePage", new Page());
         pageService.savePage(savePage);
+        req.getSession().setAttribute("headerCats", null);
         return "redirect:pages";
     }
     

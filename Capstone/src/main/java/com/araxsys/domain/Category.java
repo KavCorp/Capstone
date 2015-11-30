@@ -71,7 +71,7 @@ public class Category {
 		this.visible = visible;
 	}
 	
-	@OneToMany(mappedBy ="category" ,fetch = FetchType.LAZY, cascade={CascadeType.ALL})
+	@OneToMany(mappedBy ="category" ,fetch = FetchType.EAGER, cascade={CascadeType.ALL})
 	public Set<Page> getPage(){
 		return this.page;
 	}

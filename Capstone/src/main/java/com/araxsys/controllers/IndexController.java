@@ -25,10 +25,6 @@ public class IndexController {
 	
     @RequestMapping("/")
     String index(Model model, HttpServletRequest req){
-    	Principal principal = req.getUserPrincipal();
-    	if(principal!=null){
-    		req.getSession().setAttribute("headerCats", categoryService.listAllCategories() );
-    	}
     	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         return "index";
     }

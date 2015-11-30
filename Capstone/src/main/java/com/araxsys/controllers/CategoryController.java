@@ -1,6 +1,8 @@
 package com.araxsys.controllers;
 
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,15 +59,16 @@ public class CategoryController {
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.deleteCategory(Integer.parseInt(req.getParameter("selected")));
+		req.getSession().setAttribute("headerCats", null);
 		return "redirect:categories";
 	}
 	
 	@RequestMapping(value="/admin/categories",params={"saveCategory"},method=RequestMethod.POST)
 	public String saveCategory(@ModelAttribute Category saveCategory,Model model,HttpServletRequest req){
-		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
 		model.addAttribute("categories", categoryService.listAllCategories());
 		model.addAttribute("saveCategory",new Category());
 		categoryService.saveCategory(saveCategory);
+		req.getSession().setAttribute("headerCats", null);
 		
 		return "redirect:categories";
 	}
@@ -86,6 +89,7 @@ public class CategoryController {
 		model.addAttribute("savePage",new Page());
 		
 		savePage = pageService.savePage(savePage);
+		req.getSession().setAttribute("headerCats", null);
 		return "redirect:"+categoryName;
 	}
 	
@@ -95,6 +99,7 @@ public class CategoryController {
 		model.addAttribute("thisCategory",categoryService.getCategoryByName(categoryName));
 		model.addAttribute("savePage",new Page());
 		pageService.deletePage(Integer.parseInt(req.getParameter("selected")));
+		req.getSession().setAttribute("headerCats", null);
 		return "redirect:"+categoryName;
 	}
 	
