@@ -96,6 +96,7 @@ public class CalendarController {
     public String showProduct(@PathVariable int eventId, Model model,HttpServletRequest req){
     	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         model.addAttribute("event", eventService.getEventById(eventId));
+        model.addAttribute("saveRsvp", new RSVP());
         return "rsvp";
 	}
 	
