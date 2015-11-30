@@ -94,6 +94,7 @@ public class CalendarController {
 	
 	@RequestMapping("event/{eventId}")
     public String showProduct(@PathVariable int eventId, Model model,HttpServletRequest req){
+		model.addAttribute("rsvps", rsvpService.listAllRSVPs());
     	model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
         model.addAttribute("event", eventService.getEventById(eventId));
         model.addAttribute("saveRsvp", new RSVP());

@@ -76,6 +76,27 @@
     </fieldset>
     
     </form>
+    
+    <fieldset>
+    	<legend text"Current RSVPs">
+    		<table class="table table-striped">
+	            <tr>
+	                <th>Employee</th>
+	                <th>Attending</th>
+	                <th>Comment</th>
+	                <th>Time Stamp</th>
+	            </tr>
+	
+	            <tr th:each="rsvp : ${rsvps}">
+	                <td th:text="${rsvp.compositePK.getUserName()}">Employee</td>
+	                <td th:if="${rsvp.flag==true}" th:text="Attending">Attending</td>
+	                <td th:if="${rsvp.flag!=true}" th:text="Not Attending">Attending</td>
+	                <td th:text="${rsvp.comment}">Comments</td>
+	            </tr>
+    		
+    	
+    	</legend>
+    </fieldset>
 	</div>
 </body>
 </html>
