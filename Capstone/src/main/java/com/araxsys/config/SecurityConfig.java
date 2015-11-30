@@ -21,7 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			httpSecurity.authorizeRequests().antMatchers("/").permitAll()
 			
 			//------Must be logged in to view------
-			.antMatchers("/event**").authenticated()
+			.antMatchers("/event").authenticated()
+			.antMatchers("/events").authenticated()
+			.antMatchers("/events/**").authenticated()
+			.antMatchers("/event/**").authenticated()
 			
 			//------Must have specified role to access------
 			.antMatchers("/admin/**").access("hasRole('ADMIN')")
