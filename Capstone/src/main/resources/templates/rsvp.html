@@ -49,6 +49,33 @@
                 </div>
                 </form>
                </div>      
+               
+    <form class="form-horizontal" action="#" th:action="@{/events/rsvp}" th:object="${saveRsvp}" method="post">
+    <fieldset>
+    	<legend text="RSVP"></legend>
+    	<input type="hidden" th:value = "${event.eventId}" id = "compositePK.eventId" name = "compositePK.eventId"></input>
+
+    	
+    	<div class="form-group">
+	    	<label class="col-sm-2 control-label" th:text="'Visible: '">RSVP</label>
+	    	<div class="col-sm-10">
+	    		<input class="form-control" type="checkbox" th:field="*{flag}" th:value="'true'"></input>
+	    	</div>
+    	</div>
+    	<br/>
+    	<div class="form-group">
+	    	<label class="col-sm-2 control-label" th:text="'Content: '">Comment</label>
+	    	<div class="col-sm-10">
+	    		<textarea class="form-control" rows="6" cols="50"  th:field="*{comment}"></textarea>
+	    	</div>
+    	</div>
+    	<br/>
+    	<button class="btn btn-default" type="submit" name="saveRsvp"
+    		th:text="'RSVP'">Save Page</button>
+    
+    </fieldset>
+    
+    </form>
 	</div>
 </body>
 </html>

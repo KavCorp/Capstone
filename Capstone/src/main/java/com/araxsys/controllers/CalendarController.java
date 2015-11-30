@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.araxsys.domain.Category;
 import com.araxsys.domain.Event;
 import com.araxsys.domain.PositionIndex;
+import com.araxsys.domain.RSVP;
 import com.araxsys.services.CategoryService;
 import com.araxsys.services.DepartmentService;
 import com.araxsys.services.EventService;
 import com.araxsys.services.EventTypeService;
 import com.araxsys.services.RSVPService;
+import com.araxsys.services.UserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -30,6 +32,12 @@ public class CalendarController {
 	private EventService eventService;
 	private RSVPService rsvpService;
 	private CategoryService categoryService;
+	
+	private UserService userService;
+	@Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
  
 	@Autowired
     public void setCategoryService(CategoryService categoryService) {
@@ -110,7 +118,14 @@ public class CalendarController {
     	model.addAttribute("saveEvent", eventService.getEventById(Integer.parseInt(req.getParameter("selected"))));
         return "events";
     }
-	
+	@RequestMapping(value="/events/rsvp",params={"saveRsvp"},method=RequestMethod.POST)
+	public String saveRsvp(Model model, HttpServletRequest req, @ModelAttribute RSVP saveRsvp){
+		saveRsvp.setUser(userService.getUserByName(req.getUserPrincipal().getName()));
+		model.addAttribute("headerCats",req.getSession().getAttribute("headerCats") );
+		model.addAttribute("events", eventService.listAllEvents());
+		rsvpService.saveRSVP(saveRsvp);
+		return "redirect:calendar";
+	}
 	
 	
 	

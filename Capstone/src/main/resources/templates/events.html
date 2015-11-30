@@ -99,7 +99,7 @@
             <div class="col-sm-8">
         		<div class="col-sm-6 start-date">
           		<div class='input-group date' id="starttime">
-        		    <input type='text' class="form-control"></input>
+        		    <input type='text' class="form-control" th:field="*{starttime}"></input>
         		    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         		  </div>
        		 </div>
@@ -108,7 +108,7 @@
             <div class="col-sm-8">
         		<div class="col-sm-6 end-date">
           		<div class='input-group date' id="endtime">
-        		    <input type='text' class="form-control" ></input>
+        		    <input type='text' class="form-control" th:field="*{endtime}" ></input>
         		    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         		  </div>
        		 </div>
